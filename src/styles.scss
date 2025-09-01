@@ -1,0 +1,143 @@
+@use 'app/styles/global';
+@use 'app/styles/variables' as *;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+app-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+
+
+.mat-mdc-form-field.header__search-select {
+  width: auto;
+  display: inline-block;
+
+  &.mat-focused {
+    .mat-mdc-select-arrow {
+      svg {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+  }
+
+  .mdc-text-field--outlined .mdc-notched-outline {
+    display: none;
+  }
+
+  .mat-mdc-select-min-line {
+    margin-right: 5px;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    height: 29px;
+    padding: 0;
+    display: inline-block !important; // снимаем flex
+    width: auto !important;
+
+    .mat-mdc-form-field-flex {
+      display: inline-block !important;
+      width: auto !important;
+
+      .mat-mdc-form-field-infix {
+        padding: 0 4px;
+        width: auto !important;
+      }
+    }
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    position: absolute !important;
+  }
+}
+
+.cdk-overlay-pane:has(.custom-select-panel) {
+  width: auto !important;
+
+  div.mat-mdc-select-panel {
+    max-height: 500px !important;
+  }
+}
+
+.mat-mdc-form-field.header__actions-lang {
+  width: 45px;
+  height: 20px;
+  padding: 0;
+
+  .mat-mdc-select-arrow {
+    svg {
+      fill: white;
+    }
+  }
+
+  &.mat-focused {
+    .mat-mdc-select-arrow {
+      svg {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+  }
+
+  .mdc-text-field--outlined .mdc-notched-outline {
+    display: none;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    padding: 0;
+
+    .mat-mdc-form-field-flex {
+      height: 20px;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+
+      .mat-mdc-form-field-infix {
+
+      }
+    }
+  }
+}
+
+.cdk-overlay-pane:has(.custom-select-lang) {
+  width: auto !important;
+
+  .mat-select-panel-animations-enabled, .mat-mdc-option.mdc-list-item.mdc-list-item--selected.mat-mdc-option-active {
+    background: $light-text-primary;
+
+    .mdc-list-item__primary-text {
+      color: $light-background-secondary;
+    }
+
+    .mat-pseudo-checkbox {
+      margin-left: 5px;
+    }
+
+    .mat-pseudo-checkbox:after {
+      color: $light-background-secondary !important;
+    }
+  }
+
+
+  .mat-mdc-option {
+    padding: 0 5px;
+    height: 10px;
+  }
+
+  div.mat-mdc-select-panel {
+    max-height: 500px !important;
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

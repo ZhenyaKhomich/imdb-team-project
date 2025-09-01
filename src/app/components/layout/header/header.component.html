@@ -1,0 +1,67 @@
+<header class="header">
+  <div class="container">
+    <div class="header__logo">IMDb</div>
+    <div class="header__menu">
+      <span class="menu-line"></span>
+      <div class="menu-text">Menu</div>
+    </div>
+<!--    <nav class="header__nav">-->
+<!--      <ul>-->
+<!--        <li><a href="#">Movies</a></li>-->
+<!--        <li><a href="#">TV Shows</a></li>-->
+<!--        <li><a href="#">Celebs</a></li>-->
+<!--        <li><a href="#">Awards</a></li>-->
+<!--      </ul>-->
+<!--    </nav>-->
+    <div class="header__search">
+      <mat-form-field class="header__search-select" appearance="outline">
+        <mat-select required [value]="'all'" panelClass="custom-select-panel">
+          <mat-option value="all">
+            <mat-icon>search</mat-icon>
+            All
+          </mat-option>
+          <mat-option value="titles">
+            <mat-icon>theaters</mat-icon>
+            Titles
+          </mat-option>
+          <mat-option value="episodes">
+            <mat-icon>tv</mat-icon>
+            TV episodes
+          </mat-option>
+          <mat-option value="celebs">
+            <mat-icon>group</mat-icon>
+            Celebs
+          </mat-option>
+          <mat-option value="companies">
+            <mat-icon>domain</mat-icon>
+            Companies
+          </mat-option>
+          <mat-option value="keywords">
+            <mat-icon>label</mat-icon>
+            Keywords
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <input class="header__search-input" type="text" placeholder="Search IMDb">
+      <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
+    </div>
+    <div class="header__actions">
+      <div class="header__actions-pro">IMDb<span>Pro</span></div>
+      <span class="header__actions-line"></span>
+      <div class="header__actions-watchList">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
+        WatchList</div>
+      <div class="header__actions-signIn">Sign In</div>
+      <mat-form-field class="header__actions-lang" appearance="outline">
+        <mat-select required [value]="'en'" panelClass="custom-select-lang">
+          <mat-option value="en">
+            EN
+          </mat-option>
+          <mat-option value="ru">
+            RU
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</header>

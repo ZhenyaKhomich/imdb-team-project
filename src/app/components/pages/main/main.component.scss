@@ -1,0 +1,17 @@
+@use '../../../styles/variables' as *;
+
+.main {
+  .container {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .section-title {
+    font-size: 28px;
+    color: $light-yellow;
+  }
+}
+
+
+
+

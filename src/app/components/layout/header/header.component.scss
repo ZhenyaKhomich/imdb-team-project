@@ -1,0 +1,174 @@
+@use '../../../styles/variables' as *;
+
+.header {
+  padding: 10px 20px;
+  background: #141414;
+
+  &__logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: $light-text-primary;
+    background: $light-yellow;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 20px;
+    transition: all 0.3s linear;
+
+    .menu-line {
+      width: 20px;
+      height: 1px;
+      background: $light-background-secondary;
+      position: relative;
+    }
+
+    .menu-line:after {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 0;
+      width: 20px;
+      height: 1px;
+      background: $light-background-secondary;
+    }
+
+    .menu-line:before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 0;
+      width: 20px;
+      height: 1px;
+      background: $light-background-secondary;
+    }
+
+    &:hover {
+      background: $background-light-transparent-100;
+    }
+  }
+
+  &__nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+
+    li a {
+      text-decoration: none;
+      color: $light-background-secondary;
+      &:hover { color: $light-yellow; }
+    }
+  }
+
+  &__search {
+    background: $light-background-secondary;
+    position: relative;
+    border-radius: 5px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+
+    &-select {
+      mat-select {
+        color: $light-text-primary;
+        padding: 2px 0;
+      }
+    }
+
+    &-input {
+      background: $light-background-secondary;
+      padding: 6px 10px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border: none;
+      color: $light-text-primary;
+      flex: 1;
+      min-width: 0;
+      border-left: 1px solid $light-text-primary;
+    }
+
+    &-magnifier {
+      position: absolute;
+      color: $dark-text-secondary;
+      top: 3px;
+      right: 5px;
+      cursor: pointer;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    gap: 10px;
+
+    &-pro {
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: all 0.3s linear;
+
+      span {
+        color: $main-blue;
+      }
+
+      &:hover {
+        background: $background-light-transparent-100;
+      }
+    }
+
+    &-line {
+      width: 2px;
+      height: 20px;
+      background: $dark-text-secondary;
+    }
+
+    &-watchList {
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 20px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      transition: all 0.3s linear;
+
+      &:hover {
+        background: $background-light-transparent-100;
+      }
+    }
+
+    &-signIn {
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 20px;
+      transition: all 0.3s linear;
+
+      &:hover {
+        background: $background-light-transparent-100;
+      }
+    }
+
+    &-lang {
+      transition: all 0.3s linear;
+      padding: 10px 15px;
+      border-radius: 20px;
+
+      mat-select {
+        color: white;
+        padding: 2px 0;
+      }
+
+      &:hover {
+        background: $background-light-transparent-100;
+      }
+    }
+  }
+}
