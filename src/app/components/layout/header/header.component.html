@@ -1,18 +1,10 @@
 <header class="header">
   <div class="container">
     <div class="header__logo">IMDb</div>
-    <div class="header__menu">
+    <div class="header__menu" (click)="actionsToMenu()">
       <span class="menu-line"></span>
       <div class="menu-text">Menu</div>
     </div>
-<!--    <nav class="header__nav">-->
-<!--      <ul>-->
-<!--        <li><a href="#">Movies</a></li>-->
-<!--        <li><a href="#">TV Shows</a></li>-->
-<!--        <li><a href="#">Celebs</a></li>-->
-<!--        <li><a href="#">Awards</a></li>-->
-<!--      </ul>-->
-<!--    </nav>-->
     <div class="header__search">
       <mat-form-field class="header__search-select" appearance="outline">
         <mat-select required [value]="'all'" panelClass="custom-select-panel">
@@ -43,14 +35,24 @@
         </mat-select>
       </mat-form-field>
       <input class="header__search-input" type="text" placeholder="Search IMDb">
-      <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
+      <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon"
+                fontIcon="search"></mat-icon>
     </div>
     <div class="header__actions">
-      <div class="header__actions-pro">IMDb<span>Pro</span></div>
+      <div class="header__actions-pro">
+        IMDb<span>Pro</span>
+        <div class="imbdPro">
+          <div class="imbdPro__wrapper">
+            <img src="./images/imbdPro.png" alt="pro">
+            <button class="btn">Try ImbdPro for FREE</button>
+          </div>
+        </div>
+      </div>
       <span class="header__actions-line"></span>
       <div class="header__actions-watchList">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
-        WatchList</div>
+        WatchList
+      </div>
       <div class="header__actions-signIn">Sign In</div>
       <mat-form-field class="header__actions-lang" appearance="outline">
         <mat-select required [value]="'en'" panelClass="custom-select-lang">
@@ -62,6 +64,112 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
+
+    <div class="menu" [class.open]="isOpenMenu">
+      <div class="menu__container">
+        <div class="menu__header">
+          <div class="header__logo">IMDb</div>
+          <mat-icon class="menu__close" fontIcon="cancel" (click)="actionsToMenu()"></mat-icon>
+        </div>
+        <div class="menu__blocks">
+          <div class="menu__block">
+            <div class="menu__block-title">
+              <mat-icon fontIcon="theaters"></mat-icon>
+              <span>Movies</span>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="#">Release</a></li>
+                <li><a href="#">Top 250 movies</a></li>
+                <li><a href="#">Most popular movies</a></li>
+                <li><a href="#">Release</a></li>
+                <li><a href="#">Top 250 movies</a></li>
+                <li><a href="#">Most popular movies</a></li>
+                <li><a href="#">Top 250 movies</a></li>
+                <li><a href="#">Most popular movies</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="menu__block">
+            <div class="menu__block-title">
+              <mat-icon fontIcon="group"></mat-icon>
+              <span>Celebs</span>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="#">Born today</a></li>
+                <li><a href="#">Most popular celebs</a></li>
+                <li><a href="#">Celebrity news</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="menu__block">
+            <div class="menu__block-title">
+              <mat-icon fontIcon="tv"></mat-icon>
+              <span>TV shows</span>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="#">What's on TV & streaming</a></li>
+                <li><a href="#">Top 250 shows</a></li>
+                <li><a href="#">Most popular TV shows</a></li>
+                <li><a href="#">What's on TV & streaming</a></li>
+                <li><a href="#">Top 250 shows</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="menu__block">
+            <div class="menu__block-title">
+              <mat-icon fontIcon="video_library"></mat-icon>
+              <span>Watch</span>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="#">Want to watch</a></li>
+                <li><a href="#">Latest trailers</a></li>
+                <li><a href="#">IMDB Originals</a></li>
+                <li><a href="#">Want to watch</a></li>
+                <li><a href="#">Latest trailers</a></li>
+                <li><a href="#">IMDB Originals</a></li>
+                <li><a href="#">IMDB Originals</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="menu__block">
+            <div class="menu__block-title">
+              <mat-icon fontIcon="stars"></mat-icon>
+              <span>Awards & events</span>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="#">Oscars</a></li>
+                <li><a href="#">Emmys</a></li>
+                <li><a href="#">San Diego Comic-Con</a></li>
+                <li><a href="#">Oscars</a></li>
+                <li><a href="#">Emmys</a></li>
+                <li><a href="#">San Diego Comic-Con</a></li>
+                <li><a href="#">Oscars</a></li>
+                <li><a href="#">Emmys</a></li>
+                <li><a href="#">San Diego Comic-Con</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="menu__block">
+            <div class="menu__block-title">
+              <mat-icon fontIcon="public"></mat-icon>
+              <span>Community</span>
+            </div>
+            <nav>
+              <ul>
+                <li><a href="#">Help center</a></li>
+                <li><a href="#">Contributor zone</a></li>
+                <li><a href="#">Polls</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>

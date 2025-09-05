@@ -1,8 +1,8 @@
-@use '../../../styles/variables' as *;
+@use '../../../../styles/variables' as *;
 
 .header {
   padding: 10px 20px;
-  background: #141414;
+  background: $dark-background-nav;
 
   &__logo {
     font-size: 24px;
@@ -11,6 +11,7 @@
     background: $light-yellow;
     padding: 5px 10px;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   &__menu {
@@ -115,13 +116,42 @@
       border-radius: 20px;
       font-weight: 600;
       transition: all 0.3s linear;
+      position: relative;
 
       span {
         color: $main-blue;
       }
 
+      .imbdPro {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        z-index: 3;
+
+        &__wrapper {
+          position: relative;
+
+          img {
+            border-radius: 10px;
+          }
+
+          .btn {
+            position: absolute;
+            left: 110px;
+            bottom: 20px;
+            padding: 5px 5px;
+            width: 180px;
+          }
+        }
+      }
+
       &:hover {
         background: $background-light-transparent-100;
+
+        .imbdPro {
+          display: block;
+        }
       }
     }
 
@@ -169,6 +199,92 @@
       &:hover {
         background: $background-light-transparent-100;
       }
+    }
+  }
+
+  .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $dark-background-nav;
+    padding: 40px;
+    transform: translateY(-2000px);
+    transition: all 0.7s linear;
+    z-index: 3;
+
+    &__container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+
+      .menu__close {
+        font-size: 45px;
+        height: 45px;
+        cursor: pointer;
+        width: 45px;
+        color: $light-yellow;
+        transition: all 0.3s linear;
+
+        &:hover {
+          color: $main-light-yellow-sec-light;
+        }
+      }
+    }
+
+    &__blocks {
+      padding: 40px 20px 20px 20px;
+      gap: 20px;
+      column-count: 3;
+      column-gap: 10px;
+    }
+
+    &__block {
+      display: inline-block;
+      width: 100%;
+      break-inside: avoid;
+      margin-bottom: 20px;
+
+      &-title {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+        gap: 10px;
+
+        mat-icon {
+          color: $light-yellow;
+        }
+      }
+
+      ul {
+        padding: 0 0 0 23px;
+
+        li {
+          list-style: none;
+          font-size: 16px;
+          padding: 10px;
+          cursor: pointer;
+
+          a {
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s linear;
+
+            &:hover {
+              border-bottom-color: $light-background-primary;
+            }
+          }
+        }
+      }
+    }
+
+    &.open {
+      transform: translateY(0);
     }
   }
 }

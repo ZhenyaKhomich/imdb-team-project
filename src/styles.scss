@@ -1,5 +1,5 @@
-@use 'app/styles/global';
-@use 'app/styles/variables' as *;
+@use 'styles/global';
+@use 'styles/variables' as *;
 
 html, body {
   height: 100%;
@@ -113,7 +113,7 @@ app-layout {
   width: auto !important;
 
   .mat-select-panel-animations-enabled, .mat-mdc-option.mdc-list-item.mdc-list-item--selected.mat-mdc-option-active {
-    background: $light-text-primary;
+    background: $dark-background-nav;
 
     .mdc-list-item__primary-text {
       color: $light-background-secondary;
@@ -138,6 +138,23 @@ app-layout {
     max-height: 500px !important;
   }
 }
+
+.main__actors-carousel, main__birthday {
+  .owl-item {
+    flex: 0 0 auto !important;
+    width: 180px !important;
+    max-width: 180px !important;
+  }
+}
+
+.footer {
+  .owl-item {
+    flex: 0 0 auto !important;
+    //width: 210px !important;
+    max-width: 219px !important;
+  }
+}
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,4 +1,4 @@
-@use '../../../styles/variables' as *;
+@use '../../../../styles/variables' as *;
 
 .footer {
   display: flex;
@@ -6,7 +6,6 @@
   text-align: center;
   padding: 20px;
   color: $light-background-secondary;
-
 
   .container {
     display: flex;
@@ -16,27 +15,35 @@
   &__viewed {
     display: flex;
     flex-direction: column;
+    width: 1200px;
     align-self: start;
-
 
     &-title {
       font-family: Roboto, sans-serif;
       font-weight: 600;
+      font-size: 24px;
+      display: flex;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+
+    &-cards {
+      margin-bottom: 60px;
+    }
+
+    &-clear {
       font-size: 18px;
       display: flex;
-      margin-bottom: 50px;
-    }
+      align-items: center;
+      justify-content: end;
+      cursor: pointer;
+      transition: all 0.3s linear;
+      width: 100%;
+      margin-bottom: 20px;
 
-    &--cards {
-
-    }
-
-    &-no-viewed {
-      margin-bottom: 65px;
-    }
-
-    &-card {
-
+      &:hover {
+        color: $main-blue;
+      }
     }
   }
 
@@ -56,7 +63,6 @@
       border: 1px solid $light-text-secondary;
       border-radius: 10px;
       padding: 16px 50px 10px 50px;
-
     }
 
     &-title {
@@ -74,10 +80,17 @@
       width: 24px;
       height: 24px;
       padding: 10px;
+      border-radius: 50%;
+      transition: all 0.3s linear;
 
       svg {
-        width: 100%;
+        width: 24px;
+        height: 24px;
         fill: $light-background-secondary;
+      }
+
+      &:hover {
+        background: $background-light-transparent-100;
       }
     }
 
@@ -88,14 +101,6 @@
       display: flex;
       align-items: center;
       gap: 125px;
-    }
-
-    &-text {
-
-    }
-
-    &-description {
-
     }
 
     &-qr {
@@ -130,15 +135,24 @@
     display: flex;
     align-items: center;
     padding: 8px;
+    cursor: pointer;
 
     a {
       text-decoration: none;
       color: $light-background-secondary;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s linear;
     }
 
     img {
       width: 38px;
       height: 18px;
+    }
+
+    &:hover {
+      a {
+        border-bottom-color: $light-background-secondary;
+      }
     }
   }
 
@@ -147,6 +161,6 @@
   }
 
   &__year {
-
+    font-size: 12px;
   }
 }
