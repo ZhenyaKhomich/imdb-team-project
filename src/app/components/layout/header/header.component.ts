@@ -13,12 +13,17 @@ import {FormsModule} from '@angular/forms';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  public isOpenMenu = false;
 
+  public actionsToMenu(): void {
+    this.isOpenMenu = !this.isOpenMenu;
+    this.isOpenMenu ? document.body.style.overflow = 'hidden' : document.body.style.overflow = '' ;
+  }
 }

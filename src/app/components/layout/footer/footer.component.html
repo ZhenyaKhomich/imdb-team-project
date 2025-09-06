@@ -3,8 +3,13 @@
     <div class="footer__viewed">
       <div class="footer__viewed-title">Recently viewed</div>
       <div class="footer__viewed-cards">
+        <div class="footer__viewed-clear">Clear all
+          <mat-icon fontIcon="delete"></mat-icon>
+        </div>
+        @if(movies.titles.length > 0) {
         <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
-        <div class="footer__viewed-card">card</div>
+        }
+        <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
       </div>
     </div>
     <div class="footer__sign">
@@ -55,9 +60,9 @@
           <div class="footer__socials-title">Get the IMDb App</div>
           <div class="footer__socials-description">For Android and iOS</div>
         </div>
-        <div class="footer__socials-qr">
+        <a href="https://apps.apple.com/us/app/imdb-movies-tv-shows/id342792525?_branch_match_id=1188782113162527141&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL86pTNJLLCjQy8nMy9Z3TLQ0S%2FZJdkp1TLKvK0pNSy0qysxLj08qyi8vTi2ydc4oys9NBQC46bnMOwAAAA%3D%3D&utm_campaign=DesktopQRCodeFooter-Click&utm_medium=marketing&utm_source=Desktop" class="footer__socials-qr">
           <img src="images/footer-qr.png" alt="qr-code">
-        </div>
+        </a>
       </div>
     </div>
     <div class="footer__links">
