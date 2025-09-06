@@ -24,6 +24,6 @@ export class HeaderComponent {
 
   public actionsToMenu(): void {
     this.isOpenMenu = !this.isOpenMenu;
-    this.isOpenMenu ? document.body.style.overflow = 'hidden' : document.body.style.overflow = '' ;
+    document.body.style.overflow = this.isOpenMenu ? 'hidden' : '';
   }
 }

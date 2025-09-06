@@ -1,6 +1,4 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import {MainComponent} from './components/pages/main/main.component';
 import {LayoutComponent} from './components/layout/layout/layout.component';
 
 @Component({
@@ -11,6 +9,4 @@ import {LayoutComponent} from './components/layout/layout/layout.component';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
-  title = 'imdb';
-}
+export class AppComponent {}
