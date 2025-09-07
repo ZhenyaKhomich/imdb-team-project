@@ -1,0 +1,33 @@
+<section class="auth">
+  <div class="container">
+    <form class="auth-form" [formGroup]="signInForm">
+      <div class="auth-form-title">Registration on the website</div>
+      <div class="inputs">
+        <input type="text" formControlName="name"
+               [ngStyle]="{'border-color': signInForm.get('name')?.invalid &&
+                (signInForm.get('name')?.touched || signInForm.get('name')?.dirty) ? 'red' : ''}"
+               class="input" placeholder="Name">
+        <input type="text" formControlName="email"
+               [ngStyle]="{'border-color': signInForm.get('email')?.invalid &&
+                (signInForm.get('email')?.touched || signInForm.get('email')?.dirty) ? 'red' : ''}"
+               class="input" placeholder="Email">
+        <input [type]="showPasswordValue ? 'text' : 'password'" formControlName="password"
+               [ngStyle]="{'border-color': signInForm.get('password')?.invalid &&
+                (signInForm.get('password')?.touched || signInForm.get('password')?.dirty) ? 'red' : ''}"
+               class="input" placeholder="Password">
+        <mat-icon class="signin__eye" (click)="showPassword()" [fontIcon]="!showPasswordValue ? 'visibility' : 'visibility_off'"></mat-icon>
+        <label>
+          <input type="checkbox" formControlName="rules" class="auth-form-conditions">
+          <div class="auth-form-conditions-text">
+            I accept <a href="#">the terms of the user agreement</a> and consent <a href="#">to the processing of personal data.</a>
+          </div>
+        </label>
+      </div>
+      <button class="btn auth-form-button">Sign In</button>
+      <div class="auth-question">
+        Do you already have an account? <a routerLink="/login">Log In</a>
+      </div>
+    </form>
+  </div>
+</section>
+

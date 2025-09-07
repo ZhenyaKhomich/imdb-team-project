@@ -1,0 +1,120 @@
+@use '_variables' as *;
+
+.auth {
+  display: flex;
+  min-height: 100vh;
+  background-image: url("/images/bg-registartion.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 200px;
+
+    .auth-form {
+      text-align: center;
+
+      .auth-form-title {
+        font-size: 34px;
+        margin-top: 50px;
+        margin-bottom: 35px;
+        color: $main-light-yellow;
+        font-weight: 600;
+        text-shadow: 1px 1px 1px $light-text-primary;
+      }
+
+      .inputs {
+        display: flex;
+        flex-direction: column;
+        max-width: 422px;
+        position: relative;
+
+        mat-icon {
+          font-size: 30px;
+          width: 30px;
+          height: 30px;
+          position: absolute;
+          right: 10px;
+          top: calc(50% + 2px);
+          cursor: pointer;
+
+          &.signin__eye {
+            top: calc(60% - 2px);
+          }
+        }
+
+        .input {
+          margin-top: 5px;
+          line-height: 130%;
+
+          &::placeholder {
+            color: $light-text-secondary;
+            font-weight: 500;
+          }
+
+          &:focus {
+            outline: 2px solid $green-color;
+            box-shadow: 0 0 5px 1px $green-color;
+          }
+        }
+
+        label {
+          display: flex;
+          align-items: baseline;
+          text-align: start;
+          margin-top: 10px;
+          cursor: pointer;
+
+          input {
+            margin-right: 10px;
+          }
+
+          .auth-form-conditions-text {
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 130%;
+            color: $main-light-yellow;
+            text-shadow: 1px 1px 1px $light-text-primary;
+
+            a {
+              text-decoration: underline;
+              text-decoration-skip-ink: none;
+              color: $green-color;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .auth-form-button {
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px 40px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 130%;
+        color: $light-background-secondary;
+        text-shadow: 1px 1px 1px $light-text-primary;
+        margin-top: 40px;
+      }
+
+      .auth-question {
+        text-align: start;
+        margin-top: 10px;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 130%;
+        color: $main-light-yellow;
+        text-shadow: 1px 1px 1px $light-text-primary;
+
+        a {
+          color: $green-color;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

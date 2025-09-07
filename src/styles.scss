@@ -1,14 +1,9 @@
+@use 'styles/auth';
 @use 'styles/global';
 @use 'styles/variables' as *;
 
-html, body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 app-layout {
   display: flex;
@@ -16,8 +11,6 @@ app-layout {
   justify-content: space-between;
   min-height: 100vh;
 }
-
-
 
 .mat-mdc-form-field.header__search-select {
   width: auto;
@@ -42,7 +35,7 @@ app-layout {
   .mat-mdc-text-field-wrapper {
     height: 29px;
     padding: 0;
-    display: inline-block !important; // снимаем flex
+    display: inline-block !important;
     width: auto !important;
 
     .mat-mdc-form-field-flex {
@@ -103,7 +96,6 @@ app-layout {
       align-items: center;
 
       .mat-mdc-form-field-infix {
-
       }
     }
   }
@@ -128,7 +120,6 @@ app-layout {
     }
   }
 
-
   .mat-mdc-option {
     padding: 0 5px;
     height: 10px;
@@ -150,11 +141,7 @@ app-layout {
 .footer {
   .owl-item {
     flex: 0 0 auto !important;
-    //width: 210px !important;
     max-width: 219px !important;
   }
 }
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
