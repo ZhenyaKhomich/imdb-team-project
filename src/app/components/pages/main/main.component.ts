@@ -1,12 +1,14 @@
-import {ChangeDetectionStrategy, Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
+import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
-import {CarouselModule, OwlOptions} from 'ngx-owl-carousel-o';
+import {CarouselModule} from 'ngx-owl-carousel-o';
+import type {OwlOptions} from 'ngx-owl-carousel-o';
 import {NgForOf} from '@angular/common';
-import {MinutesToHoursPipe} from '../../../shared/pipes/minutesToHoursPipe';
-import { CarouselComponent } from 'ngx-owl-carousel-o';
+import {MinutesToHoursPipe} from '../../../shared/pipes/minutes-to-hours.pipe';
+import type {CarouselComponent} from 'ngx-owl-carousel-o';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
-import {ActorsDataType} from '../../../shared/types/actors-data.type';
-import {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
+import type {ActorsDataType} from '../../../shared/types/actors-data.type';
+import type {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
 import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 
 
@@ -480,10 +482,6 @@ export class MainComponent implements OnInit {
   }
   public mainSliderLength = this.movies.titles.length;
   public indexFollowingSlides: number[] = [];
-  protected readonly Math = Math;
-  protected readonly Number = Number;
-  protected readonly SliderIdEnum = SliderIdEnum;
-
   public customMovies: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -500,7 +498,9 @@ export class MainComponent implements OnInit {
     navText: ['<', '>'],
     items: 1,
   };
-
+  protected readonly Math = Math;
+  protected readonly Number = Number;
+  protected readonly SliderIdEnum = SliderIdEnum;
 
   public ngOnInit (): void {
     this.updateFollowingSlides(this.currentElementMainSlider);
@@ -514,7 +514,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  public mainSlideNext() {
+  public mainSlideNext(): void {
     this.carouseMovies.next();
     if (this.currentElementMainSlider !== this.mainSliderLength - 1) {
       this.currentElementMainSlider += 1;
@@ -524,7 +524,7 @@ export class MainComponent implements OnInit {
     this.updateFollowingSlides(this.currentElementMainSlider);
   }
 
-  public mainSlidePrev() {
+  public mainSlidePrev(): void {
     this.carouseMovies.prev();
     if (this.currentElementMainSlider !== 0) {
       this.currentElementMainSlider -= 1;

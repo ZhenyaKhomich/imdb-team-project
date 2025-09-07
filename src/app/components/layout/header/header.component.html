@@ -1,7 +1,7 @@
 <header class="header">
   <div class="container">
     <div class="header__logo">IMDb</div>
-    <div class="header__menu" (click)="actionsToMenu()">
+    <div class="header__menu" (click)="actionsToMenu()" (keyup.enter)="actionsToMenu()" tabindex="0">
       <span class="menu-line"></span>
       <div class="menu-text">Menu</div>
     </div>

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
-import {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
+import type {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
 
 @Component({
   selector: 'app-footer',
@@ -16,7 +16,6 @@ import {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
-  protected readonly SliderIdEnum = SliderIdEnum;
   public movies: AllTitlesDataType = {
     titles: [
       {
@@ -186,4 +185,6 @@ export class FooterComponent {
       },
     ]
   }
+
+  protected readonly SliderIdEnum = SliderIdEnum;
 }

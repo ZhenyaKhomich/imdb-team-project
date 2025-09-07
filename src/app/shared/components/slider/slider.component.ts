@@ -1,11 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {CarouselModule, OwlOptions} from 'ngx-owl-carousel-o';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import type {OnInit} from '@angular/core';
+import {CarouselModule} from 'ngx-owl-carousel-o';
+import type {OwlOptions} from 'ngx-owl-carousel-o';
 import {NgForOf, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import {ActorDataType, ActorsDataType} from '../../types/actors-data.type';
-import {AllTitlesDataType, TitleDataType} from '../../types/all-titles-data.type';
+import type {ActorDataType, ActorsDataType} from '../../types/actors-data.type';
+import type {AllTitlesDataType, TitleDataType} from '../../types/all-titles-data.type';
 import {SliderIdEnum} from '../../enums/slider-id.enum';
-
 
 @Component({
   selector: 'app-slider',
@@ -21,17 +22,13 @@ import {SliderIdEnum} from '../../enums/slider-id.enum';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SliderComponent implements OnInit {
-  @Input() elementsSlider: ActorsDataType | AllTitlesDataType | null = null;
-  @Input() id!: string;
+  @Input() public elementsSlider: ActorsDataType | AllTitlesDataType | null = null;
+  @Input() public id!: string;
   public actorsList: ActorDataType[] = [];
   public moviesList: TitleDataType[] = [];
   public itemsInSlider = 0;
   public todayData = new Date(Date.now());
   public year = this.todayData.getFullYear();
-  protected readonly Math = Math;
-  protected readonly Number = Number;
-  protected readonly SliderIdEnum = SliderIdEnum;
-
   public sliderConfig: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -48,8 +45,11 @@ export class SliderComponent implements OnInit {
     navText: ['<', '>'],
     items: 1,
   };
+  protected readonly Math = Math;
+  protected readonly Number = Number;
+  protected readonly SliderIdEnum = SliderIdEnum;
 
-  ngOnInit() {
+  public ngOnInit(): void {
     if (this.elementsSlider && 'names' in this.elementsSlider) {
       this.actorsList = this.elementsSlider.names;
     } else if (this.elementsSlider && 'titles' in this.elementsSlider) {
