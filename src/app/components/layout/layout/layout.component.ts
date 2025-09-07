@@ -9,7 +9,7 @@ import {MainComponent} from '../../pages/main/main.component';
   imports: [
     HeaderComponent,
     FooterComponent,
-    MainComponent
+    MainComponent,
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',

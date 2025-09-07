@@ -50,3 +50,20 @@ a {
   color: $light-background-primary;
 }
 
+.input {
+  border: 4px solid $main-light-yellow;
+  border-radius: 3px;
+  padding: 20px 64px 20px 20px;
+  width: 422px;
+  height: 53px;
+  box-sizing: border-box;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 130%;
+  color: $light-text-primary;
+
+  &::placeholder {
+    color: $light-text-secondary;
+  }
+}
+
