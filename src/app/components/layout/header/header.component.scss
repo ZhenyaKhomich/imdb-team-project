@@ -175,7 +175,7 @@
       }
     }
 
-    &-signIn {
+    &-signUp {
       cursor: pointer;
       padding: 10px 15px;
       border-radius: 20px;
@@ -210,8 +210,8 @@
     bottom: 0;
     background: $dark-background-nav;
     padding: 40px;
-    transform: translateY(-2000px);
-    transition: all 0.7s linear;
+    transform: translateY(-5000px);
+    transition: all 1s linear;
     z-index: 3;
 
     &__container {

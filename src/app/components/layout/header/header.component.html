@@ -1,6 +1,6 @@
 <header class="header">
   <div class="container">
-    <div class="header__logo">IMDb</div>
+    <div class="header__logo" [routerLink]="'/' + AppRoutesEnum.MAIN">IMDb</div>
     <div class="header__menu" (click)="actionsToMenu()" (keyup.enter)="actionsToMenu()" tabindex="0">
       <span class="menu-line"></span>
       <div class="menu-text">Menu</div>
@@ -53,7 +53,7 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
         WatchList
       </div>
-      <div class="header__actions-signIn">Sign In</div>
+      <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN" >Log in</div>
       <mat-form-field class="header__actions-lang" appearance="outline">
         <mat-select required [value]="'en'" panelClass="custom-select-lang">
           <mat-option value="en">

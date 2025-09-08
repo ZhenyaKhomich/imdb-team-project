@@ -5,6 +5,7 @@ import type {FormGroup} from '@angular/forms';
 import {NgStyle} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
+import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ import {MatIconModule} from '@angular/material/icon';
 export class LoginComponent implements OnInit {
   public showPasswordValue = false;
   public loginForm!: FormGroup;
+  protected readonly AppRoutesEnum = AppRoutesEnum;
   private fb = inject(FormBuilder);
 
   public ngOnInit(): void {
@@ -34,5 +36,4 @@ export class LoginComponent implements OnInit {
   public showPassword(): void {
     this.showPasswordValue = !this.showPasswordValue;
   }
-
 }

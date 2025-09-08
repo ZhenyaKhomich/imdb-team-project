@@ -3,13 +3,16 @@ import {MatIconModule} from '@angular/material/icon';
 import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
 import type {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
+import {RouterLink} from '@angular/router';
+import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
   imports: [
     MatIconModule,
-    SliderComponent
+    SliderComponent,
+    RouterLink
   ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
@@ -187,4 +190,5 @@ export class FooterComponent {
   }
 
   protected readonly SliderIdEnum = SliderIdEnum;
+  protected readonly AppRoutesEnum = AppRoutesEnum;
 }

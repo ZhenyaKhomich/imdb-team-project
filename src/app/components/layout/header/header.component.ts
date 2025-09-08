@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
+import {RouterLink} from '@angular/router';
+import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +17,7 @@ import {FormsModule} from '@angular/forms';
     MatSelectModule,
     MatInputModule,
     FormsModule,
+    RouterLink,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -21,9 +25,11 @@ import {FormsModule} from '@angular/forms';
 })
 export class HeaderComponent {
   public isOpenMenu = false;
+  protected readonly AppRoutesEnum = AppRoutesEnum;
+  private document = inject(DOCUMENT);
 
   public actionsToMenu(): void {
     this.isOpenMenu = !this.isOpenMenu;
-    document.body.style.overflow = this.isOpenMenu ? 'hidden' : '';
+    this.document.body.style.overflow = this.isOpenMenu ? 'hidden' : '';
   }
 }

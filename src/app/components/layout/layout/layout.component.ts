@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {HeaderComponent} from '../header/header.component';
 import {FooterComponent} from '../footer/footer.component';
-import {MainComponent} from '../../pages/main/main.component';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -9,7 +9,7 @@ import {MainComponent} from '../../pages/main/main.component';
   imports: [
     HeaderComponent,
     FooterComponent,
-    MainComponent,
+    RouterOutlet,
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',

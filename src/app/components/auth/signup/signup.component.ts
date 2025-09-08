@@ -4,25 +4,29 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import type {FormGroup} from '@angular/forms';
 import {NgStyle} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
+import {RouterLink} from '@angular/router';
+import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-signup',
   standalone: true,
   imports: [
     ReactiveFormsModule,
     NgStyle,
-    MatIconModule
+    MatIconModule,
+    RouterLink
   ],
-  templateUrl: './signin.component.html',
+  templateUrl: './signup.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SigninComponent implements OnInit {
+export class SignupComponent implements OnInit {
   public showPasswordValue = false;
-  public signInForm!: FormGroup;
+  public signUpForm!: FormGroup;
+  protected readonly AppRoutesEnum = AppRoutesEnum;
   private fb = inject(FormBuilder);
 
   public ngOnInit(): void {
-    this.signInForm = this.fb.group({
+    this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('^([A-Z][a-z]+)(\\s[A-Z][a-z]+)*$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$')]],
