@@ -1,0 +1,29 @@
+@use '../../../../styles/variables' as *;
+
+.error404 {
+  &__wrapper {
+    width: 100%;
+    height: 750px;
+    background-image: url("/images/error-404.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  .btn {
+    width: 300px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    background: $light-text-primary;
+    color: $light-background-secondary;
+    position: absolute;
+    bottom: 200px;
+    left: 150px;
+
+    &:hover {
+      background: $light-text-secondary;
+    }
+  }
+}
