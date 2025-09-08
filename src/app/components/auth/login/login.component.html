@@ -21,7 +21,7 @@
       </div>
       <button class="btn auth-form-button" >Log in</button>
       <div class="auth-question">
-        No account? <a routerLink="/signin">Register</a>
+        No account? <a [routerLink]="'/' + AppRoutesEnum.SIGNUP">Register</a>
       </div>
     </form>
   </div>

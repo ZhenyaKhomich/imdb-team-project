@@ -2,7 +2,7 @@
 
 .auth {
   display: flex;
-  min-height: 100vh;
+  min-height: 90vh;
   background-image: url("/images/bg-registartion.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,7 +41,7 @@
           top: calc(50% + 2px);
           cursor: pointer;
 
-          &.signin__eye {
+          &.signup__eye {
             top: calc(60% - 2px);
           }
         }
