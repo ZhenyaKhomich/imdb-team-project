@@ -148,3 +148,9 @@ app-layout {
   }
 }
 
+.cdk-overlay-container {
+  .mat-mdc-snack-bar-label {
+    text-align: center;
+  }
+}
+

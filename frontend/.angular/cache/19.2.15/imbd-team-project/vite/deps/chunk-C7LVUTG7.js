@@ -1,14 +1,16 @@
 import {
   CommonModule,
-  DOCUMENT,
   DomAdapter,
+  getDOM,
+  setRootDomAdapter
+} from "./chunk-DFLF3KWT.js";
+import {
+  DOCUMENT,
   PLATFORM_BROWSER_ID,
   XhrFactory,
-  getDOM,
   isPlatformServer,
-  parseCookieValue,
-  setRootDomAdapter
-} from "./chunk-GNDZAEVC.js";
+  parseCookieValue
+} from "./chunk-TULBQK6Q.js";
 import {
   APP_ID,
   ApplicationModule,
@@ -1226,4 +1228,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-YWF5ACNU.js.map
+//# sourceMappingURL=chunk-C7LVUTG7.js.map

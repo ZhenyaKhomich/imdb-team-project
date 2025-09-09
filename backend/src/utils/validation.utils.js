@@ -7,16 +7,16 @@ class ValidationUtils {
             name: Joi.string(),
             email: Joi.string().min(6).required().email()
                 .messages({
-                    'string.empty': `Необходимо заполнить "E-mail"`,
-                    'string.email': `"E-mail" неверный`,
-                    'string.min': `"E-mail" неверный`,
-                    'any.required': `Необходимо заполнить "E-mail"`
+                    'string.empty': `It is necessary to fill in the "E-mail"`,
+                    'string.email': `The "E-mail" is incorrect`,
+                    'string.min': `The "E-mail" is incorrect`,
+                    'any.required': `It is necessary to fill in the "E-mail"`
                 }),
             password: Joi.string().min(6).required()
                 .messages({
-                    'string.empty': `Необходимо заполнить "Пароль"`,
-                    'string.min': `"Пароль" должен иметь минимум 6 символов`,
-                    'any.required': `Необходимо заполнить "Пароль"`
+                    'string.empty': `It is necessary to fill in the "Password"`,
+                    'string.min': `The "password" must be at least 6 characters long`,
+                    'any.required': `It is necessary to fill in the "Password"`
                 }),
         });
         return schema.validate(data);
@@ -26,16 +26,16 @@ class ValidationUtils {
         const schema = Joi.object({
             email: Joi.string().min(6).required().email()
                 .messages({
-                    'string.empty': `Необходимо заполнить "E-mail"`,
-                    'string.email': `"E-mail" неверный`,
-                    'string.min': `"E-mail" неверный`,
+                    'string.empty': `It is necessary to fill in the "E-mail"`,
+                    'string.email': `The "E-mail" is incorrect`,
+                    'string.min': `"The "E-mail" is incorrect`,
                     'any.required': `Необходимо заполнить "E-mail"`
                 }),
             password: Joi.string().min(6).required()
                 .messages({
-                    'string.empty': `Необходимо заполнить "Пароль"`,
-                    'string.min': `"Пароль" должен иметь минимум 6 символов`,
-                    'any.required': `Необходимо заполнить "Пароль"`
+                    'string.empty': `It is necessary to fill in the "Password"`,
+                    'string.min': `The "password" must be at least 6 characters long`,
+                    'any.required': `It is necessary to fill in the "Password"`
                 }),
             rememberMe: Joi.boolean().default(false),
         });
@@ -46,8 +46,8 @@ class ValidationUtils {
         const schema = Joi.object({
             refreshToken: Joi.string().required()
                 .messages({
-                    'string.empty': `Необходимо заполнить "Токен"`,
-                    'any.required': `Необходимо заполнить "Токен"`
+                    'string.empty': `It is necessary to fill in the "Token"`,
+                    'any.required': `It is necessary to fill in the "Token"`
                 }),
         });
         return schema.validate(data);
@@ -57,9 +57,9 @@ class ValidationUtils {
         const schema = Joi.object({
             action: Joi.string().required().valid(...Object.values(config.userCommentActions))
                 .messages({
-                    'string.empty': `Необходимо заполнить "Действие"`,
-                    'any.only': `Действие может быть только: ` + Object.values(config.userCommentActions).join(','),
-                    'any.required': `Необходимо заполнить "Действие"`
+                    'string.empty': `It is necessary to fill in the "Action"`,
+                    'any.only': `The action can only be: ` + Object.values(config.userCommentActions).join(','),
+                    'any.required': `It is necessary to fill in the "Action"`
                 }),
         });
         return schema.validate(data);
@@ -69,13 +69,13 @@ class ValidationUtils {
         const schema = Joi.object({
             text: Joi.string().required()
                 .messages({
-                    'string.empty': `Необходимо заполнить "Текст"`,
-                    'any.required': `Необходимо заполнить "Текст"`
+                    'string.empty': `It is necessary to fill in the "Text"`,
+                    'any.required': `It is necessary to fill in the "Text"`
                 }),
             title: Joi.string().required() // Изменено с article на title
                 .messages({
-                    'string.empty': `Необходимо заполнить "Title"`,
-                    'any.required': `Необходимо заполнить "Title"`
+                    'string.empty': `It is necessary to fill in the "Title"`,
+                    'any.required': `It is necessary to fill in the "Title"`
                 }),
         });
         return schema.validate(data);
