@@ -9,7 +9,7 @@
     <ng-container *ngIf="actorsList.length > 0; else movies">
       <ng-template  carouselSlide *ngFor="let actor of actorsList">
         <div class="card">
-          <img src="{{ actor.primaryImage.url}}" alt="img">
+          <img class="card__actor-img" src="{{ actor.primaryImage.url}}" alt="img">
           <div class="card__name"> {{ actor.displayName }}</div>
           @if(id === SliderIdEnum.popular_actors) {
           <div class="card__rating">Rating: <span>{{ actor.meterRanking.currentRank }}</span>

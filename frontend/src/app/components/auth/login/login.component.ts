@@ -10,6 +10,7 @@ import {AuthService} from '../../../shared/services/auth.service.service';
 import type {HttpErrorResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LocalStorageService} from '../../../shared/services/local-storage.service';
+import {SignalService} from '../../../shared/services/signal.service.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private snakeBar = inject(MatSnackBar);
+  private signalService = inject(SignalService);
   private authService = inject(AuthService);
   private localStorageService = inject(LocalStorageService);
 
@@ -60,6 +62,7 @@ export class LoginComponent implements OnInit {
               this.localStorageService.setTokens(data);
               this.router.navigate([AppRoutesEnum.MAIN]);
               this.loginForm.reset();
+              this.signalService.isLogin.set(true);
               console.log(this.localStorageService.getRefreshToken());
             }
           },

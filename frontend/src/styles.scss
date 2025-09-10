@@ -154,3 +154,11 @@ app-layout {
   }
 }
 
+.mat-mdc-menu-content {
+  .user-name {
+    text-shadow: 1px 1px 1px $light-text-secondary;
+    padding: 3px 5px;
+    color: $main-light-yellow
+  }
+}
+

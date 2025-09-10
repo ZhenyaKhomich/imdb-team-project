@@ -1,10 +1,10 @@
 import {
+  BidiModule
+} from "./chunk-MQJ4VBAO.js";
+import {
   _CdkPrivateStyleLoader,
   _bindEventWithOptions
 } from "./chunk-IVD2PVXW.js";
-import {
-  BidiModule
-} from "./chunk-MQJ4VBAO.js";
 import {
   Platform,
   coerceElement,
@@ -63,459 +63,6 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule
 } from "./chunk-ICOCXIIL.js";
-
-// node_modules/@angular/cdk/fesm2022/private.mjs
-var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
-  static ɵfac = function _VisuallyHiddenLoader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || __VisuallyHiddenLoader)();
-  };
-  static ɵcmp = ɵɵdefineComponent({
-    type: __VisuallyHiddenLoader,
-    selectors: [["ng-component"]],
-    exportAs: ["cdkVisuallyHidden"],
-    decls: 0,
-    vars: 0,
-    template: function _VisuallyHiddenLoader_Template(rf, ctx) {
-    },
-    styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_VisuallyHiddenLoader, [{
-    type: Component,
-    args: [{
-      exportAs: "cdkVisuallyHidden",
-      encapsulation: ViewEncapsulation.None,
-      template: "",
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"]
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/array-I1yfCXUO.mjs
-function coerceArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-
-// node_modules/@angular/cdk/fesm2022/breakpoints-observer-CljOfYGy.mjs
-var mediaQueriesForWebkitCompatibility = /* @__PURE__ */ new Set();
-var mediaQueryStyleNode;
-var MediaMatcher = class _MediaMatcher {
-  _platform = inject(Platform);
-  _nonce = inject(CSP_NONCE, {
-    optional: true
-  });
-  /** The internal matchMedia method to return back a MediaQueryList like object. */
-  _matchMedia;
-  constructor() {
-    this._matchMedia = this._platform.isBrowser && window.matchMedia ? (
-      // matchMedia is bound to the window scope intentionally as it is an illegal invocation to
-      // call it from a different scope.
-      window.matchMedia.bind(window)
-    ) : noopMatchMedia;
-  }
-  /**
-   * Evaluates the given media query and returns the native MediaQueryList from which results
-   * can be retrieved.
-   * Confirms the layout engine will trigger for the selector query provided and returns the
-   * MediaQueryList for the query provided.
-   */
-  matchMedia(query) {
-    if (this._platform.WEBKIT || this._platform.BLINK) {
-      createEmptyStyleRule(query, this._nonce);
-    }
-    return this._matchMedia(query);
-  }
-  static ɵfac = function MediaMatcher_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MediaMatcher)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _MediaMatcher,
-    factory: _MediaMatcher.ɵfac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MediaMatcher, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function createEmptyStyleRule(query, nonce) {
-  if (mediaQueriesForWebkitCompatibility.has(query)) {
-    return;
-  }
-  try {
-    if (!mediaQueryStyleNode) {
-      mediaQueryStyleNode = document.createElement("style");
-      if (nonce) {
-        mediaQueryStyleNode.setAttribute("nonce", nonce);
-      }
-      mediaQueryStyleNode.setAttribute("type", "text/css");
-      document.head.appendChild(mediaQueryStyleNode);
-    }
-    if (mediaQueryStyleNode.sheet) {
-      mediaQueryStyleNode.sheet.insertRule(`@media ${query} {body{ }}`, 0);
-      mediaQueriesForWebkitCompatibility.add(query);
-    }
-  } catch (e) {
-    console.error(e);
-  }
-}
-function noopMatchMedia(query) {
-  return {
-    matches: query === "all" || query === "",
-    media: query,
-    addListener: () => {
-    },
-    removeListener: () => {
-    }
-  };
-}
-var BreakpointObserver = class _BreakpointObserver {
-  _mediaMatcher = inject(MediaMatcher);
-  _zone = inject(NgZone);
-  /**  A map of all media queries currently being listened for. */
-  _queries = /* @__PURE__ */ new Map();
-  /** A subject for all other observables to takeUntil based on. */
-  _destroySubject = new Subject();
-  constructor() {
-  }
-  /** Completes the active subject, signalling to all other observables to complete. */
-  ngOnDestroy() {
-    this._destroySubject.next();
-    this._destroySubject.complete();
-  }
-  /**
-   * Whether one or more media queries match the current viewport size.
-   * @param value One or more media queries to check.
-   * @returns Whether any of the media queries match.
-   */
-  isMatched(value) {
-    const queries = splitQueries(coerceArray(value));
-    return queries.some((mediaQuery) => this._registerQuery(mediaQuery).mql.matches);
-  }
-  /**
-   * Gets an observable of results for the given queries that will emit new results for any changes
-   * in matching of the given queries.
-   * @param value One or more media queries to check.
-   * @returns A stream of matches for the given queries.
-   */
-  observe(value) {
-    const queries = splitQueries(coerceArray(value));
-    const observables = queries.map((query) => this._registerQuery(query).observable);
-    let stateObservable = combineLatest(observables);
-    stateObservable = concat(stateObservable.pipe(take(1)), stateObservable.pipe(skip(1), debounceTime(0)));
-    return stateObservable.pipe(map((breakpointStates) => {
-      const response = {
-        matches: false,
-        breakpoints: {}
-      };
-      breakpointStates.forEach(({
-        matches,
-        query
-      }) => {
-        response.matches = response.matches || matches;
-        response.breakpoints[query] = matches;
-      });
-      return response;
-    }));
-  }
-  /** Registers a specific query to be listened for. */
-  _registerQuery(query) {
-    if (this._queries.has(query)) {
-      return this._queries.get(query);
-    }
-    const mql = this._mediaMatcher.matchMedia(query);
-    const queryObservable = new Observable((observer) => {
-      const handler = (e) => this._zone.run(() => observer.next(e));
-      mql.addListener(handler);
-      return () => {
-        mql.removeListener(handler);
-      };
-    }).pipe(startWith(mql), map(({
-      matches
-    }) => ({
-      query,
-      matches
-    })), takeUntil(this._destroySubject));
-    const output = {
-      observable: queryObservable,
-      mql
-    };
-    this._queries.set(query, output);
-    return output;
-  }
-  static ɵfac = function BreakpointObserver_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BreakpointObserver)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _BreakpointObserver,
-    factory: _BreakpointObserver.ɵfac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BreakpointObserver, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function splitQueries(queries) {
-  return queries.map((query) => query.split(",")).reduce((a1, a2) => a1.concat(a2)).map((query) => query.trim());
-}
-
-// node_modules/@angular/cdk/fesm2022/observers.mjs
-function shouldIgnoreRecord(record) {
-  if (record.type === "characterData" && record.target instanceof Comment) {
-    return true;
-  }
-  if (record.type === "childList") {
-    for (let i = 0; i < record.addedNodes.length; i++) {
-      if (!(record.addedNodes[i] instanceof Comment)) {
-        return false;
-      }
-    }
-    for (let i = 0; i < record.removedNodes.length; i++) {
-      if (!(record.removedNodes[i] instanceof Comment)) {
-        return false;
-      }
-    }
-    return true;
-  }
-  return false;
-}
-var MutationObserverFactory = class _MutationObserverFactory {
-  create(callback) {
-    return typeof MutationObserver === "undefined" ? null : new MutationObserver(callback);
-  }
-  static ɵfac = function MutationObserverFactory_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MutationObserverFactory)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _MutationObserverFactory,
-    factory: _MutationObserverFactory.ɵfac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MutationObserverFactory, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var ContentObserver = class _ContentObserver {
-  _mutationObserverFactory = inject(MutationObserverFactory);
-  /** Keeps track of the existing MutationObservers so they can be reused. */
-  _observedElements = /* @__PURE__ */ new Map();
-  _ngZone = inject(NgZone);
-  constructor() {
-  }
-  ngOnDestroy() {
-    this._observedElements.forEach((_, element) => this._cleanupObserver(element));
-  }
-  observe(elementOrRef) {
-    const element = coerceElement(elementOrRef);
-    return new Observable((observer) => {
-      const stream = this._observeElement(element);
-      const subscription = stream.pipe(map((records) => records.filter((record) => !shouldIgnoreRecord(record))), filter((records) => !!records.length)).subscribe((records) => {
-        this._ngZone.run(() => {
-          observer.next(records);
-        });
-      });
-      return () => {
-        subscription.unsubscribe();
-        this._unobserveElement(element);
-      };
-    });
-  }
-  /**
-   * Observes the given element by using the existing MutationObserver if available, or creating a
-   * new one if not.
-   */
-  _observeElement(element) {
-    return this._ngZone.runOutsideAngular(() => {
-      if (!this._observedElements.has(element)) {
-        const stream = new Subject();
-        const observer = this._mutationObserverFactory.create((mutations) => stream.next(mutations));
-        if (observer) {
-          observer.observe(element, {
-            characterData: true,
-            childList: true,
-            subtree: true
-          });
-        }
-        this._observedElements.set(element, {
-          observer,
-          stream,
-          count: 1
-        });
-      } else {
-        this._observedElements.get(element).count++;
-      }
-      return this._observedElements.get(element).stream;
-    });
-  }
-  /**
-   * Un-observes the given element and cleans up the underlying MutationObserver if nobody else is
-   * observing this element.
-   */
-  _unobserveElement(element) {
-    if (this._observedElements.has(element)) {
-      this._observedElements.get(element).count--;
-      if (!this._observedElements.get(element).count) {
-        this._cleanupObserver(element);
-      }
-    }
-  }
-  /** Clean up the underlying MutationObserver for the specified element. */
-  _cleanupObserver(element) {
-    if (this._observedElements.has(element)) {
-      const {
-        observer,
-        stream
-      } = this._observedElements.get(element);
-      if (observer) {
-        observer.disconnect();
-      }
-      stream.complete();
-      this._observedElements.delete(element);
-    }
-  }
-  static ɵfac = function ContentObserver_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ContentObserver)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _ContentObserver,
-    factory: _ContentObserver.ɵfac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContentObserver, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var CdkObserveContent = class _CdkObserveContent {
-  _contentObserver = inject(ContentObserver);
-  _elementRef = inject(ElementRef);
-  /** Event emitted for each change in the element's content. */
-  event = new EventEmitter();
-  /**
-   * Whether observing content is disabled. This option can be used
-   * to disconnect the underlying MutationObserver until it is needed.
-   */
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value) {
-    this._disabled = value;
-    this._disabled ? this._unsubscribe() : this._subscribe();
-  }
-  _disabled = false;
-  /** Debounce interval for emitting the changes. */
-  get debounce() {
-    return this._debounce;
-  }
-  set debounce(value) {
-    this._debounce = coerceNumberProperty(value);
-    this._subscribe();
-  }
-  _debounce;
-  _currentSubscription = null;
-  constructor() {
-  }
-  ngAfterContentInit() {
-    if (!this._currentSubscription && !this.disabled) {
-      this._subscribe();
-    }
-  }
-  ngOnDestroy() {
-    this._unsubscribe();
-  }
-  _subscribe() {
-    this._unsubscribe();
-    const stream = this._contentObserver.observe(this._elementRef);
-    this._currentSubscription = (this.debounce ? stream.pipe(debounceTime(this.debounce)) : stream).subscribe(this.event);
-  }
-  _unsubscribe() {
-    this._currentSubscription?.unsubscribe();
-  }
-  static ɵfac = function CdkObserveContent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkObserveContent)();
-  };
-  static ɵdir = ɵɵdefineDirective({
-    type: _CdkObserveContent,
-    selectors: [["", "cdkObserveContent", ""]],
-    inputs: {
-      disabled: [2, "cdkObserveContentDisabled", "disabled", booleanAttribute],
-      debounce: "debounce"
-    },
-    outputs: {
-      event: "cdkObserveContent"
-    },
-    exportAs: ["cdkObserveContent"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkObserveContent, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkObserveContent]",
-      exportAs: "cdkObserveContent"
-    }]
-  }], () => [], {
-    event: [{
-      type: Output,
-      args: ["cdkObserveContent"]
-    }],
-    disabled: [{
-      type: Input,
-      args: [{
-        alias: "cdkObserveContentDisabled",
-        transform: booleanAttribute
-      }]
-    }],
-    debounce: [{
-      type: Input
-    }]
-  });
-})();
-var ObserversModule = class _ObserversModule {
-  static ɵfac = function ObserversModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ObserversModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _ObserversModule,
-    imports: [CdkObserveContent],
-    exports: [CdkObserveContent]
-  });
-  static ɵinj = ɵɵdefineInjector({
-    providers: [MutationObserverFactory]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ObserversModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CdkObserveContent],
-      exports: [CdkObserveContent],
-      providers: [MutationObserverFactory]
-    }]
-  }], null, null);
-})();
 
 // node_modules/@angular/cdk/fesm2022/fake-event-detection-DWOdFTFz.mjs
 function isFakeMousedownFromScreenReader(event) {
@@ -1086,6 +633,459 @@ var CdkMonitorFocus = class _CdkMonitorFocus {
       type: Output
     }]
   });
+})();
+
+// node_modules/@angular/cdk/fesm2022/private.mjs
+var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
+  static ɵfac = function _VisuallyHiddenLoader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __VisuallyHiddenLoader)();
+  };
+  static ɵcmp = ɵɵdefineComponent({
+    type: __VisuallyHiddenLoader,
+    selectors: [["ng-component"]],
+    exportAs: ["cdkVisuallyHidden"],
+    decls: 0,
+    vars: 0,
+    template: function _VisuallyHiddenLoader_Template(rf, ctx) {
+    },
+    styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_VisuallyHiddenLoader, [{
+    type: Component,
+    args: [{
+      exportAs: "cdkVisuallyHidden",
+      encapsulation: ViewEncapsulation.None,
+      template: "",
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"]
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/array-I1yfCXUO.mjs
+function coerceArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+
+// node_modules/@angular/cdk/fesm2022/breakpoints-observer-CljOfYGy.mjs
+var mediaQueriesForWebkitCompatibility = /* @__PURE__ */ new Set();
+var mediaQueryStyleNode;
+var MediaMatcher = class _MediaMatcher {
+  _platform = inject(Platform);
+  _nonce = inject(CSP_NONCE, {
+    optional: true
+  });
+  /** The internal matchMedia method to return back a MediaQueryList like object. */
+  _matchMedia;
+  constructor() {
+    this._matchMedia = this._platform.isBrowser && window.matchMedia ? (
+      // matchMedia is bound to the window scope intentionally as it is an illegal invocation to
+      // call it from a different scope.
+      window.matchMedia.bind(window)
+    ) : noopMatchMedia;
+  }
+  /**
+   * Evaluates the given media query and returns the native MediaQueryList from which results
+   * can be retrieved.
+   * Confirms the layout engine will trigger for the selector query provided and returns the
+   * MediaQueryList for the query provided.
+   */
+  matchMedia(query) {
+    if (this._platform.WEBKIT || this._platform.BLINK) {
+      createEmptyStyleRule(query, this._nonce);
+    }
+    return this._matchMedia(query);
+  }
+  static ɵfac = function MediaMatcher_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _MediaMatcher)();
+  };
+  static ɵprov = ɵɵdefineInjectable({
+    token: _MediaMatcher,
+    factory: _MediaMatcher.ɵfac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MediaMatcher, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function createEmptyStyleRule(query, nonce) {
+  if (mediaQueriesForWebkitCompatibility.has(query)) {
+    return;
+  }
+  try {
+    if (!mediaQueryStyleNode) {
+      mediaQueryStyleNode = document.createElement("style");
+      if (nonce) {
+        mediaQueryStyleNode.setAttribute("nonce", nonce);
+      }
+      mediaQueryStyleNode.setAttribute("type", "text/css");
+      document.head.appendChild(mediaQueryStyleNode);
+    }
+    if (mediaQueryStyleNode.sheet) {
+      mediaQueryStyleNode.sheet.insertRule(`@media ${query} {body{ }}`, 0);
+      mediaQueriesForWebkitCompatibility.add(query);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+function noopMatchMedia(query) {
+  return {
+    matches: query === "all" || query === "",
+    media: query,
+    addListener: () => {
+    },
+    removeListener: () => {
+    }
+  };
+}
+var BreakpointObserver = class _BreakpointObserver {
+  _mediaMatcher = inject(MediaMatcher);
+  _zone = inject(NgZone);
+  /**  A map of all media queries currently being listened for. */
+  _queries = /* @__PURE__ */ new Map();
+  /** A subject for all other observables to takeUntil based on. */
+  _destroySubject = new Subject();
+  constructor() {
+  }
+  /** Completes the active subject, signalling to all other observables to complete. */
+  ngOnDestroy() {
+    this._destroySubject.next();
+    this._destroySubject.complete();
+  }
+  /**
+   * Whether one or more media queries match the current viewport size.
+   * @param value One or more media queries to check.
+   * @returns Whether any of the media queries match.
+   */
+  isMatched(value) {
+    const queries = splitQueries(coerceArray(value));
+    return queries.some((mediaQuery) => this._registerQuery(mediaQuery).mql.matches);
+  }
+  /**
+   * Gets an observable of results for the given queries that will emit new results for any changes
+   * in matching of the given queries.
+   * @param value One or more media queries to check.
+   * @returns A stream of matches for the given queries.
+   */
+  observe(value) {
+    const queries = splitQueries(coerceArray(value));
+    const observables = queries.map((query) => this._registerQuery(query).observable);
+    let stateObservable = combineLatest(observables);
+    stateObservable = concat(stateObservable.pipe(take(1)), stateObservable.pipe(skip(1), debounceTime(0)));
+    return stateObservable.pipe(map((breakpointStates) => {
+      const response = {
+        matches: false,
+        breakpoints: {}
+      };
+      breakpointStates.forEach(({
+        matches,
+        query
+      }) => {
+        response.matches = response.matches || matches;
+        response.breakpoints[query] = matches;
+      });
+      return response;
+    }));
+  }
+  /** Registers a specific query to be listened for. */
+  _registerQuery(query) {
+    if (this._queries.has(query)) {
+      return this._queries.get(query);
+    }
+    const mql = this._mediaMatcher.matchMedia(query);
+    const queryObservable = new Observable((observer) => {
+      const handler = (e) => this._zone.run(() => observer.next(e));
+      mql.addListener(handler);
+      return () => {
+        mql.removeListener(handler);
+      };
+    }).pipe(startWith(mql), map(({
+      matches
+    }) => ({
+      query,
+      matches
+    })), takeUntil(this._destroySubject));
+    const output = {
+      observable: queryObservable,
+      mql
+    };
+    this._queries.set(query, output);
+    return output;
+  }
+  static ɵfac = function BreakpointObserver_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _BreakpointObserver)();
+  };
+  static ɵprov = ɵɵdefineInjectable({
+    token: _BreakpointObserver,
+    factory: _BreakpointObserver.ɵfac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BreakpointObserver, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function splitQueries(queries) {
+  return queries.map((query) => query.split(",")).reduce((a1, a2) => a1.concat(a2)).map((query) => query.trim());
+}
+
+// node_modules/@angular/cdk/fesm2022/observers.mjs
+function shouldIgnoreRecord(record) {
+  if (record.type === "characterData" && record.target instanceof Comment) {
+    return true;
+  }
+  if (record.type === "childList") {
+    for (let i = 0; i < record.addedNodes.length; i++) {
+      if (!(record.addedNodes[i] instanceof Comment)) {
+        return false;
+      }
+    }
+    for (let i = 0; i < record.removedNodes.length; i++) {
+      if (!(record.removedNodes[i] instanceof Comment)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
+}
+var MutationObserverFactory = class _MutationObserverFactory {
+  create(callback) {
+    return typeof MutationObserver === "undefined" ? null : new MutationObserver(callback);
+  }
+  static ɵfac = function MutationObserverFactory_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _MutationObserverFactory)();
+  };
+  static ɵprov = ɵɵdefineInjectable({
+    token: _MutationObserverFactory,
+    factory: _MutationObserverFactory.ɵfac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MutationObserverFactory, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var ContentObserver = class _ContentObserver {
+  _mutationObserverFactory = inject(MutationObserverFactory);
+  /** Keeps track of the existing MutationObservers so they can be reused. */
+  _observedElements = /* @__PURE__ */ new Map();
+  _ngZone = inject(NgZone);
+  constructor() {
+  }
+  ngOnDestroy() {
+    this._observedElements.forEach((_, element) => this._cleanupObserver(element));
+  }
+  observe(elementOrRef) {
+    const element = coerceElement(elementOrRef);
+    return new Observable((observer) => {
+      const stream = this._observeElement(element);
+      const subscription = stream.pipe(map((records) => records.filter((record) => !shouldIgnoreRecord(record))), filter((records) => !!records.length)).subscribe((records) => {
+        this._ngZone.run(() => {
+          observer.next(records);
+        });
+      });
+      return () => {
+        subscription.unsubscribe();
+        this._unobserveElement(element);
+      };
+    });
+  }
+  /**
+   * Observes the given element by using the existing MutationObserver if available, or creating a
+   * new one if not.
+   */
+  _observeElement(element) {
+    return this._ngZone.runOutsideAngular(() => {
+      if (!this._observedElements.has(element)) {
+        const stream = new Subject();
+        const observer = this._mutationObserverFactory.create((mutations) => stream.next(mutations));
+        if (observer) {
+          observer.observe(element, {
+            characterData: true,
+            childList: true,
+            subtree: true
+          });
+        }
+        this._observedElements.set(element, {
+          observer,
+          stream,
+          count: 1
+        });
+      } else {
+        this._observedElements.get(element).count++;
+      }
+      return this._observedElements.get(element).stream;
+    });
+  }
+  /**
+   * Un-observes the given element and cleans up the underlying MutationObserver if nobody else is
+   * observing this element.
+   */
+  _unobserveElement(element) {
+    if (this._observedElements.has(element)) {
+      this._observedElements.get(element).count--;
+      if (!this._observedElements.get(element).count) {
+        this._cleanupObserver(element);
+      }
+    }
+  }
+  /** Clean up the underlying MutationObserver for the specified element. */
+  _cleanupObserver(element) {
+    if (this._observedElements.has(element)) {
+      const {
+        observer,
+        stream
+      } = this._observedElements.get(element);
+      if (observer) {
+        observer.disconnect();
+      }
+      stream.complete();
+      this._observedElements.delete(element);
+    }
+  }
+  static ɵfac = function ContentObserver_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ContentObserver)();
+  };
+  static ɵprov = ɵɵdefineInjectable({
+    token: _ContentObserver,
+    factory: _ContentObserver.ɵfac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContentObserver, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var CdkObserveContent = class _CdkObserveContent {
+  _contentObserver = inject(ContentObserver);
+  _elementRef = inject(ElementRef);
+  /** Event emitted for each change in the element's content. */
+  event = new EventEmitter();
+  /**
+   * Whether observing content is disabled. This option can be used
+   * to disconnect the underlying MutationObserver until it is needed.
+   */
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(value) {
+    this._disabled = value;
+    this._disabled ? this._unsubscribe() : this._subscribe();
+  }
+  _disabled = false;
+  /** Debounce interval for emitting the changes. */
+  get debounce() {
+    return this._debounce;
+  }
+  set debounce(value) {
+    this._debounce = coerceNumberProperty(value);
+    this._subscribe();
+  }
+  _debounce;
+  _currentSubscription = null;
+  constructor() {
+  }
+  ngAfterContentInit() {
+    if (!this._currentSubscription && !this.disabled) {
+      this._subscribe();
+    }
+  }
+  ngOnDestroy() {
+    this._unsubscribe();
+  }
+  _subscribe() {
+    this._unsubscribe();
+    const stream = this._contentObserver.observe(this._elementRef);
+    this._currentSubscription = (this.debounce ? stream.pipe(debounceTime(this.debounce)) : stream).subscribe(this.event);
+  }
+  _unsubscribe() {
+    this._currentSubscription?.unsubscribe();
+  }
+  static ɵfac = function CdkObserveContent_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkObserveContent)();
+  };
+  static ɵdir = ɵɵdefineDirective({
+    type: _CdkObserveContent,
+    selectors: [["", "cdkObserveContent", ""]],
+    inputs: {
+      disabled: [2, "cdkObserveContentDisabled", "disabled", booleanAttribute],
+      debounce: "debounce"
+    },
+    outputs: {
+      event: "cdkObserveContent"
+    },
+    exportAs: ["cdkObserveContent"]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkObserveContent, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkObserveContent]",
+      exportAs: "cdkObserveContent"
+    }]
+  }], () => [], {
+    event: [{
+      type: Output,
+      args: ["cdkObserveContent"]
+    }],
+    disabled: [{
+      type: Input,
+      args: [{
+        alias: "cdkObserveContentDisabled",
+        transform: booleanAttribute
+      }]
+    }],
+    debounce: [{
+      type: Input
+    }]
+  });
+})();
+var ObserversModule = class _ObserversModule {
+  static ɵfac = function ObserversModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ObserversModule)();
+  };
+  static ɵmod = ɵɵdefineNgModule({
+    type: _ObserversModule,
+    imports: [CdkObserveContent],
+    exports: [CdkObserveContent]
+  });
+  static ɵinj = ɵɵdefineInjector({
+    providers: [MutationObserverFactory]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ObserversModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CdkObserveContent],
+      exports: [CdkObserveContent],
+      providers: [MutationObserverFactory]
+    }]
+  }], null, null);
 })();
 
 // node_modules/@angular/cdk/fesm2022/a11y-module-BYox5gpI.mjs
@@ -2377,6 +2377,25 @@ var ListKeyManager = class {
   }
 };
 
+// node_modules/@angular/cdk/fesm2022/focus-key-manager-C1rAQJ5z.mjs
+var FocusKeyManager = class extends ListKeyManager {
+  _origin = "program";
+  /**
+   * Sets the focus origin that will be passed in to the items for any subsequent `focus` calls.
+   * @param origin Focus origin to be used when focusing items.
+   */
+  setFocusOrigin(origin) {
+    this._origin = origin;
+    return this;
+  }
+  setActiveItem(item) {
+    super.setActiveItem(item);
+    if (this.activeItem) {
+      this.activeItem.focus(this._origin);
+    }
+  }
+};
+
 // node_modules/@angular/cdk/fesm2022/activedescendant-key-manager-DC3-fwQI.mjs
 var ActiveDescendantKeyManager = class extends ListKeyManager {
   setActiveItem(index) {
@@ -3131,8 +3150,9 @@ export {
   _IdGenerator,
   hasModifierKey,
   ActiveDescendantKeyManager,
+  FocusKeyManager,
   addAriaReferencedId,
   removeAriaReferencedId,
   MatCommonModule
 };
-//# sourceMappingURL=chunk-5S6XJPVC.js.map
+//# sourceMappingURL=chunk-X4LXFGAN.js.map

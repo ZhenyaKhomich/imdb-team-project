@@ -26,5 +26,6 @@ export class LocalStorageService {
   public removeTokens(): void {
     this.localStorage.removeItem(TokensEnum.AccessToken);
     this.localStorage.removeItem(TokensEnum.RefreshToken);
+    this.localStorage.removeItem(TokensEnum.UserId);
   }
 }

@@ -1,3 +1,4 @@
+import "./chunk-OIBNGD5S.js";
 import {
   BasePortalOutlet,
   CdkPortalOutlet,
@@ -12,7 +13,7 @@ import {
   TemplatePortal,
   _StructuralStylesLoader,
   defaultRippleAnimationConfig
-} from "./chunk-UVHFJ5BH.js";
+} from "./chunk-SBM5YGDE.js";
 import "./chunk-CASDFRII.js";
 import "./chunk-QBI52VA4.js";
 import "./chunk-2O4WY5GE.js";
@@ -23,12 +24,12 @@ import {
   MatCommonModule,
   _IdGenerator,
   _getEventTarget
-} from "./chunk-5S6XJPVC.js";
+} from "./chunk-X4LXFGAN.js";
+import "./chunk-MQJ4VBAO.js";
 import {
   _CdkPrivateStyleLoader,
   _bindEventWithOptions
 } from "./chunk-IVD2PVXW.js";
-import "./chunk-MQJ4VBAO.js";
 import {
   Platform
 } from "./chunk-JKKHT6OT.js";
