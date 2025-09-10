@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
 import type {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
 import {RouterLink} from '@angular/router';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
+import {SignalService} from '../../../shared/services/signal.service';
 
 @Component({
   selector: 'app-footer',
@@ -19,6 +20,7 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
+  public signalService = inject(SignalService);
   public movies: AllTitlesDataType = {
     titles: [
       {

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewChild} from '@angular/core';
 import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
@@ -10,6 +10,7 @@ import {SliderComponent} from '../../../shared/components/slider/slider.componen
 import type {ActorsDataType} from '../../../shared/types/actors-data.type';
 import type {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
 import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
+import {SignalService} from '../../../shared/services/signal.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 export class MainComponent implements OnInit {
   @ViewChild('carouseMovies') public carouseMovies!: CarouselComponent
   public currentElementMainSlider = 0;
+  public watchlist = [];
   public movies: AllTitlesDataType = {
     titles: [
       {
@@ -482,6 +484,7 @@ export class MainComponent implements OnInit {
   }
   public mainSliderLength = this.movies.titles.length;
   public indexFollowingSlides: number[] = [];
+  public signalService = inject(SignalService);
   public customMovies: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -501,6 +504,7 @@ export class MainComponent implements OnInit {
   protected readonly Math = Math;
   protected readonly Number = Number;
   protected readonly SliderIdEnum = SliderIdEnum;
+
 
   public ngOnInit (): void {
     this.updateFollowingSlides(this.currentElementMainSlider);

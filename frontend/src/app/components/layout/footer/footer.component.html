@@ -1,20 +1,24 @@
 <footer class="footer">
   <div class="container">
-    <div class="footer__viewed">
-      <div class="footer__viewed-title">Recently viewed</div>
-      <div class="footer__viewed-cards">
-        <div class="footer__viewed-clear">Clear all
-          <mat-icon fontIcon="delete"></mat-icon>
+    @if(signalService.isLogin()) {
+      <div class="footer__viewed">
+        <div class="footer__viewed-title">Recently viewed</div>
+        <div class="footer__viewed-cards">
+          <div class="footer__viewed-clear">Clear all
+            <mat-icon fontIcon="delete"></mat-icon>
+          </div>
+          @if(movies.titles.length > 0) {
+            <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
+          } @else {
+            <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+          }
         </div>
-        @if(movies.titles.length > 0) {
-        <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
-        }
-        <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
       </div>
-    </div>
-    <div class="footer__sign">
-      <button class="btn footer__sign-btn" [routerLink]="'/' + AppRoutesEnum.LOGIN">Sign in for more access</button>
-    </div>
+    } @else {
+      <div class="footer__sign">
+        <button class="btn footer__sign-btn" [routerLink]="'/' + AppRoutesEnum.LOGIN">Sign in for more access</button>
+      </div>
+    }
     <div class="footer__socials">
       <div class="footer__socials-left">
         <div class="footer__socials-title">Follow IMDb on social</div>
