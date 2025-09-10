@@ -18,6 +18,7 @@ export const authInterceptorFunction: HttpInterceptorFn = (request, next) => {
     return next(newRequest).pipe(
       tap({
         error: () => {
+          console.log('ошибка в интерcепторe')
           localStorageService.removeTokens();
           router.navigate(['/' + AppRoutesEnum.MAIN])
         }

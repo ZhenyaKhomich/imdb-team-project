@@ -58,7 +58,7 @@
       } @else {
         <mat-icon [matMenuTriggerFor]="menu" class="header__actions-user" fontIcon="person"></mat-icon>
         <mat-menu #menu="matMenu">
-          <div class="user-name">Андрей Петров</div>
+          <div class="user-name">{{signalService.userData().name}}</div>
           <button mat-menu-item><mat-icon fontIcon="logout" (click)="logout()"></mat-icon>Log out</button>
         </mat-menu>
       }

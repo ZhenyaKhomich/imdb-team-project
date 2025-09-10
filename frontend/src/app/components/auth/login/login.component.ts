@@ -6,11 +6,11 @@ import {NgStyle} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
-import {AuthService} from '../../../shared/services/auth.service.service';
+import {AuthService} from '../../../shared/services/auth.service';
 import type {HttpErrorResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LocalStorageService} from '../../../shared/services/local-storage.service';
-import {SignalService} from '../../../shared/services/signal.service.service';
+import {SignalService} from '../../../shared/services/signal.service';
 
 @Component({
   selector: 'app-login',
@@ -63,7 +63,11 @@ export class LoginComponent implements OnInit {
               this.router.navigate([AppRoutesEnum.MAIN]);
               this.loginForm.reset();
               this.signalService.isLogin.set(true);
-              console.log(this.localStorageService.getRefreshToken());
+
+              this.authService.getUser().subscribe((data) => {
+                this.signalService.userData.set(data);
+              })
+
             }
           },
           error: (error: HttpErrorResponse) => {

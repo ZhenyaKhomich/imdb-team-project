@@ -1,4 +1,6 @@
 export enum RequestsEnum {
   LOGIN = 'login',
-  LOGOUT = 'logout'
+  SIGNUP = 'signup',
+  LOGOUT = 'logout',
+  USERS = 'users',
 }
