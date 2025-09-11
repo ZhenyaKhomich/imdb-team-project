@@ -1,0 +1,21 @@
+<input
+  [value]="minValueStart()"
+  [min]="min()"
+  [max]="max()"
+  [step]="step()"
+  [placeholder]="minPlaceholder()"
+  type="number"
+  #minInput
+  (change)="change(minInput.value, 'minValue')"
+/>
+to
+<input
+  [value]="maxValueStart()"
+  [min]="min()"
+  [placeholder]="maxPlaceholder()"
+  [max]="max()"
+  [step]="step()"
+  type="number"
+  #maxInput
+  (change)="change(maxInput.value, 'maxValue')"
+/>
