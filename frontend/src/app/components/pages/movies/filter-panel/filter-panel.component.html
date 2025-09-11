@@ -1,0 +1,81 @@
+<div class="filter-panel" [class.modal]="modal()">
+  @if(!modal()) {
+
+  <h3>Filters <mat-icon>filter_list</mat-icon></h3>
+  }
+
+  <div class="filter-category">
+    <h4>Genres</h4>
+
+    <div class="category-content">
+      @for( item of genres(); track item.value) {<app-choose
+        [state]="item.status"
+        (chooseChanged)="chooseGenres($event, item.value)"
+        >{{ item.value }}</app-choose
+      >}
+    </div>
+  </div>
+
+  <div class="filter-category">
+    <h4>Title type</h4>
+
+    <div class="category-content">
+      @for( item of titleTypes(); track item.value) {<app-choose
+        [state]="item.status"
+        (chooseChanged)="chooseTypes($event, item.value)"
+        >{{ item.name }}</app-choose
+      >}
+    </div>
+  </div>
+
+  <div class="filter-category">
+    <h4>Release year</h4>
+
+    <div class="category-content">
+      <app-range
+        [minValueStart]="rangeInputs().yearMin"
+        [maxValueStart]="rangeInputs().yearMax"
+        [min]="1920"
+        [max]="2050"
+        (minValue)="choseYearMin.emit($event)"
+        (maxValue)="choseYearMax.emit($event)"
+      />
+    </div>
+  </div>
+
+  <div class="filter-category">
+    <h4>IMDb rating</h4>
+
+    <div class="category-content">
+      <div class="block">
+        <h5>User Rating</h5>
+        <app-range
+          [minValueStart]="rangeInputs().ratingMin"
+          [maxValueStart]="rangeInputs().ratingMax"
+          [minPlaceholder]="'1.0'"
+          [maxPlaceholder]="'10.0'"
+          [step]="0.1"
+          [min]="1"
+          [max]="10"
+          (minValue)="choseRatingMin.emit($event)"
+          (maxValue)="choseRatingMax.emit($event)"
+        />
+      </div>
+      <div class="block">
+        <h5>Number Of Votes</h5>
+        <app-range
+          [minValueStart]="rangeInputs().votesMin"
+          [maxValueStart]="rangeInputs().votesMax"
+          [min]="0"
+          [max]="1000000000"
+          (minValue)="choseVotesMin.emit($event)"
+          (maxValue)="choseVotesMax.emit($event)"
+        />
+      </div>
+    </div>
+  </div>
+  @if(!modal()) {
+
+  <button class="button" type="button" (click)="reset()">Reset</button>
+  }
+</div>

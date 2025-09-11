@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Filters</h2>
+<mat-dialog-content class="filter-modal-content">
+  <app-filter-panel
+    [genres]="data.listGenres"
+    [titleTypes]="data.types"
+    [modal]="true"
+    [rangeInputs]="data.rangeInputs"
+    (choseGenres)="data.choseGenres($event)"
+    (choseTypes)="data.choseTypes($event)"
+    (choseYearMin)="data.updateRangeInput('yearMin', $event)"
+    (choseYearMax)="data.updateRangeInput('yearMax', $event)"
+    (choseRatingMin)="data.updateRangeInput('ratingMin', $event)"
+    (choseRatingMax)="data.updateRangeInput('ratingMax', $event)"
+    (choseVotesMin)="data.updateRangeInput('votesMin', $event)"
+    (choseVotesMax)="data.updateRangeInput('votesMax', $event)"
+  />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="reset()" class="close">Reset</button>
+  <button (click)="cancel()" class="close">Cancel</button>
+</mat-dialog-actions>
