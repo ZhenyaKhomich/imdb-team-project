@@ -491,7 +491,7 @@ export class MainComponent implements OnInit {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    margin: 24,
+    margin: 1240,
     stagePadding: 0,
     startPosition: 0,
     center: false,

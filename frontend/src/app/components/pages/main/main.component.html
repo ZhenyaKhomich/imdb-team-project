@@ -19,7 +19,7 @@
                   year
                 </div>
                 <div class="movie__duration"><span
-                  class="description">Duration: </span>  {{ movie.runtimeSeconds | minutesToHours }}
+                        class="description">Duration: </span>  {{ movie.runtimeSeconds | minutesToHours }}
                 </div>
                 <div class="movie__categories-block">
                   <span class="description">Categories: </span>
@@ -51,31 +51,33 @@
       </div>
       <div class="main__slider-next">
         <div class="up-next">Up next</div>
-        <div class="slider__element" *ngFor="let index of indexFollowingSlides">
-          <div class="slider__element-img">
-            <img src="{{ movies.titles[index].primaryImage.url}}" alt="img">
-          </div>
-          <div class="slider__element-description">
-            <div class="slider__element-title"><span
-              class="description">Title: </span> {{ movies.titles[index].primaryTitle }}
+        <div class="slider__elements">
+          <div class="slider__element" *ngFor="let index of indexFollowingSlides">
+            <div class="slider__element-img">
+              <img src="{{ movies.titles[index].primaryImage.url}}" alt="img">
             </div>
-            <div class="slider__element-release"><span
-              class="description">Year of release: </span>  {{ movies.titles[index].startYear }} year
-            </div>
-            <div class="slider__element-duration"><span
-              class="description">Duration: </span>  {{ movies.titles[index].runtimeSeconds | minutesToHours }}
-            </div>
-            <div class="slider__element-rating"><span
-              class="description">Rating: </span>
-              <div class="rating-stars">
-                <mat-icon fontIcon="star"
-                          *ngFor="let star of [].constructor(Math.floor(movies.titles[index].rating.aggregateRating))"></mat-icon>
-                @if (!Number.isInteger(movies.titles[index].rating.aggregateRating)) {
-                  <mat-icon fontIcon="star_half"></mat-icon>
-                }
+            <div class="slider__element-description">
+              <div class="slider__element-title"><span
+                      class="description">Title: </span> {{ movies.titles[index].primaryTitle }}
               </div>
-              {{ movies.titles[index].rating.aggregateRating }}
-              (votes: {{ movies.titles[index].rating.voteCount }})
+              <div class="slider__element-release"><span
+                      class="description">Year of release: </span>  {{ movies.titles[index].startYear }} year
+              </div>
+              <div class="slider__element-duration"><span
+                      class="description">Duration: </span>  {{ movies.titles[index].runtimeSeconds | minutesToHours }}
+              </div>
+              <div class="slider__element-rating"><span
+                      class="description">Rating: </span>
+                <div class="rating-stars">
+                  <mat-icon fontIcon="star"
+                            *ngFor="let star of [].constructor(Math.floor(movies.titles[index].rating.aggregateRating))"></mat-icon>
+                  @if (!Number.isInteger(movies.titles[index].rating.aggregateRating)) {
+                    <mat-icon fontIcon="star_half"></mat-icon>
+                  }
+                </div>
+                {{ movies.titles[index].rating.aggregateRating }}
+                (votes: {{ movies.titles[index].rating.voteCount }})
+              </div>
             </div>
           </div>
         </div>
@@ -91,16 +93,16 @@
         <div class="main__second-title">From your WatchList
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
-        @if(signalService.isLogin()) {
-          @if(watchlist.length) {
+        @if (signalService.isLogin()) {
+          @if (watchlist.length) {
             <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
             <div class="main__what-all-list">View the entire watchlist
               <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
             </div>
           } @else {
             <div class="what__watchList-empty">
-            <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
-            <div class="what__watchList-text-top">Your watch list is empty</div>
+              <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
+              <div class="what__watchList-text-top">Your watch list is empty</div>
             </div>
           }
         } @else {

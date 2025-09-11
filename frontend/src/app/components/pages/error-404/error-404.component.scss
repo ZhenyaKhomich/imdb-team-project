@@ -3,7 +3,7 @@
 .error404 {
   &__wrapper {
     width: 100%;
-    height: 750px;
+    min-height: 750px;
     background-image: url("/images/error-404.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,10 +20,28 @@
     color: $light-background-secondary;
     position: absolute;
     bottom: 200px;
-    left: 150px;
+    left: 10%;
+    border: 1px solid $main-light-yellow;
 
     &:hover {
       background: $light-text-secondary;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .error404 {
+    &__wrapper {
+      min-height: 90vw;
+      background-size: contain;
+    }
+
+    .btn {
+      width: 35vw;
+      padding: 10px;
+      bottom: 20vw;
+      left: 10%;
+      font-size: 3vw;
     }
   }
 }
