@@ -238,14 +238,12 @@
         }
       }
 
-      &-no-signUp {
-        mat-icon {
-          margin-top: 30px;
-          width: 60px;
-          height: 60px;
-          font-size: 60px;
-          color: $dark-text-secondary;
-        }
+      &-bookmark-icon {
+        margin-top: 30px;
+        width: 60px;
+        height: 60px;
+        font-size: 60px;
+        color: $dark-text-secondary;
       }
 
       &-text-top {

@@ -91,9 +91,21 @@
         <div class="main__second-title">From your WatchList
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
-        @if (true) {
-          <div class="what__watchList-no-signUp">
-            <mat-icon fontIcon="bookmark_add"></mat-icon>
+        @if(signalService.isLogin()) {
+          @if(watchlist.length) {
+            <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+            <div class="main__what-all-list">View the entire watchlist
+              <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+            </div>
+          } @else {
+            <div class="what__watchList-empty">
+            <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
+            <div class="what__watchList-text-top">Your watch list is empty</div>
+            </div>
+          }
+        } @else {
+          <div class="what__watchList-no-signup">
+            <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
             <div class="what__watchList-text-top">Sign in to access your Watchlist</div>
             <div class="what__watchList-text-bottom">Save shows and movies to keep track of what you want to watch.
             </div>

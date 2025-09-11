@@ -186,6 +186,17 @@
       }
     }
 
+    &-user {
+      cursor: pointer;
+      transition: all 0.3s linear;
+      padding: 10px;
+      border-radius: 50px;
+
+      &:hover {
+        background: $background-light-transparent-100;
+      }
+    }
+
     &-lang {
       transition: all 0.3s linear;
       padding: 10px 15px;
@@ -199,6 +210,11 @@
       &:hover {
         background: $background-light-transparent-100;
       }
+    }
+
+    .user-name {
+      color: red;
+      padding: 10px;
     }
   }
 

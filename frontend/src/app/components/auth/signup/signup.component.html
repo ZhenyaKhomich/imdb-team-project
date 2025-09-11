@@ -23,7 +23,7 @@
           </div>
         </label>
       </div>
-      <button class="btn auth-form-button">Sign In</button>
+      <button class="btn auth-form-button" (click)="signup()">Sign Up</button>
       <div class="auth-question">
         Do you already have an account? <a [routerLink]="'/' + AppRoutesEnum.LOGIN">Log In</a>
       </div>

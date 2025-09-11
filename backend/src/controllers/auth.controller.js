@@ -14,7 +14,7 @@ class AuthController {
             let user = await UserModel.findOne({email: req.body.email});
             if (user) {
                 return res.status(400)
-                    .json({error: true, message: "Пользователь с таким E-mail уже существует"});
+                    .json({error: true, message: "A user with such an E-mail already exists"});
             }
 
             let userObject = Object.assign({}, req.body);
@@ -33,7 +33,7 @@ class AuthController {
             });
         } catch (err) {
             console.log(err);
-            res.status(500).json({error: true, message: "Внутренняя ошибка сервера"});
+            res.status(500).json({error: true, message: "Internal server error"});
         }
     }
 
@@ -48,12 +48,12 @@ class AuthController {
             const user = await UserModel.findOne({email: req.body.email});
             if (!user) {
                 return res.status(401)
-                    .json({error: true, message: "Пользователь не найден"});
+                    .json({error: true, message: "The user was not found"});
             }
 
             if (!user.checkPassword(req.body.password)) {
                 return res.status(401)
-                    .json({error: true, message: "Неправильный E-mail или пароль"});
+                    .json({error: true, message: "Incorrect E-mail or password"});
             }
 
             const {accessToken, refreshToken} = await TokenUtils.generateTokens(user, req.body.rememberMe);
@@ -68,7 +68,7 @@ class AuthController {
             });
         } catch (err) {
             console.log(err);
-            res.status(500).json({error: true, message: "Внутренняя ошибка сервера"});
+            res.status(500).json({error: true, message: "Internal server error"});
         }
     }
 
@@ -106,15 +106,15 @@ class AuthController {
             }
             const user = await UserModel.findOne({refreshToken: req.body.refreshToken});
             if (!user) {
-                return res.status(404).json({error: true, message: "Пользователя не существует"});
+                return res.status(404).json({error: true, message: "The user does not exist"});
             }
             user.refreshToken = null;
             await user.save();
 
-            res.status(200).json({error: false, message: "Разлогинен успешно"});
+            res.status(200).json({error: false, message: "Successfully logged out"});
         } catch (err) {
             console.log(err);
-            res.status(500).json({error: true, message: "Внутренняя ошибка сервера"});
+            res.status(500).json({error: true, message: "Internal server error"});
         }
     }
 

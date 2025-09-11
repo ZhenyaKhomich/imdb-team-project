@@ -148,3 +148,18 @@ app-layout {
   }
 }
 
+.cdk-overlay-container {
+  .mat-mdc-snack-bar-label {
+    text-align: center;
+  }
+}
+
+.mat-mdc-menu-content {
+  .user-name {
+    text-shadow: 1px 1px 1px $light-text-secondary;
+    padding: 3px 5px;
+    text-align: center;
+    color: $main-light-yellow
+  }
+}
+
