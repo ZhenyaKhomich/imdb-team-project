@@ -7,7 +7,7 @@
           <mat-icon (click)="mainSlideNext()" fontIcon="arrow_forward_ios"></mat-icon>
         </div>
         <owl-carousel-o [options]="customMovies" #carouseMovies>
-          <ng-template carouselSlide *ngFor="let movie of movies.titles">
+          <ng-template carouselSlide *ngFor="let movie of movies.titles;">
             <div class="movie">
               <div class="movie__img">
                 <img src="{{ movie.primaryImage.url}}" alt="">
