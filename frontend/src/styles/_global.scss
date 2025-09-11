@@ -1,4 +1,14 @@
-@use 'variables' as *;
+@use "variables" as *;
+@use "@angular/material" as mat;
+
+:root {
+  @include mat.dialog-overrides(
+    (
+      container-color: $dark-background-primary,
+      subhead-color: $filter-category-text,
+    )
+  );
+}
 
 body {
   margin: 0;
@@ -12,7 +22,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto ;
+  margin: 0 auto;
 }
 
 .btn {
@@ -66,4 +76,3 @@ a {
     color: $light-text-secondary;
   }
 }
-

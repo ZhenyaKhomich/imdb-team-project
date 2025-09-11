@@ -1,0 +1,116 @@
+@if(view() === 'detail' || view() === 'compact') { @for (item of films(); track
+item.id) {
+<div class="movie">
+  <div class="header">
+    <div class="image">
+      <div
+        class="bookmark"
+        (click)="toggleFavorite(item.id)"
+        tabindex="0"
+        role="button"
+      >
+        <mat-icon
+          class="icon-bookmark"
+          [class.active]="favorite().includes(item.id)"
+          >add</mat-icon
+        >
+      </div>
+      @if(item.primaryImage) {
+      <div class="loading-detail"></div>
+
+      <img
+        [ngSrc]="item.primaryImage.url"
+        [width]="72"
+        [height]="106"
+        [alt]="item.primaryTitle"
+        priority
+      />
+      } @else {
+      <div class="error-img">no poster</div>
+      }
+    </div>
+    <div class="header-content">
+      <h3>
+        {{ item.primaryTitle }}
+      </h3>
+      <p class="time">
+        {{ item.startYear }} @if(item.runtimeSeconds) { &middot;
+        {{ item.runtimeSeconds | secondsToHoursMinutes }}}
+      </p>
+      <div>
+        @if(item.rating) {
+
+        <div class="star">
+          <mat-icon class="icon-star">star</mat-icon>
+          <span
+            >{{ item.rating.aggregateRating }} ({{
+              item.rating.voteCount | numberSuffix
+            }})</span
+          >
+        </div>
+        }
+      </div>
+      <div class="genres">
+        @for (genre of item.genres; track genre) {
+        <p class="genre">{{ genre }}</p>
+        }
+      </div>
+    </div>
+  </div>
+  @if(view() === 'detail') {
+  <p class="plot">{{ item.plot }}</p>
+  }
+</div>
+} } @else if(view() === 'grid') {
+<div class="grid">
+  @for (item of films(); track item.id) {
+  <div class="movie-grid">
+    <div class="image">
+      <div class="bookmark">
+        <mat-icon class="icon-bookmark" [class.active]="true">add</mat-icon>
+      </div>
+      @if(item.primaryImage) {
+      <div class="loading-grid"></div>
+      <img
+        [ngSrc]="item.primaryImage.url"
+        [width]="270"
+        [height]="400"
+        [alt]="item.primaryTitle"
+        priority
+      />
+      } @else {
+      <div class="image-empty">no poster</div>
+      }
+
+      <div class="header-content">
+        <h3>
+          {{ item.primaryTitle }}
+        </h3>
+        <p class="time">
+          {{ item.startYear }} @if(item.runtimeSeconds) { &middot;
+          {{ item.runtimeSeconds | secondsToHoursMinutes }}}
+        </p>
+        <div>
+          @if(item.rating) {
+
+          <div class="star">
+            <mat-icon class="icon-star">star</mat-icon>
+            <span
+              >{{ item.rating.aggregateRating }} ({{
+                item.rating.voteCount | numberSuffix
+              }})</span
+            >
+          </div>
+          }
+        </div>
+        <div class="genres">
+          @for (genre of item.genres; track genre) {
+          <p class="genre">{{ genre }}</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}

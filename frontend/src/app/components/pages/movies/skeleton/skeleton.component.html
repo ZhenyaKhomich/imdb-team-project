@@ -1,0 +1,33 @@
+@if(view() === 'detail' || view() === 'compact') { @for (item of count(); track
+$index) {
+<div class="movie">
+  <div class="header">
+    <div class="skeleton image"></div>
+    <div class="header-content">
+      <p class="skeleton title"></p>
+      <p class="skeleton time"></p>
+      <div class="skeleton rating"></div>
+      <div class="skeleton genres"></div>
+    </div>
+  </div>
+  @if(view() === 'detail') {
+  <p class="skeleton plot"></p>
+  }
+</div>
+} } @else if(view() === 'grid') {
+<div class="grid">
+  @for (item of count(); track $index) {
+  <div class="movie-grid">
+    <div class="image">
+      <div class="skeleton image-movie"></div>
+      <div class="header-content">
+        <p class="skeleton title"></p>
+        <p class="skeleton time"></p>
+        <div class="skeleton rating"></div>
+        <div class="skeleton genres"></div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}
