@@ -39,14 +39,26 @@ item.id) {
       </p>
       <div>
         @if(item.rating) {
-
         <div class="star">
+          @for (item of fullStars(item.rating.aggregateRating); track $index) {
           <mat-icon class="icon-star">star</mat-icon>
-          <span
-            >{{ item.rating.aggregateRating }} ({{
-              item.rating.voteCount | numberSuffix
-            }})</span
-          >
+          } @if(isPathStar(item.rating.aggregateRating)) {
+          <div class="star-wrapper">
+            <mat-icon class="star-border">star_border</mat-icon>
+            <mat-icon
+              class="star-fill"
+              [style]="{
+                '--fill-percent': pathStar(item.rating.aggregateRating) + '%'
+              }"
+            >
+              star
+            </mat-icon>
+          </div>
+          } @for (item of emptyStars(item.rating.aggregateRating); track $index)
+          {
+          <mat-icon class="icon-star">star_border</mat-icon>
+          }
+          <span>({{ item.rating.voteCount | numberSuffix }})</span>
         </div>
         }
       </div>

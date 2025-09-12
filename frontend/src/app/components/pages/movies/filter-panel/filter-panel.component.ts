@@ -9,7 +9,7 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { RangeComponent } from '../range/range.component';
 import { ChooseComponent } from '../choose/choose.component';
-import type { FilterChoose, RangeTypes } from '../types/types';
+import type { FilterChoose, RangeTypes } from '../../../../shared/types/movies';
 
 @Component({
   selector: 'app-filter-panel',
