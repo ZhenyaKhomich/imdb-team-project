@@ -321,6 +321,25 @@
       display: none;
     }
 
+    &__actions {
+      &-pro {
+
+        .imbdPro {
+          top: 40px;
+          right: auto;
+          left: 0;
+        }
+
+        &:hover {
+          background: $background-light-transparent-100;
+
+          .imbdPro {
+            display: block;
+          }
+        }
+      }
+    }
+
     .menu {
       &__clone {
         display: flex;

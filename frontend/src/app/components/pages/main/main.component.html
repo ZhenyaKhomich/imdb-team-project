@@ -85,7 +85,9 @@
     </section>
     <section class="main__actors slider">
       <h3 class="section-title">Popular actors</h3>
-      <app-slider [id]="SliderIdEnum.popular_actors" [elementsSlider]="actors"></app-slider>
+      @if(popularActors) {
+      <app-slider [id]="SliderIdEnum.popular_actors" [elementsSlider]="popularActors"></app-slider>
+      }
     </section>
     <section class="main__what slider">
       <h3 class="section-title">What to watch</h3>

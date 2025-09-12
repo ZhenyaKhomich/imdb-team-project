@@ -30,6 +30,4 @@ export class AuthService {
   public getUser(): Observable<UserDataType> {
     return this.http.get<UserDataType>(environment.api + RequestsEnum.USERS);
   }
-
-
 }

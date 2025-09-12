@@ -3,4 +3,5 @@ export enum RequestsEnum {
   SIGNUP = 'signup',
   LOGOUT = 'logout',
   USERS = 'users',
+  ALL_ACTORS = 'chart/starmeter',
 }

@@ -1,5 +1,6 @@
 export interface ActorsDataType {
-  "names": ActorDataType[];
+  names: ActorDataType[];
+  nextPageToken?: string;
 }
 
 export interface ActorDataType {
