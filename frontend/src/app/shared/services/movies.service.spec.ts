@@ -5,12 +5,12 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { MoviesService } from './movies.service';
-import { environment } from '../../../environments/environment';
 import { RequestsEnum } from '../enums/requests.enum';
 
 describe('MoviesService', () => {
   let service: MoviesService;
   let httpMock: HttpTestingController;
+  const baseUrl = 'https://api.imdbapi.dev/';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,7 +32,8 @@ describe('MoviesService', () => {
   it('GET', () => {
     service.getTitles().subscribe();
 
-    const request = httpMock.expectOne(environment.api + RequestsEnum.TITLES);
+    const request = httpMock.expectOne(baseUrl + RequestsEnum.TITLES);
+    // const request = httpMock.expectOne(environment.api + RequestsEnum.TITLES);
     expect(request.request.method).toBe('GET');
     expect(request.request.params.keys().length).toBe(0);
 
@@ -44,10 +45,16 @@ describe('MoviesService', () => {
 
     const request = httpMock.expectOne(
       (r) =>
-        r.url === environment.api + RequestsEnum.TITLES &&
+        r.url === baseUrl + RequestsEnum.TITLES &&
         r.params.get('type') === 'MOVIE' &&
         r.params.get('year') === '2024'
     );
+    // const request = httpMock.expectOne(
+    //   (r) =>
+    //     r.url === environment.api + RequestsEnum.TITLES &&
+    //     r.params.get('type') === 'MOVIE' &&
+    //     r.params.get('year') === '2024'
+    // );
 
     expect(request).toBeTruthy();
     expect(request.request.method).toBe('GET');
@@ -61,11 +68,17 @@ describe('MoviesService', () => {
     const request = httpMock.expectOne((r) => {
       const types = r.params.getAll('types');
       return (
-        r.url === environment.api + RequestsEnum.TITLES &&
+        r.url === baseUrl + RequestsEnum.TITLES &&
         types !== null &&
         types.includes('MOVIE') &&
         types.includes('TV_SERIES')
       );
+      // return (
+      //   r.url === environment.api + RequestsEnum.TITLES &&
+      //   types !== null &&
+      //   types.includes('MOVIE') &&
+      //   types.includes('TV_SERIES')
+      // );
     });
 
     expect(request).toBeTruthy();
