@@ -22,6 +22,7 @@ import { FilterPanelComponent } from './filter-panel/filter-panel.component';
 import { ListComponent } from './list/list.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
+import { MoviesService } from '../../../shared/services/movies.service';
 
 @Component({
   selector: 'app-movies',
@@ -43,6 +44,7 @@ import { FilterModalComponent } from './filter-modal/filter-modal.component';
 })
 export class MoviesComponent {
   public filterService = inject(FilterService);
+  public moviesService = inject(MoviesService);
   public dialog = inject(MatDialog);
 
   public currentPage = signal(1);
@@ -89,7 +91,7 @@ export class MoviesComponent {
       debounceTime(500),
       switchMap((parameters: Record<string, string | number | string[]>) => {
         this.loading.set(true);
-        return this.filterService.getTitles(parameters);
+        return this.moviesService.getTitles(parameters);
       }),
       map((data) => {
         this.loading.set(false);

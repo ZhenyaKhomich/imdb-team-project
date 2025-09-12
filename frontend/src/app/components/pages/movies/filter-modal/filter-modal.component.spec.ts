@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FilterModalComponent } from './filter-modal.component';
-import type { FilterChoose, RangeTypes } from '../types/types';
+import type { FilterChoose, RangeTypes } from '../../../../shared/types/movies';
 
 interface MockDialogData {
   listGenres: Omit<FilterChoose, 'name'>[];
