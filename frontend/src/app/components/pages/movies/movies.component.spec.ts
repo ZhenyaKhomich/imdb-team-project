@@ -8,10 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { of, throwError } from 'rxjs';
 import { MoviesComponent } from './movies.component';
 import { FilterService } from './services/filter.service';
-import type { Film } from './types/types';
-import { SecondsToHoursMinutesPipe } from './pipes/seconds-to-hours-minutes.pipe';
-import { NumberSuffixPipe } from './pipes/number-suffix.pipe';
+import { NumberSuffixPipe } from '../../../shared/pipes/number-suffix.pipe';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
+import { MinutesToHoursPipe } from '../../../shared/pipes/minutes-to-hours.pipe';
+import type { Film } from '../../../shared/types/movies';
+import type { MoviesService } from '../../../shared/services/movies.service';
 
 describe('MoviesComponent', () => {
   let component: MoviesComponent;
@@ -20,6 +21,7 @@ describe('MoviesComponent', () => {
   let mockBreakpointObserver: jasmine.SpyObj<BreakpointObserver>;
   let mockDialog: jasmine.SpyObj<MatDialog>;
   let mockFilterService: jasmine.SpyObj<FilterService>;
+  let mockMoviesService: jasmine.SpyObj<MoviesService>;
 
   const mockFilms: Film[] = [
     {
@@ -67,7 +69,6 @@ describe('MoviesComponent', () => {
       'updateRangeInputs',
       'toggleFavorite',
       'sortBy',
-      'getTitles',
     ]);
     mockFilterService.listGenres.and.returnValue([]);
     mockFilterService.types.and.returnValue([]);
@@ -81,7 +82,9 @@ describe('MoviesComponent', () => {
     });
     mockFilterService.favoriteId.and.returnValue([]);
     mockFilterService.sortBy.and.returnValue([]);
-    mockFilterService.getTitles.and.returnValue(of(mockData));
+
+    mockMoviesService = jasmine.createSpyObj('MoviesService', ['getTitles']);
+    mockMoviesService.getTitles.and.returnValue(of(mockData));
 
     await TestBed.configureTestingModule({
       imports: [MoviesComponent],
@@ -91,7 +94,8 @@ describe('MoviesComponent', () => {
         { provide: BreakpointObserver, useValue: mockBreakpointObserver },
         { provide: MatDialog, useValue: mockDialog },
         { provide: FilterService, useValue: mockFilterService },
-        SecondsToHoursMinutesPipe,
+        { provide: 'MoviesService', useValue: mockMoviesService },
+        MinutesToHoursPipe,
         NumberSuffixPipe,
       ],
     }).compileComponents();
@@ -248,7 +252,7 @@ describe('MoviesComponent', () => {
   });
 
   it('show error', fakeAsync(() => {
-    mockFilterService.getTitles.and.returnValue(
+    mockMoviesService.getTitles.and.returnValue(
       throwError(() => new Error('Test error'))
     );
 

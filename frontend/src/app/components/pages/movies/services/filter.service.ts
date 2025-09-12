@@ -1,7 +1,4 @@
-import { computed, Injectable, signal, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import type { Observable } from 'rxjs';
-import type { Data } from '../types/types';
+import { computed, Injectable, signal } from '@angular/core';
 
 export interface FilterOptions {
   category?: string;
@@ -72,28 +69,6 @@ export class FilterService {
   public sortOrder = signal(['ASC', 'DESC']);
 
   private filtersSource = signal<FilterOptions>({});
-  private http = inject(HttpClient);
-  private readonly baseUrl = 'https://api.imdbapi.dev/titles';
-
-  public getTitles(
-    queryParameters?: Record<string, string | number | string[]>
-  ): Observable<Data> {
-    let parameters = new HttpParams();
-
-    if (queryParameters) {
-      Object.entries(queryParameters).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach(
-            (v) => (parameters = parameters.append(key, String(v)))
-          );
-        } else {
-          parameters = parameters.set(key, String(value));
-        }
-      });
-    }
-
-    return this.http.get<Data>(this.baseUrl, { params: parameters });
-  }
 
   public reset(): void {
     this.types.update((element) =>

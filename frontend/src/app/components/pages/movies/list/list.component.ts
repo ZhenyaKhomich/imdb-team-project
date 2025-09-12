@@ -6,17 +6,19 @@ import {
   output,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { SecondsToHoursMinutesPipe } from '../pipes/seconds-to-hours-minutes.pipe';
-import { NumberSuffixPipe } from '../pipes/number-suffix.pipe';
-import type { Film } from '../types/types';
+import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
+import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
+import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
+import type { Film } from '../../../../shared/types/movies';
 
 @Component({
   selector: 'app-list',
   imports: [
     NgOptimizedImage,
     MatIconModule,
-    SecondsToHoursMinutesPipe,
+    MinutesToHoursPipe,
     NumberSuffixPipe,
+    TruncatePipe,
   ],
   standalone: true,
   templateUrl: './list.component.html',
@@ -30,5 +32,32 @@ export class ListComponent {
   public favoriteId = output<string>();
   public toggleFavorite(id: string): void {
     this.favoriteId.emit(id);
+  }
+
+  public isPathStar(rating: number): boolean {
+    return Math.floor(rating) < rating;
+  }
+
+  public pathStar(rating: number): number {
+    return (rating - Math.floor(rating)) * 100;
+  }
+
+  public fullStars(rating: number): number[] {
+    return Array(Math.floor(rating))
+      .fill(0)
+      .map((_, i) => i);
+  }
+
+  public emptyStars(rating: number): number[] {
+    if (rating - Math.floor(rating) === 0) {
+      return 10 - rating > 0
+        ? Array(10 - rating)
+            .fill(0)
+            .map((_, i) => i)
+        : [];
+    }
+    return Array(10 - Math.ceil(rating))
+      .fill(0)
+      .map((_, i) => i);
   }
 }
