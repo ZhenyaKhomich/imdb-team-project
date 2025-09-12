@@ -35,7 +35,7 @@ item.id) {
       </h3>
       <p class="time">
         {{ item.startYear }} @if(item.runtimeSeconds) { &middot;
-        {{ item.runtimeSeconds | secondsToHoursMinutes }}}
+        {{ item.runtimeSeconds | minutesToHours }}}
       </p>
       <div>
         @if(item.rating) {
@@ -58,7 +58,7 @@ item.id) {
     </div>
   </div>
   @if(view() === 'detail') {
-  <p class="plot">{{ item.plot }}</p>
+  <p class="plot">{{ item.plot | truncate : 300 }}</p>
   }
 </div>
 } } @else if(view() === 'grid') {
@@ -88,7 +88,7 @@ item.id) {
         </h3>
         <p class="time">
           {{ item.startYear }} @if(item.runtimeSeconds) { &middot;
-          {{ item.runtimeSeconds | secondsToHoursMinutes }}}
+          {{ item.runtimeSeconds | minutesToHours }}}
         </p>
         <div>
           @if(item.rating) {

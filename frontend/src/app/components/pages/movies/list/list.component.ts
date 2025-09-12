@@ -6,17 +6,19 @@ import {
   output,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { SecondsToHoursMinutesPipe } from '../pipes/seconds-to-hours-minutes.pipe';
-import { NumberSuffixPipe } from '../pipes/number-suffix.pipe';
 import type { Film } from '../types/types';
+import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
+import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
+import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 
 @Component({
   selector: 'app-list',
   imports: [
     NgOptimizedImage,
     MatIconModule,
-    SecondsToHoursMinutesPipe,
+    MinutesToHoursPipe,
     NumberSuffixPipe,
+    TruncatePipe,
   ],
   standalone: true,
   templateUrl: './list.component.html',

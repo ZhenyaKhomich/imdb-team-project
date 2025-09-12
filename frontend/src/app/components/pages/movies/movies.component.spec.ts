@@ -9,9 +9,9 @@ import { of, throwError } from 'rxjs';
 import { MoviesComponent } from './movies.component';
 import { FilterService } from './services/filter.service';
 import type { Film } from './types/types';
-import { SecondsToHoursMinutesPipe } from './pipes/seconds-to-hours-minutes.pipe';
-import { NumberSuffixPipe } from './pipes/number-suffix.pipe';
+import { NumberSuffixPipe } from '../../../shared/pipes/number-suffix.pipe';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
+import { MinutesToHoursPipe } from '../../../shared/pipes/minutes-to-hours.pipe';
 
 describe('MoviesComponent', () => {
   let component: MoviesComponent;
@@ -91,7 +91,7 @@ describe('MoviesComponent', () => {
         { provide: BreakpointObserver, useValue: mockBreakpointObserver },
         { provide: MatDialog, useValue: mockDialog },
         { provide: FilterService, useValue: mockFilterService },
-        SecondsToHoursMinutesPipe,
+        MinutesToHoursPipe,
         NumberSuffixPipe,
       ],
     }).compileComponents();

@@ -4,8 +4,8 @@ import { By } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ListComponent } from './list.component';
-import { SecondsToHoursMinutesPipe } from '../pipes/seconds-to-hours-minutes.pipe';
-import { NumberSuffixPipe } from '../pipes/number-suffix.pipe';
+import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
+import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -17,7 +17,7 @@ describe('ListComponent', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        SecondsToHoursMinutesPipe,
+        MinutesToHoursPipe,
         NumberSuffixPipe,
       ],
     }).compileComponents();
