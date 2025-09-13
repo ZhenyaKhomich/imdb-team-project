@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {delay, Observable, of} from 'rxjs';
+import {delay, of} from 'rxjs';
+import type {Observable} from 'rxjs';
 import type { ActorsDataType} from '../types/actors-data.type';
 import {environment} from '../../../environments/environment';
 import {RequestsEnum} from '../enums/requests.enum';

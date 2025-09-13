@@ -25,7 +25,7 @@
                   <span class="description">Categories: </span>
                   <div class="movie__categories">
                     <div class="movie__category"
-                         *ngFor="let category of movie.genres; let i = index">{{ category.toLowerCase() }}@if (i !== movie.genres.length - 1) {
+                         *ngFor="let category of movie.genres; let i = index">{{ category | lowercase }} @if (i !== movie.genres.length - 1) {
                       , &nbsp;
                     } @else {
                       .
@@ -84,10 +84,13 @@
       </div>
     </section>
     <section class="main__actors slider">
-      <h3 class="section-title">Popular actors</h3>
+      <h3 class="section-title">Top 20 popular actors on IMDb</h3>
       @if(popularActors) {
       <app-slider [id]="SliderIdEnum.popular_actors" [elementsSlider]="popularActors"></app-slider>
       }
+      <div class="main__what-all-list">View the entire actors
+        <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+      </div>
     </section>
     <section class="main__what slider">
       <h3 class="section-title">What to watch</h3>

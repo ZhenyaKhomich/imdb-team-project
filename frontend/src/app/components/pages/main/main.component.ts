@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewChild} from '@angular/core';
 import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {AsyncPipe, NgForOf} from '@angular/common';
+import {AsyncPipe, LowerCasePipe, NgForOf} from '@angular/common';
 import {MinutesToHoursPipe} from '../../../shared/pipes/minutes-to-hours.pipe';
 import type {CarouselComponent} from 'ngx-owl-carousel-o';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
@@ -22,7 +22,7 @@ import {ActorsService} from '../../../shared/services/actors.service';
     NgForOf,
     MinutesToHoursPipe,
     SliderComponent,
-    AsyncPipe,
+    LowerCasePipe,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -509,7 +509,6 @@ export class MainComponent implements OnInit {
   protected readonly Number = Number;
   protected readonly SliderIdEnum = SliderIdEnum;
   private actorsService = inject(ActorsService);
-  private cdr = inject(ChangeDetectorRef);
 
 
   public ngOnInit(): void {

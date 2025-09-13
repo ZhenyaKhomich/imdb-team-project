@@ -1,21 +1,21 @@
-const WatchlistModel = require("../models/watchlist.model");
+const ViewedModel = require("../models/viewed.model");
 const CommentModel = require("../models/comment.model");
 const CommentNormalizer = require("../normalizers/comment.normalizer");
-const UserModel = require("../models/user.model"); // Добавляем импорт UserModel
+const UserModel = require("../models/user.model");
 
-class WatchlistController {
-    static async getWatchlist(req, res) {
+class ViewedController {
+    static async getViewed(req, res) {
         try {
-            let watchlist = await WatchlistModel.findOne();
+            let viewed = await ViewedModel.findOne();
 
-            if (!watchlist) {
-                watchlist = new WatchlistModel({ titles: [] });
-                await watchlist.save();
+            if (!viewed) {
+                viewed = new ViewedModel({ titles: [] });
+                await viewed.save();
             }
 
             // Получаем комментарии для каждого title
             const titlesWithComments = await Promise.all(
-                watchlist.titles.map(async (title) => {
+                viewed.titles.map(async (title) => {
                     try {
                         const comments = await CommentModel.find({ title: title.id });
 
@@ -44,12 +44,12 @@ class WatchlistController {
 
             res.json({ titles: titlesWithComments });
         } catch (err) {
-            console.log('Error in getWatchlist:', err);
+            console.log('Error in getViewed:', err);
             res.status(500).json({ error: true, message: "Внутренняя ошибка сервера" });
         }
     }
 
-    static async addToWatchlist(req, res) {
+    static async addToViewed(req, res) {
         try {
             const { titleData } = req.body;
 
@@ -57,48 +57,48 @@ class WatchlistController {
                 return res.status(400).json({ error: true, message: "Неверные данные title" });
             }
 
-            let watchlist = await WatchlistModel.findOne();
-            if (!watchlist) {
-                watchlist = new WatchlistModel({ titles: [] });
+            let viewed = await ViewedModel.findOne();
+            if (!viewed) {
+                viewed = new ViewedModel({ titles: [] });
             }
 
-            const existingTitle = watchlist.titles.find(t => t.id === titleData.id);
+            const existingTitle = viewed.titles.find(t => t.id === titleData.id);
             if (existingTitle) {
-                return res.status(400).json({ error: true, message: "Title уже есть в watchlist" });
+                return res.status(400).json({ error: true, message: "Title уже есть в просмотренных" });
             }
 
-            watchlist.titles.push(titleData);
-            await watchlist.save();
+            viewed.titles.push(titleData);
+            await viewed.save();
 
-            res.status(200).json({ error: false, message: "Title добавлен в watchlist" });
+            res.status(200).json({ error: false, message: "Title добавлен в просмотренные" });
         } catch (err) {
-            console.log('Error in addToWatchlist:', err);
+            console.log('Error in addToViewed:', err);
             res.status(500).json({ error: true, message: "Внутренняя ошибка сервера" });
         }
     }
 
-    static async removeFromWatchlist(req, res) {
+    static async removeFromViewed(req, res) {
         try {
             const { id } = req.params;
 
-            let watchlist = await WatchlistModel.findOne();
-            if (!watchlist) {
-                return res.status(404).json({ error: true, message: "Watchlist не найден" });
+            let viewed = await ViewedModel.findOne();
+            if (!viewed) {
+                return res.status(404).json({ error: true, message: "Список просмотренных не найден" });
             }
 
             // Удаляем title
-            watchlist.titles = watchlist.titles.filter(t => t.id !== id);
-            await watchlist.save();
+            viewed.titles = viewed.titles.filter(t => t.id !== id);
+            await viewed.save();
 
             // Удаляем связанные комментарии
             await CommentModel.deleteMany({ title: id });
 
-            res.status(200).json({ error: false, message: "Title удален из watchlist" });
+            res.status(200).json({ error: false, message: "Title удален из просмотренных" });
         } catch (err) {
-            console.log('Error in removeFromWatchlist:', err);
+            console.log('Error in removeFromViewed:', err);
             res.status(500).json({ error: true, message: "Внутренняя ошибка сервера" });
         }
     }
 }
 
-module.exports = WatchlistController;
+module.exports = ViewedController;

@@ -2,21 +2,38 @@ const express = require('express');
 const cors = require('cors');
 const watchlistRoutes = require('./src/routes/watchlist.routes');
 const commentRoutes = require('./src/routes/comment.routes');
+const viewedRoutes = require('./src/routes/viewed.routes');
 const authRoutes = require('./src/routes/auth.routes');
 const userRoutes = require('./src/routes/user.routes');
-const MongoDBConnection = require("./src/utils/common/connection");
 const config = require("./src/config/config");
 const path = require('path');
 const passport = require('passport');
 const UserModel = require("./src/models/user.model");
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
+const fileStorage = require('./src/utils/file-storage'); // Добавляем импорт
+const initData = require('./src/utils/init-data');
 
-MongoDBConnection.getConnection((error, connection) => {
-    if (error || !connection) {
-        console.log('Db connection error', error);
-        return;
+// Инициализация файлового хранилища
+async function initializeApp() {
+    try {
+        // Инициализируем папку data
+        await fileStorage.init();
+        console.log('File storage initialized');
+
+        // Инициализируем начальные данные
+        await initData();
+        console.log('Initial data created');
+
+        // Запускаем сервер
+        startServer();
+    } catch (error) {
+        console.error('Failed to initialize app:', error);
+        process.exit(1);
     }
+}
+
+function startServer() {
     const app = express();
 
     app.use(express.static(path.join(__dirname, 'public')));
@@ -24,11 +41,16 @@ MongoDBConnection.getConnection((error, connection) => {
     app.use(cors());
 
     passport.use(new JwtStrategy({
-        jwtFromRequest: ExtractJwt.fromHeader('x-auth'),
+        jwtFromRequest: (req) => {
+            // Кастомное извлечение из заголовка x-auth
+            if (req && req.headers && req.headers['x-auth']) {
+                return req.headers['x-auth'];
+            }
+            return null;
+        }, // Изменяем способ извлечения
         secretOrKey: config.secret,
         algorithms: ["HS256"],
     }, async (payload, next) => {
-
         if (!payload.id) {
             return next(new Error('Не валидный токен'));
         }
@@ -37,14 +59,12 @@ MongoDBConnection.getConnection((error, connection) => {
         try {
             user = await UserModel.findOne({_id: payload.id});
         } catch (e) {
-            console.log(e);
+            console.log('Error finding user:', e);
+            return next(new Error('Ошибка поиска пользователя'));
         }
 
         if (user) {
-            if (!user.refreshToken) {
-                return next(new Error('Ошибка авторизации'));
-            }
-            return next(null, payload);
+            return next(null, user); // Передаем экземпляр UserModel
         }
 
         next(new Error('Пользователь не найден'));
@@ -57,6 +77,7 @@ MongoDBConnection.getConnection((error, connection) => {
     app.use("/api/comments", commentRoutes);
     app.use("/api/users", userRoutes);
     app.use("/api/watchlist", watchlistRoutes);
+    app.use("/api/viewed", viewedRoutes);
 
     app.use(function (req, res, next) {
         const err = new Error('Not Found');
@@ -69,7 +90,9 @@ MongoDBConnection.getConnection((error, connection) => {
     });
 
     app.listen(config.port, () =>
-        console.log(`Server started`)
+        console.log(`Server started on port ${config.port}`)
     );
-})
+}
 
+// Запускаем инициализацию
+initializeApp();

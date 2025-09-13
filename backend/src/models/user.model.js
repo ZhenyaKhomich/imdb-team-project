@@ -1,44 +1,52 @@
+const fileStorage = require('../utils/file-storage');
 const crypto = require('crypto');
-const mongoose = require('mongoose');
 const randomBytesNum = 128;
 
-const UserSchema = new mongoose.Schema({
-    name: String,
-    email: {
-        type: String,
-        required: 'e-mail is required',
-        unique: 'this e-mail already exist',
-    },
-    salt: String,
-    passwordHash: String,
-    refreshToken: String,
-}, {
-    timestamps: true,
-});
-
-UserSchema.methods.checkPassword = function (password) {
-    if (!password) {
-        return false;
-    }
-    if (!this.passwordHash) {
-        return false;
+class UserModel {
+    constructor(data = {}) {
+        Object.assign(this, data);
     }
 
-    const hash = crypto.pbkdf2Sync(password, this.salt, 1, randomBytesNum, 'sha1');
-    if (hash.toString() === this.passwordHash) {
-        return true;
+    static async findOne(query) {
+        const result = await fileStorage.findOne('users', query);
+        return result ? new UserModel(result) : null;
     }
 
-    return hash.toString('base64') === this.passwordHash;
-};
-UserSchema.methods.setPassword = function (password) {
-    if (!password) {
-        return false;
+    static async find(query = {}) {
+        const results = await fileStorage.find('users', query);
+        return results.map(item => new UserModel(item));
     }
-    this.salt = crypto.randomBytes(randomBytesNum).toString('base64');
-    this.passwordHash = crypto.pbkdf2Sync(password, this.salt, 1, randomBytesNum, 'sha1').toString('base64');
-};
 
-const UserModel = mongoose.model('User', UserSchema);
+    static async create(userData) {
+        const result = await fileStorage.insert('users', userData);
+        return new UserModel(result);
+    }
+
+    static async update(query, updateData) {
+        return await fileStorage.update('users', query, updateData);
+    }
+
+    checkPassword(password) {
+        if (!password || !this.passwordHash) return false;
+        const hash = crypto.pbkdf2Sync(password, this.salt, 1, randomBytesNum, 'sha1');
+        return hash.toString('base64') === this.passwordHash;
+    }
+
+    setPassword(password) {
+        if (!password) return false;
+        this.salt = crypto.randomBytes(randomBytesNum).toString('base64');
+        this.passwordHash = crypto.pbkdf2Sync(password, this.salt, 1, randomBytesNum, 'sha1').toString('base64');
+    }
+
+    async save() {
+        if (this._id) {
+            return await fileStorage.update('users', { _id: this._id }, this);
+        } else {
+            const result = await fileStorage.insert('users', this);
+            this._id = result._id;
+            return result;
+        }
+    }
+}
 
 module.exports = UserModel;

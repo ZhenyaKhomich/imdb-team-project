@@ -11,9 +11,9 @@
     justify-content: space-between;
     position: absolute;
     top: calc(50% - 40px);
-    left: -10px;
+    left: -13px;
     z-index: 2;
-    max-width: 1235px;
+    max-width: 1234px;
     width: 100vw;
 
     mat-icon {
@@ -46,6 +46,7 @@
     img {
       width: 100%;
       border-radius: 30px;
+      object-fit: cover;
     }
 
     &__name {

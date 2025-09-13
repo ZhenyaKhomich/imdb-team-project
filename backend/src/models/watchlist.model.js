@@ -1,32 +1,38 @@
-const mongoose = require('mongoose');
+const fileStorage = require('../utils/file-storage');
 
-const RatingSchema = new mongoose.Schema({
-    aggregateRating: Number,
-    voteCount: Number
-});
+class WatchlistModel {
+    constructor(data = {}) {
+        Object.assign(this, data);
+        this.titles = this.titles || [];
+    }
 
-const PrimaryImageSchema = new mongoose.Schema({
-    url: String,
-    width: Number,
-    height: Number
-});
+    static async findOne() {
+        // Для watchlist всегда один документ
+        try {
+            const result = await fileStorage.findOne('watchlist', {});
+            return result ? new WatchlistModel(result) : new WatchlistModel({ titles: [] });
+        } catch (error) {
+            console.error('Error in WatchlistModel.findOne:', error);
+            return new WatchlistModel({ titles: [] });
+        }
+    }
 
-const TitleSchema = new mongoose.Schema({
-    id: { type: String, required: true, unique: true },
-    type: String,
-    primaryTitle: String,
-    originalTitle: String,
-    primaryImage: PrimaryImageSchema,
-    startYear: Number,
-    runtimeSeconds: Number,
-    genres: [String],
-    rating: RatingSchema,
-    plot: String
-});
+    async save() {
+        try {
+            // Всегда обновляем единственный watchlist документ
+            const existing = await fileStorage.findOne('watchlist', {});
+            if (existing && existing._id) {
+                return await fileStorage.update('watchlist', { _id: existing._id }, this);
+            } else {
+                const result = await fileStorage.insert('watchlist', this);
+                this._id = result._id;
+                return result;
+            }
+        } catch (error) {
+            console.error('Error saving watchlist:', error);
+            throw error;
+        }
+    }
+}
 
-const WatchlistSchema = new mongoose.Schema({
-    titles: [TitleSchema]
-});
-
-const WatchlistModel = mongoose.model('Watchlist', WatchlistSchema);
 module.exports = WatchlistModel;

@@ -1,10 +1,10 @@
 const CommentModel = require("../models/comment.model");
 const ValidationUtils = require("../utils/validation.utils");
-const mongoose = require('mongoose');
 const CommentNormalizer = require("./../normalizers/comment.normalizer");
 const UserCommentActionModel = require("../models/user-comment-action.model");
 const config = require("../config/config");
 const UserCommentActionNormalizer = require("../normalizers/user-comment-action.normalizer");
+const UserModel = require("../models/user.model"); // Добавляем импорт UserModel
 
 class CommentController {
     static async addComment(req, res) {
@@ -18,8 +18,11 @@ class CommentController {
         let comment = new CommentModel();
         comment.text = req.body.text;
         comment.date = new Date();
-        comment.user = new mongoose.Types.ObjectId(req.user.id);
+        comment.user = req.user.id; // Убираем mongoose.Types.ObjectId
         comment.title = req.body.title;
+        comment.likesCount = 0;
+        comment.dislikesCount = 0;
+        comment.violatesCount = 0;
 
         const result = await comment.save();
 
@@ -34,14 +37,22 @@ class CommentController {
                 .json({error: true, message: "Не передан параметр url"});
         }
 
-        const offset = req.query['offset'] || 3;
+        const offset = parseInt(req.query['offset'] || 0);
         const loadCount = 10;
 
-        let comments = await CommentModel.find({title: title})
-            .populate('user')
-            .sort({date: -1});
+        let comments = await CommentModel.find({title: title});
 
-        let slicedComments = comments.slice(parseInt(offset), parseInt(offset) + loadCount);
+        // Заменяем populate ручной подстановкой пользователей
+        const users = await UserModel.find();
+        comments = comments.map(comment => {
+            const user = users.find(u => u._id === comment.user);
+            return { ...comment, user };
+        });
+
+        // Сортируем по дате
+        comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let slicedComments = comments.slice(offset, offset + loadCount);
 
         return res.json({
             allCount: comments.length,
@@ -63,7 +74,7 @@ class CommentController {
                 .json({error: true, message: "Не передан параметр id"});
         }
 
-        let comment = await CommentModel.findOne({_id: id}).populate('user');
+        let comment = await CommentModel.findOne({_id: id});
         if (!comment) {
             return res.status(404)
                 .json({error: true, message: "Комментарий не найден"});
@@ -73,7 +84,8 @@ class CommentController {
             comment: id,
             user: req.user.id,
             action: req.body.action
-        }).populate('user');
+        });
+
         if (commentUserAction) {
             if (commentUserAction.action === config.userCommentActions.violate) {
                 return res.status(400)
@@ -89,17 +101,17 @@ class CommentController {
                         comment.dislikesCount -= 1;
                     }
                 }
-                const result = await comment.save();
-                console.log(result);
+                await comment.save();
 
                 return res.status(200).json({error: false, message: "Успешное действие!"});
             }
         }
 
         commentUserAction = new UserCommentActionModel();
-        commentUserAction.user = new mongoose.Types.ObjectId(req.user.id);
-        commentUserAction.comment = new mongoose.Types.ObjectId(id);
+        commentUserAction.user = req.user.id; // Убираем mongoose.Types.ObjectId
+        commentUserAction.comment = id; // Убираем mongoose.Types.ObjectId
         commentUserAction.action = req.body.action;
+
         const result = await commentUserAction.save();
         if (result) {
             if (commentUserAction.action === config.userCommentActions.like) {
@@ -132,8 +144,7 @@ class CommentController {
                 comment.violatesCount += 1;
             }
 
-            const result = await comment.save();
-            console.log(result);
+            await comment.save();
         }
 
         res.status(200).json({error: false, message: "Успешное действие!"});
@@ -150,7 +161,7 @@ class CommentController {
             comment: id,
             user: req.user.id,
             action: {$ne: config.userCommentActions.violate}
-        }).lean();
+        });
 
         commentUserActions = commentUserActions.map(item => UserCommentActionNormalizer.normalize(item));
         res.json(commentUserActions);
@@ -164,16 +175,19 @@ class CommentController {
                 .json({error: true, message: "Не передан параметр titleId для title"});
         }
 
-        let comments = await CommentModel.find({title: titleId}).sort({date: -1});
-        if (!comments || (comments && comments.length === 0)) {
+        let comments = await CommentModel.find({title: titleId});
+        if (!comments || comments.length === 0) {
             return res.json([]);
         }
 
+        // Сортируем по дате
+        comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+
         let commentUserActions = await UserCommentActionModel.find({
-            comment: {$in: comments.map(item => item._id.toString())},
+            comment: {$in: comments.map(item => item._id)},
             user: req.user.id,
             action: {$ne: config.userCommentActions.violate}
-        }).lean();
+        });
 
         commentUserActions = commentUserActions.map(item => UserCommentActionNormalizer.normalize(item));
         res.json(commentUserActions);
