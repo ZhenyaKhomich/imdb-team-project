@@ -1,15 +1,32 @@
-const config = require('../config/config');
-const mongoose = require('mongoose');
+const fileStorage = require('../utils/file-storage');
 
-const UserCommentActionSchema = new mongoose.Schema({
-    action: {
-        type: String,
-        enum: [config.userCommentActions.like, config.userCommentActions.dislike, config.userCommentActions.violate],
-        default: config.userCommentActions.like
-    },
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    comment: {type: mongoose.Schema.Types.ObjectId, ref: 'Comment', required: true},
-});
+class UserCommentActionModel {
+    constructor(data = {}) {
+        Object.assign(this, data);
+    }
 
-const UserCommentActionModel = mongoose.model('UserCommentAction', UserCommentActionSchema);
+    static async find(query = {}) {
+        return (await fileStorage.find('userCommentActions', query)).map(item => new UserCommentActionModel(item));
+    }
+
+    static async findOne(query) {
+        const result = await fileStorage.findOne('userCommentActions', query);
+        return result ? new UserCommentActionModel(result) : null;
+    }
+
+    async save() {
+        if (this._id) {
+            return await fileStorage.update('userCommentActions', { _id: this._id }, this);
+        } else {
+            const result = await fileStorage.insert('userCommentActions', this);
+            this._id = result._id;
+            return result;
+        }
+    }
+
+    async remove() {
+        return await fileStorage.delete('userCommentActions', { _id: this._id });
+    }
+}
+
 module.exports = UserCommentActionModel;

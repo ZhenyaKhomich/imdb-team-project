@@ -10,6 +10,7 @@ export class LocalStorageService {
   private localStorage = inject(LOCALE_STORAGE_TOKEN);
 
   public setTokens(data: LoginResponseType): void {
+    console.log(data);
     this.localStorage.setItem(TokensEnum.AccessToken, data.accessToken);
     this.localStorage.setItem(TokensEnum.RefreshToken, data.refreshToken);
     this.localStorage.setItem(TokensEnum.UserId, data.userId);

@@ -80,6 +80,78 @@
           <div class="header__logo">IMDb</div>
           <mat-icon class="menu__close" fontIcon="cancel" (click)="actionsToMenu()"></mat-icon>
         </div>
+
+        <div class="menu__clone">
+          <div class="header__search">
+            <mat-form-field class="header__search-select" appearance="outline">
+              <mat-select required [value]="'all'" panelClass="custom-select-panel">
+                <mat-option value="all">
+                  <mat-icon>search</mat-icon>
+                  All
+                </mat-option>
+                <mat-option value="titles">
+                  <mat-icon>theaters</mat-icon>
+                  Titles
+                </mat-option>
+                <mat-option value="episodes">
+                  <mat-icon>tv</mat-icon>
+                  TV episodes
+                </mat-option>
+                <mat-option value="celebs">
+                  <mat-icon>group</mat-icon>
+                  Celebs
+                </mat-option>
+                <mat-option value="companies">
+                  <mat-icon>domain</mat-icon>
+                  Companies
+                </mat-option>
+                <mat-option value="keywords">
+                  <mat-icon>label</mat-icon>
+                  Keywords
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <input class="header__search-input" type="text" placeholder="Search IMDb">
+            <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon"
+                      fontIcon="search"></mat-icon>
+          </div>
+          <div class="header__actions">
+            <div class="header__actions-pro">
+              IMDb<span>Pro</span>
+              <div class="imbdPro">
+                <div class="imbdPro__wrapper">
+                  <img src="./images/imbdPro.png" alt="pro">
+                  <button class="btn">Try ImbdPro for FREE</button>
+                </div>
+              </div>
+            </div>
+            <span class="header__actions-line"></span>
+            <div class="header__actions-watchList">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
+              WatchList
+            </div>
+            @if(!signalService.isLogin()){
+              <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN" >Log in</div>
+            } @else {
+              <mat-icon [matMenuTriggerFor]="menu" class="header__actions-user" fontIcon="person"></mat-icon>
+              <mat-menu #menu="matMenu">
+                <div class="user-name">{{signalService.userData().name}}</div>
+                <button mat-menu-item><mat-icon fontIcon="logout" (click)="logout()"></mat-icon>Log out</button>
+              </mat-menu>
+            }
+            <mat-form-field class="header__actions-lang" appearance="outline">
+              <mat-select required [value]="'en'" panelClass="custom-select-lang">
+                <mat-option value="en">
+                  EN
+                </mat-option>
+                <mat-option value="ru">
+                  RU
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
         <div class="menu__blocks">
           <div class="menu__block">
             <div class="menu__block-title">
@@ -89,11 +161,6 @@
             <nav>
               <ul>
                 <li><a href="#">Release</a></li>
-                <li><a href="#">Top 250 movies</a></li>
-                <li><a href="#">Most popular movies</a></li>
-                <li><a href="#">Release</a></li>
-                <li><a href="#">Top 250 movies</a></li>
-                <li><a href="#">Most popular movies</a></li>
                 <li><a href="#">Top 250 movies</a></li>
                 <li><a href="#">Most popular movies</a></li>
               </ul>
@@ -122,8 +189,6 @@
                 <li><a href="#">What's on TV & streaming</a></li>
                 <li><a href="#">Top 250 shows</a></li>
                 <li><a href="#">Most popular TV shows</a></li>
-                <li><a href="#">What's on TV & streaming</a></li>
-                <li><a href="#">Top 250 shows</a></li>
               </ul>
             </nav>
           </div>
@@ -137,10 +202,6 @@
                 <li><a href="#">Want to watch</a></li>
                 <li><a href="#">Latest trailers</a></li>
                 <li><a href="#">IMDB Originals</a></li>
-                <li><a href="#">Want to watch</a></li>
-                <li><a href="#">Latest trailers</a></li>
-                <li><a href="#">IMDB Originals</a></li>
-                <li><a href="#">IMDB Originals</a></li>
               </ul>
             </nav>
           </div>
@@ -151,12 +212,6 @@
             </div>
             <nav>
               <ul>
-                <li><a href="#">Oscars</a></li>
-                <li><a href="#">Emmys</a></li>
-                <li><a href="#">San Diego Comic-Con</a></li>
-                <li><a href="#">Oscars</a></li>
-                <li><a href="#">Emmys</a></li>
-                <li><a href="#">San Diego Comic-Con</a></li>
                 <li><a href="#">Oscars</a></li>
                 <li><a href="#">Emmys</a></li>
                 <li><a href="#">San Diego Comic-Con</a></li>

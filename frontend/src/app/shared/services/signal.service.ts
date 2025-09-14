@@ -8,4 +8,5 @@ import type {UserDataType} from '../types/user-data.type';
 export class SignalService {
   public isLogin = signal(false);
   public userData: WritableSignal<UserDataType> = signal({id: "", name: "", email: ""});
+  public refreshSlider = signal(false);
 }

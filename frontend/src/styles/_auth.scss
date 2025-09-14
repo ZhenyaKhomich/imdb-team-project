@@ -118,3 +118,35 @@
     }
   }
 }
+
+@media screen and (max-width: 1000px){
+  .auth {
+    min-height: 40vh;
+    height: 90vw;
+    background-size: cover;
+
+    .container {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0;
+
+      .auth-form {
+        max-width: 422px;
+        width: 90vw;
+
+        .auth-form-title {
+          margin-top: 0;
+          margin-bottom: 20px;
+        }
+
+        .inputs {
+          .input {
+            max-width: 422px;
+            width: 90vw;
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {NgForOf} from '@angular/common';
+import {AsyncPipe, LowerCasePipe, NgForOf} from '@angular/common';
 import {MinutesToHoursPipe} from '../../../shared/pipes/minutes-to-hours.pipe';
 import type {CarouselComponent} from 'ngx-owl-carousel-o';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
@@ -11,7 +11,7 @@ import type {ActorsDataType} from '../../../shared/types/actors-data.type';
 import type {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
 import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 import {SignalService} from '../../../shared/services/signal.service';
-
+import {ActorsService} from '../../../shared/services/actors.service';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +22,7 @@ import {SignalService} from '../../../shared/services/signal.service';
     NgForOf,
     MinutesToHoursPipe,
     SliderComponent,
+    LowerCasePipe,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -482,6 +483,9 @@ export class MainComponent implements OnInit {
       }
     ]
   }
+  public actors2: ActorsDataType | null = null;
+  public popularActors: ActorsDataType | null = null;
+  public birthdayActorsToday: ActorsDataType | null = null;
   public mainSliderLength = this.movies.titles.length;
   public indexFollowingSlides: number[] = [];
   public signalService = inject(SignalService);
@@ -491,7 +495,7 @@ export class MainComponent implements OnInit {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    margin: 24,
+    margin: 1240,
     stagePadding: 0,
     startPosition: 0,
     center: false,
@@ -504,10 +508,24 @@ export class MainComponent implements OnInit {
   protected readonly Math = Math;
   protected readonly Number = Number;
   protected readonly SliderIdEnum = SliderIdEnum;
+  private actorsService = inject(ActorsService);
 
 
-  public ngOnInit (): void {
+  public ngOnInit(): void {
     this.updateFollowingSlides(this.currentElementMainSlider);
+
+    this.actorsService.getAllActors(1).subscribe(
+      (data) => {
+        this.popularActors = data;
+      }
+    )
+
+    this.actorsService.getAllActors(10).subscribe(
+      (data) => {
+        this.birthdayActorsToday = data;
+        console.log('finish')
+      }
+    )
   }
 
   public updateFollowingSlides(currentIndex: number): void {

@@ -1,6 +1,7 @@
 const WatchlistModel = require("../models/watchlist.model");
 const CommentModel = require("../models/comment.model");
 const CommentNormalizer = require("../normalizers/comment.normalizer");
+const UserModel = require("../models/user.model"); // Добавляем импорт UserModel
 
 class WatchlistController {
     static async getWatchlist(req, res) {
@@ -15,21 +16,35 @@ class WatchlistController {
             // Получаем комментарии для каждого title
             const titlesWithComments = await Promise.all(
                 watchlist.titles.map(async (title) => {
-                    const comments = await CommentModel.find({ title: title.id })
-                        .populate('user')
-                        .sort({ date: -1 });
+                    try {
+                        const comments = await CommentModel.find({ title: title.id });
 
-                    return {
-                        ...title.toObject(),
-                        comments: comments.map(comment => CommentNormalizer.normalize(comment)),
-                        commentsCount: comments.length
-                    };
+                        // Заменяем populate ручной подстановкой пользователей
+                        const users = await UserModel.find();
+                        const commentsWithUsers = comments.map(comment => {
+                            const user = users.find(u => u._id === comment.user);
+                            return { ...comment, user };
+                        });
+
+                        return {
+                            ...title,
+                            comments: commentsWithUsers.map(comment => CommentNormalizer.normalize(comment)),
+                            commentsCount: comments.length
+                        };
+                    } catch (error) {
+                        console.error('Error processing title:', title.id, error);
+                        return {
+                            ...title,
+                            comments: [],
+                            commentsCount: 0
+                        };
+                    }
                 })
             );
 
             res.json({ titles: titlesWithComments });
         } catch (err) {
-            console.log(err);
+            console.log('Error in getWatchlist:', err);
             res.status(500).json({ error: true, message: "Внутренняя ошибка сервера" });
         }
     }
@@ -57,7 +72,7 @@ class WatchlistController {
 
             res.status(200).json({ error: false, message: "Title добавлен в watchlist" });
         } catch (err) {
-            console.log(err);
+            console.log('Error in addToWatchlist:', err);
             res.status(500).json({ error: true, message: "Внутренняя ошибка сервера" });
         }
     }
@@ -80,7 +95,7 @@ class WatchlistController {
 
             res.status(200).json({ error: false, message: "Title удален из watchlist" });
         } catch (err) {
-            console.log(err);
+            console.log('Error in removeFromWatchlist:', err);
             res.status(500).json({ error: true, message: "Внутренняя ошибка сервера" });
         }
     }

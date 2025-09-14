@@ -4,4 +4,5 @@ export enum RequestsEnum {
   LOGOUT = 'logout',
   TITLES = 'titles',
   USERS = 'users',
+  ALL_ACTORS = 'chart/starmeter',
 }

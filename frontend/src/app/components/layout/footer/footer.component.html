@@ -8,13 +8,14 @@
             <mat-icon fontIcon="delete"></mat-icon>
           </div>
           @if(movies.titles.length > 0) {
-            <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
-          } @else {
             <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+          } @else {
+            <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
           }
         </div>
       </div>
     } @else {
+      <div class="footer__viewed-no-viewed">Зарегистрируйтесь</div>
       <div class="footer__sign">
         <button class="btn footer__sign-btn" [routerLink]="'/' + AppRoutesEnum.LOGIN">Sign in for more access</button>
       </div>

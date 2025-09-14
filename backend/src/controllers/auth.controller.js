@@ -20,8 +20,11 @@ class AuthController {
             let userObject = Object.assign({}, req.body);
             delete userObject.password;
             delete userObject.passwordRepeat;
+
+            // Создаем новый экземпляр UserModel
             user = new UserModel(userObject);
             user.setPassword(req.body.password);
+
             const {accessToken, refreshToken} = await TokenUtils.generateTokens(user, req.body.rememberMe);
             user.refreshToken = refreshToken;
             await user.save();
@@ -29,7 +32,7 @@ class AuthController {
             res.status(201).json({
                 accessToken,
                 refreshToken,
-                userId: user.id,
+                userId: user._id,
             });
         } catch (err) {
             console.log(err);
@@ -45,26 +48,27 @@ class AuthController {
                 return res.status(400).json({error: true, message: error.details[0].message});
             }
 
-            const user = await UserModel.findOne({email: req.body.email});
-            if (!user) {
+            const userData = await UserModel.findOne({email: req.body.email});
+            if (!userData) {
                 return res.status(401)
                     .json({error: true, message: "The user was not found"});
             }
 
-            if (!user.checkPassword(req.body.password)) {
+            // userData теперь экземпляр UserModel, поэтому метод checkPassword доступен
+            if (!userData.checkPassword(req.body.password)) {
                 return res.status(401)
                     .json({error: true, message: "Incorrect E-mail or password"});
             }
 
-            const {accessToken, refreshToken} = await TokenUtils.generateTokens(user, req.body.rememberMe);
+            const {accessToken, refreshToken} = await TokenUtils.generateTokens(userData, req.body.rememberMe);
 
-            user.refreshToken = refreshToken;
-            await user.save();
+            userData.refreshToken = refreshToken;
+            await userData.save();
 
             res.status(200).json({
                 accessToken,
                 refreshToken,
-                userId: user.id,
+                userId: userData._id,
             });
         } catch (err) {
             console.log(err);
@@ -81,6 +85,11 @@ class AuthController {
         try {
             const {tokenDetails} = await TokenUtils.verifyRefreshToken(req.body.refreshToken);
             const user = await UserModel.findOne({email: tokenDetails.email});
+
+            if (!user) {
+                throw new Error("User not found");
+            }
+
             const {accessToken, refreshToken} = await TokenUtils.generateTokens(user);
             user.refreshToken = refreshToken;
             await user.save();
@@ -88,7 +97,7 @@ class AuthController {
             res.status(200).json({
                 accessToken,
                 refreshToken,
-                userId: user.id,
+                userId: user._id,
             });
         } catch (e) {
             return res.status(400).json({
@@ -117,7 +126,6 @@ class AuthController {
             res.status(500).json({error: true, message: "Internal server error"});
         }
     }
-
 }
 
 module.exports = AuthController;

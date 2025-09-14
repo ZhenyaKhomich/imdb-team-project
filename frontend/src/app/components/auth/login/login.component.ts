@@ -59,12 +59,14 @@ export class LoginComponent implements OnInit {
           next: (data): void => {
             if(data.accessToken && data.refreshToken && data.userId) {
               this.snakeBar.open('Login to account was completed successfully', '', {duration: 4000});
+              console.log(data);
               this.localStorageService.setTokens(data);
               this.router.navigate([AppRoutesEnum.MAIN]);
               this.loginForm.reset();
               this.signalService.isLogin.set(true);
 
               this.authService.getUser().subscribe((data) => {
+                console.log(data);
                 this.signalService.userData.set(data);
               })
 
