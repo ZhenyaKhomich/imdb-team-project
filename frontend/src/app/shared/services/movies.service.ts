@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import type { Observable } from 'rxjs';
-import type { Data } from '../types/movies';
+import type {TitlesDataType} from '../types/movies-response.type';
 import { RequestsEnum } from '../enums/requests.enum';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class MoviesService {
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>
-  ): Observable<Data> {
+  ): Observable<TitlesDataType> {
     let parameters = new HttpParams();
 
     if (queryParameters) {
@@ -28,7 +28,7 @@ export class MoviesService {
       });
     }
 
-    return this.http.get<Data>(this.baseUrl + RequestsEnum.TITLES, {
+    return this.http.get<TitlesDataType>(this.baseUrl + RequestsEnum.TITLES, {
       params: parameters,
     });
     /* return this.http.get<Data>(environment.api + RequestsEnum.TITLES, {

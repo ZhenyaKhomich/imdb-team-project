@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
 import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
-import type { Film } from '../../../../shared/types/movies';
+import type {FilmDataType} from '../../../../shared/types/movies-response.type';
 
 @Component({
   selector: 'app-list',
@@ -28,7 +28,7 @@ import type { Film } from '../../../../shared/types/movies';
 export class ListComponent {
   public view = input('grid');
   public favorite = input<string[]>([]);
-  public films = input<Film[]>();
+  public films = input<FilmDataType[]>();
   public favoriteId = output<string>();
   public toggleFavorite(id: string): void {
     this.favoriteId.emit(id);

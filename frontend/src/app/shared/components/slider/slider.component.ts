@@ -11,10 +11,10 @@ import type {OwlOptions} from 'ngx-owl-carousel-o';
 import {NgForOf, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import type {ActorDataType, ActorsDataType} from '../../types/actors-data.type';
-import type {AllTitlesDataType, TitleDataType} from '../../types/all-titles-data.type';
 import {SliderIdEnum} from '../../enums/slider-id.enum';
 import {WINDOW} from '../../injection-tokens/window.token';
 import {SignalService} from '../../services/signal.service';
+import type {FilmDataType, TitlesDataType} from '../../types/movies-response.type';
 
 @Component({
   selector: 'app-slider',
@@ -30,10 +30,10 @@ import {SignalService} from '../../services/signal.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SliderComponent implements OnInit {
-  @Input() public elementsSlider: ActorsDataType | AllTitlesDataType | null = null;
+  @Input() public elementsSlider: ActorsDataType | TitlesDataType | null = null;
   @Input() public id!: string;
   public actorsList: ActorDataType[] = [];
-  public moviesList: TitleDataType[] = [];
+  public moviesList: FilmDataType[] | undefined = [];
   public itemsInSlider = 0;
   public todayData = new Date(Date.now());
   public year = this.todayData.getFullYear();
