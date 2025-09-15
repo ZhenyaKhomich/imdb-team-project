@@ -3,13 +3,15 @@ import { inject, Injectable } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type {TitlesDataType} from '../types/movies-response.type';
 import { RequestsEnum } from '../enums/requests.enum';
+import {environment} from '../../../environments/environment';
+import {debounceTime} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
   private http = inject(HttpClient);
-  private readonly baseUrl = 'https://api.imdbapi.dev/';
+  // private readonly baseUrl = 'https://api.imdbapi.dev/';
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>
@@ -28,11 +30,15 @@ export class MoviesService {
       });
     }
 
-    return this.http.get<TitlesDataType>(this.baseUrl + RequestsEnum.TITLES, {
+    return this.http.get<TitlesDataType>(environment.baseUrl + RequestsEnum.TITLES, {
       params: parameters,
     });
     /* return this.http.get<Data>(environment.api + RequestsEnum.TITLES, {
       params: parameters,
     }); */
+  }
+
+  public searchTitles(word: string): Observable<TitlesDataType> {
+    return this.http.get<TitlesDataType>(environment.baseUrl + RequestsEnum.SEARCH + word);
   }
 }

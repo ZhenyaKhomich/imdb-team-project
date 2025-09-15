@@ -34,9 +34,36 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <input class="header__search-input" type="text" placeholder="Search IMDb">
+      <input [formControl]="searchValue" class="header__search-input" type="text" placeholder="Search IMDb">
       <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon"
                 fontIcon="search"></mat-icon>
+      @if (foundMovies && foundMovies.titles) {
+        <div class="header__search-list">
+          <div class="search__element" *ngFor="let movie of foundMovies.titles">
+            <div class="search__element-img">
+              <img src="{{movie.primaryImage?.url}}" alt="No img">
+            </div>
+            <div class="search__element-description">
+              <div class="search__element-title">{{ movie.primaryTitle }}</div>
+              @if (movie.rating && movie.rating.aggregateRating) {
+                <div class="search__element-rating">
+                  <div class="stars">
+                    <mat-icon fontIcon="star"
+                              *ngFor="let star of [].constructor(Math.floor(movie.rating.aggregateRating))"></mat-icon>
+                    @if (!Number.isInteger(movie.rating.aggregateRating)) {
+                      <mat-icon fontIcon="star_half"></mat-icon>
+                    }
+                  </div>
+                  {{ movie.rating.aggregateRating }} (votes: {{ movie.rating.voteCount }})
+                </div>
+              }
+              @if(movie.startYear){
+                <div class="search__element-year">{{movie.startYear}} year</div>
+              }
+            </div>
+          </div>
+        </div>
+      }
     </div>
     <div class="header__actions">
       <div class="header__actions-pro">
@@ -53,13 +80,16 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
         WatchList
       </div>
-      @if(!signalService.isLogin()){
-      <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN" >Log in</div>
+      @if (!signalService.isLogin()) {
+        <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN">Log in</div>
       } @else {
         <mat-icon [matMenuTriggerFor]="menu" class="header__actions-user" fontIcon="person"></mat-icon>
         <mat-menu #menu="matMenu">
-          <div class="user-name">{{signalService.userData().name}}</div>
-          <button mat-menu-item><mat-icon fontIcon="logout" (click)="logout()"></mat-icon>Log out</button>
+          <div class="user-name">{{ signalService.userData().name }}</div>
+          <button mat-menu-item>
+            <mat-icon fontIcon="logout" (click)="logout()"></mat-icon>
+            Log out
+          </button>
         </mat-menu>
       }
       <mat-form-field class="header__actions-lang" appearance="outline">
@@ -130,13 +160,16 @@
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
               WatchList
             </div>
-            @if(!signalService.isLogin()){
-              <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN" >Log in</div>
+            @if (!signalService.isLogin()) {
+              <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN">Log in</div>
             } @else {
               <mat-icon [matMenuTriggerFor]="menu" class="header__actions-user" fontIcon="person"></mat-icon>
               <mat-menu #menu="matMenu">
-                <div class="user-name">{{signalService.userData().name}}</div>
-                <button mat-menu-item><mat-icon fontIcon="logout" (click)="logout()"></mat-icon>Log out</button>
+                <div class="user-name">{{ signalService.userData().name }}</div>
+                <button mat-menu-item>
+                  <mat-icon fontIcon="logout" (click)="logout()"></mat-icon>
+                  Log out
+                </button>
               </mat-menu>
             }
             <mat-form-field class="header__actions-lang" appearance="outline">
