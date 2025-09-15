@@ -1,0 +1,24 @@
+.content-section {
+  min-height: 30vh;
+  scroll-margin-top: 64px;
+}
+
+.content-section h2 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.slide-in {
+  animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
