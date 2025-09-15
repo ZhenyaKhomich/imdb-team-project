@@ -19,10 +19,14 @@ item.id) {
       <div class="loading-detail"></div>
 
       <img
+        class="click-detail"
+        (click)="detail(item.id)"
         [ngSrc]="item.primaryImage.url"
         [width]="72"
         [height]="106"
         [alt]="item.primaryTitle"
+        tabindex="0"
+        role="button"
         priority
       />
       } @else {
@@ -30,7 +34,12 @@ item.id) {
       }
     </div>
     <div class="header-content">
-      <h3>
+      <h3
+        (click)="detail(item.id)"
+        tabindex="0"
+        role="button"
+        class="click-detail"
+      >
         {{ item.primaryTitle }}
       </h3>
       <p class="time">
@@ -84,6 +93,10 @@ item.id) {
       @if(item.primaryImage) {
       <div class="loading-grid"></div>
       <img
+        class="click-detail"
+        (click)="detail(item.id)"
+        tabindex="0"
+        role="button"
         [ngSrc]="item.primaryImage.url"
         [width]="270"
         [height]="400"
@@ -95,7 +108,12 @@ item.id) {
       }
 
       <div class="header-content">
-        <h3>
+        <h3
+          (click)="detail(item.id)"
+          tabindex="0"
+          role="button"
+          class="click-detail"
+        >
           {{ item.primaryTitle }}
         </h3>
         <p class="time">

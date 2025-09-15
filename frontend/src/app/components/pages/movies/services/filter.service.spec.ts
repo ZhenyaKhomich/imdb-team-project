@@ -29,7 +29,6 @@ describe('FilterService', () => {
 
   it('initial signal', () => {
     expect(service.currentFilters()).toEqual({});
-    expect(service.favoriteId()).toEqual([]);
     expect(service.rangeInputs()).toEqual({
       yearMin: '',
       yearMax: '',
@@ -49,14 +48,6 @@ describe('FilterService', () => {
     const updatedType = service.types().find((t) => t.value === 'MOVIE');
     expect(updatedType).toBeDefined();
     expect(updatedType!.status).toBeTrue();
-  });
-
-  it('update favorites', () => {
-    service.toggleFavorite('test-id');
-    expect(service.favoriteId()).toContain('test-id');
-
-    service.toggleFavorite('test-id');
-    expect(service.favoriteId()).not.toContain('test-id');
   });
 
   it('update range inputs', () => {

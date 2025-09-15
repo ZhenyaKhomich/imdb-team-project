@@ -62,12 +62,10 @@ describe('MoviesComponent', () => {
       'listGenres',
       'types',
       'rangeInputs',
-      'favoriteId',
       'updateGenres',
       'updateTypes',
       'reset',
       'updateRangeInputs',
-      'toggleFavorite',
       'sortBy',
     ]);
     mockFilterService.listGenres.and.returnValue([]);
@@ -80,7 +78,6 @@ describe('MoviesComponent', () => {
       votesMin: '',
       votesMax: '',
     });
-    mockFilterService.favoriteId.and.returnValue([]);
     mockFilterService.sortBy.and.returnValue([]);
 
     mockMoviesService = jasmine.createSpyObj('MoviesService', ['getTitles']);

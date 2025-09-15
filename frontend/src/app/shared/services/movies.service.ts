@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type { Data } from '../types/movies';
 import { RequestsEnum } from '../enums/requests.enum';
@@ -8,6 +8,8 @@ import { RequestsEnum } from '../enums/requests.enum';
   providedIn: 'root',
 })
 export class MoviesService {
+  public favoriteId = signal<string[]>([]);
+
   private http = inject(HttpClient);
   private readonly baseUrl = 'https://api.imdbapi.dev/';
 
@@ -34,5 +36,13 @@ export class MoviesService {
     /* return this.http.get<Data>(environment.api + RequestsEnum.TITLES, {
       params: parameters,
     }); */
+  }
+
+  public toggleFavorite(id: string): void {
+    this.favoriteId.update((element) => {
+      return element.includes(id)
+        ? element.filter((item) => item !== id)
+        : [...element, id];
+    });
   }
 }

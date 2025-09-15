@@ -42,6 +42,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path: `${AppRoutesEnum.MOVIES}/:id`,
+        title: 'Movie',
+        loadComponent: () =>
+          import('./components/pages/movie/movie.component').then(
+            (m) => m.MovieComponent
+          ),
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./components/pages/error-404/error-404.component').then(
