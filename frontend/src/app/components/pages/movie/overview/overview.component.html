@@ -32,8 +32,34 @@
 
     }
   </div>
+  <div>
+    <div class="image">
+      <div
+        class="bookmark"
+        (click)="this.favoriteId.emit()"
+        tabindex="0"
+        role="button"
+      >
+        <mat-icon class="icon-bookmark" [class.active]="favorite()"
+          >add</mat-icon
+        >
+      </div>
+      @if(img()) {
+      <div class="loading-detail"></div>
 
-  <div>картинка</div>
+      <img
+        class="click-detail"
+        [ngSrc]="img()"
+        [width]="336"
+        [height]="491"
+        [alt]="title()"
+        priority
+      />
+      } @else {
+      <div class="error-img">no poster</div>
+      }
+    </div>
+  </div>
 
   <div>
     <div></div>

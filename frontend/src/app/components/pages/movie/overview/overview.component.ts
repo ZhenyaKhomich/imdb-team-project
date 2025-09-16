@@ -1,12 +1,23 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
 import type { Director, Star, Writer } from '../../../../shared/types/movies';
 import { MatIconModule } from '@angular/material/icon';
 import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-overview',
-  imports: [MinutesToHoursPipe, MatIconModule, NumberSuffixPipe],
+  imports: [
+    MinutesToHoursPipe,
+    MatIconModule,
+    NumberSuffixPipe,
+    NgOptimizedImage,
+  ],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,6 +36,8 @@ export class OverviewComponent {
   public stars = input<Pick<Star, 'id' | 'displayName'>[]>([]);
   public rating = input<number>(0);
   public vote = input<number>(0);
+  public favorite = input<boolean>(false);
+  public favoriteId = output();
 
   public isPathStar(rating: number): boolean {
     return Math.floor(rating) < rating;

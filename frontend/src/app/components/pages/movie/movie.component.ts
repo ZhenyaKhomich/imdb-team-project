@@ -156,6 +156,10 @@ export class MovieComponent {
     return '';
   });
 
+  public isFavorite = computed(() => {
+    return this.movie.favoriteId().includes(this.id() || '');
+  });
+
   constructor() {
     this.navService.initScrollTracking();
 
@@ -167,5 +171,9 @@ export class MovieComponent {
         this.title.setTitle('Movie not found');
       }
     });
+  }
+
+  public favoriteId(): void {
+    this.movie.toggleFavorite(this.id() || '');
   }
 }
