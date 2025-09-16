@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy} from '@angular/core';
-import type {OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject} from '@angular/core';
+import type {OnInit, OnDestroy} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
@@ -43,6 +43,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public foundMovies: TitlesDataType | null = null;
   public signalService = inject(SignalService);
   protected readonly AppRoutesEnum = AppRoutesEnum;
+  protected readonly Math = Math;
+  protected readonly Number = Number;
   private document = inject(DOCUMENT);
   private authService = inject(AuthService);
   private localStorageService = inject(LocalStorageService);
@@ -90,7 +92,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.localStorageService.removeTokens();
           this.snakeBar.open(data.message, '', {duration: 4000});
           this.signalService.isLogin.set(false);
-
         },
         error: (error:HttpErrorResponse) => {
           this.snakeBar.open(error.error.message, '', {duration: 4000});
@@ -103,7 +104,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  protected readonly Math = Math;
-  protected readonly Number = Number;
 }

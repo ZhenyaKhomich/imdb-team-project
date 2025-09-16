@@ -4,7 +4,6 @@ import type { Observable } from 'rxjs';
 import type {TitlesDataType} from '../types/movies-response.type';
 import { RequestsEnum } from '../enums/requests.enum';
 import {environment} from '../../../environments/environment';
-import {debounceTime} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

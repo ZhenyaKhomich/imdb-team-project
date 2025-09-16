@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 20px;
+  padding: 60px 20px 20px 20px;
   color: $light-background-secondary;
 
   .container {
@@ -15,13 +15,12 @@
   &__viewed {
     display: flex;
     flex-direction: column;
-    width: 1200px;
+    width: 100%;
     align-self: start;
 
     &-title {
-      font-family: Roboto, sans-serif;
       font-weight: 600;
-      font-size: 24px;
+      font-size: 30px;
       display: flex;
       margin-bottom: 20px;
       margin-top: 30px;
@@ -45,9 +44,25 @@
         color: $main-blue;
       }
     }
+
+    &-no-regist {
+      mat-icon {
+        color: $light-background-secondary;
+        font-size: 70px;
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    &-no-viewed {
+      margin-bottom: 50px;
+      margin-top: 20px;
+      font-size: 22px;
+    }
   }
 
   &__sign {
+    margin-bottom: 20px;
     &-btn {
       margin-bottom: 25px;
       font-weight: 600;
@@ -161,7 +176,56 @@
   }
 
   &__year {
-    font-size: 12px;
+    font-size: 16px;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 40px;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    img {
+      width: 60px;
+      height: 60px;
+    }
+
+    &-rss {
+      display: block;
+      max-width: 70px;
+      transition: all 0.3s linear;
+      cursor: pointer;
+      font-size: 15px;
+
+      img {
+        border-radius: 50%;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    &-users {
+      display: flex;
+      max-width: 320px;
+      justify-content: space-between;
+    }
+
+    &-user {
+      max-width: 100px;
+      transition: all 0.3s linear;
+      cursor: pointer;
+      font-size: 15px;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
   }
 }
 
