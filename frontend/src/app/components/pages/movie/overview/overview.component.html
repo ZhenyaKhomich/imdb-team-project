@@ -1,0 +1,42 @@
+<div>
+  <h2 class="title">
+    {{ title() }}
+  </h2>
+  <div class="block-title">
+    <p class="info">
+      {{ type() }} &middot; {{ year() }}@if(endYear()) { - {{ endYear() }} }
+      @if(time()) { &middot; {{ time() | minutesToHours }}}
+    </p>
+    @if (rating() && vote()) {
+
+    <div class="star">
+      @for (star of fullStars(rating()); track star) {
+      <mat-icon class="icon-star">star</mat-icon>
+      } @if(isPathStar(rating())) {
+      <div class="star-wrapper">
+        <mat-icon class="star-border">star_border</mat-icon>
+        <mat-icon
+          class="star-fill"
+          [style]="{
+            '--fill-percent': pathStar(rating()) + '%'
+          }"
+        >
+          star
+        </mat-icon>
+      </div>
+      } @for (star of emptyStars(rating()); track star) {
+      <mat-icon class="icon-star">star_border</mat-icon>
+      }
+      <span>({{ vote() | numberSuffix }})</span>
+    </div>
+
+    }
+  </div>
+
+  <div>картинка</div>
+
+  <div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

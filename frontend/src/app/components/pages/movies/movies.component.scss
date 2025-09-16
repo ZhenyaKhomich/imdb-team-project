@@ -1,5 +1,9 @@
 @use "../../../../styles/variables" as *;
 
+:host {
+  margin-bottom: auto;
+}
+
 .app-container {
   box-sizing: border-box;
   display: flex;

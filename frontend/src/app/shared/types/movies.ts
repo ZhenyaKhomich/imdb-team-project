@@ -6,6 +6,7 @@ export interface Film {
     url: string;
   };
   startYear: number;
+  endYear?: number;
   runtimeSeconds: number;
   genres: string[];
   rating?: {
@@ -34,4 +35,100 @@ export interface RangeTypes {
   ratingMax: string;
   votesMin: string;
   votesMax: string;
+}
+
+export interface ErrorTypes {
+  code: number;
+}
+
+export interface TitleTypes {
+  id: string;
+  type: string;
+  primaryTitle: string;
+  primaryImage?: PrimaryImage;
+  startYear: number;
+  endYear?: number;
+  runtimeSeconds?: number;
+  genres: string[];
+  rating?: Rating;
+  metacritic?: Metacritic;
+  plot: string;
+  directors: Director[];
+  writers: Writer[];
+  stars: Star[];
+  originCountries: OriginCountry[];
+  spokenLanguages: SpokenLanguage[];
+  interests: Interest[];
+}
+
+export interface PrimaryImage {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface Rating {
+  aggregateRating: number;
+  voteCount: number;
+}
+
+export interface Metacritic {
+  score: number;
+  reviewCount: number;
+}
+
+export interface Director {
+  id: string;
+  displayName: string;
+  primaryImage: PrimaryImage2;
+  primaryProfessions: string[];
+}
+
+export interface PrimaryImage2 {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface Writer {
+  id: string;
+  displayName: string;
+  primaryImage: PrimaryImage3;
+  primaryProfessions?: string[];
+}
+
+export interface PrimaryImage3 {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface Star {
+  id: string;
+  displayName: string;
+  alternativeNames?: string[];
+  primaryImage: PrimaryImage4;
+  primaryProfessions: string[];
+}
+
+export interface PrimaryImage4 {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface OriginCountry {
+  code: string;
+  name: string;
+}
+
+export interface SpokenLanguage {
+  code: string;
+  name: string;
+}
+
+export interface Interest {
+  id: string;
+  name: string;
+  isSubgenre?: boolean;
 }

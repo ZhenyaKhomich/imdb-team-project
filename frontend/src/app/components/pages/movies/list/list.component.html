@@ -43,13 +43,14 @@ item.id) {
         {{ item.primaryTitle }}
       </h3>
       <p class="time">
-        {{ item.startYear }} @if(item.runtimeSeconds) { &middot;
+        {{ item.startYear }}@if(item.endYear) { - {{ item.endYear }}
+        } @if(item.runtimeSeconds) { &middot;
         {{ item.runtimeSeconds | minutesToHours }}}
       </p>
       <div>
         @if(item.rating) {
         <div class="star">
-          @for (item of fullStars(item.rating.aggregateRating); track $index) {
+          @for (star of fullStars(item.rating.aggregateRating); track star) {
           <mat-icon class="icon-star">star</mat-icon>
           } @if(isPathStar(item.rating.aggregateRating)) {
           <div class="star-wrapper">
@@ -63,8 +64,7 @@ item.id) {
               star
             </mat-icon>
           </div>
-          } @for (item of emptyStars(item.rating.aggregateRating); track $index)
-          {
+          } @for (star of emptyStars(item.rating.aggregateRating); track star) {
           <mat-icon class="icon-star">star_border</mat-icon>
           }
           <span>({{ item.rating.voteCount | numberSuffix }})</span>

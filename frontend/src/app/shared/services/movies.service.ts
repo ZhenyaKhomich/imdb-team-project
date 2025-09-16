@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import type { Observable } from 'rxjs';
-import type { Data } from '../types/movies';
+import type { Data, ErrorTypes, TitleTypes } from '../types/movies';
 import { RequestsEnum } from '../enums/requests.enum';
 
 @Injectable({
@@ -33,9 +33,12 @@ export class MoviesService {
     return this.http.get<Data>(this.baseUrl + RequestsEnum.TITLES, {
       params: parameters,
     });
-    /* return this.http.get<Data>(environment.api + RequestsEnum.TITLES, {
-      params: parameters,
-    }); */
+  }
+
+  public getTitle(id: string): Observable<TitleTypes | ErrorTypes> {
+    return this.http.get<TitleTypes | ErrorTypes>(
+      this.baseUrl + RequestsEnum.TITLES + '/' + id
+    );
   }
 
   public toggleFavorite(id: string): void {

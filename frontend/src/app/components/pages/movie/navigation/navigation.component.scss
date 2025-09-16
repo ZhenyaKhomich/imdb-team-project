@@ -3,10 +3,12 @@
 .side-nav {
   position: fixed;
   top: 64px;
-  right: 0;
+  right: max(calc((100vw - 1400px) / 2), 0px);
   padding: 11px;
   padding-left: 19px;
   overflow-y: auto;
+  height: calc(100vh - 64px);
+  z-index: 100;
 
   &::before {
     position: absolute;
@@ -16,7 +18,7 @@
     left: 0px;
     background-color: $background-light-transparent-100;
     border-radius: 4px;
-    height: 100%;
+    height: 495px;
   }
 }
 

@@ -1,11 +1,23 @@
-<p>{{ id() }}</p>
 <app-navigation />
 
 <main>
+  <div class="background" [style.backgroundImage]="backgroundUrl()"></div>
   <app-section id="section1" title="Overview">
-    <h3>Содержание раздела 1</h3>
-    <p>Текст и контент для первого раздела...</p>
-    <!-- Дополнительный контент -->
+    <app-overview
+      [type]="type()"
+      [title]="titleMovie()"
+      [year]="year()"
+      [endYear]="endYear()"
+      [time]="time()"
+      [genres]="genres()"
+      [plot]="plot()"
+      [directors]="directors()"
+      [writers]="writers()"
+      [stars]="stars()"
+      [rating]="rating()"
+      [vote]="vote()"
+      [img]="img()"
+    />
   </app-section>
 
   <app-section id="section2" title="Videos">
