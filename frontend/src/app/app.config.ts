@@ -1,21 +1,25 @@
-import type { ApplicationConfig} from '@angular/core';
-import {provideZoneChangeDetection} from '@angular/core';
-import {provideRouter, withInMemoryScrolling} from '@angular/router';
+import type { ApplicationConfig } from '@angular/core';
+import { provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideAnimations} from '@angular/platform-browser/animations';
-import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {authInterceptorFunction} from './shared/interceptors/auth.interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptorFunction } from './shared/interceptors/auth.interceptor';
+import { youtubeInterceptor } from './shared/interceptors/youtube.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes,
+    provideRouter(
+      routes,
       withInMemoryScrolling({
         scrollPositionRestoration: 'top',
       })
     ),
     provideAnimations(),
-    provideHttpClient(withInterceptors([authInterceptorFunction])),
-  ]
+    provideHttpClient(
+      withInterceptors([authInterceptorFunction, youtubeInterceptor])
+    ),
+  ],
 };

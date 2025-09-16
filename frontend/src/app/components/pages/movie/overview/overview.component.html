@@ -45,7 +45,7 @@
         >
       </div>
       @if(img()) {
-      <div class="loading-detail"></div>
+      <div class="loading loading-detail"></div>
 
       <img
         class="click-detail"
@@ -59,18 +59,71 @@
       <div class="error-img">no poster</div>
       }
     </div>
-    <iframe
-      class="video"
-      width="100%"
-      height="100%"
-      [src]="urlTriller() | safeUrl"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
+
+    <div class="wrapper-video">
+      <div class="loading loader-video"></div>
+      <iframe
+        class="video"
+        width="100%"
+        height="100%"
+        [src]="urlTriller() | safeUrl"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
   </div>
 
-  <div>
-    <div></div>
-    <div></div>
+  <div class="description-block">
+    <div class="description-line">
+      <span class="description-tag">Genre</span>
+      <div class="genres">
+        @for (genre of genres(); track genre) {
+        <span class="genre">{{ genre }}</span>
+        }
+      </div>
+    </div>
+    <div class="description-line">
+      <span class="description-tag">Plot</span>
+      <span class="plot">{{ plot() }}</span>
+    </div>
+    <div class="description-line">
+      <span class="description-tag">Director</span>
+      <div>
+        @for (director of directors(); track director.id) { @if(!$first) {
+        &middot;
+        <a [href]="'#' + director.id" class="director">{{
+          director.displayName
+        }}</a>
+        } @else {
+        <a [href]="'#' + director.id" class="director">{{
+          director.displayName
+        }}</a>
+        } }
+      </div>
+    </div>
+    <div class="description-line">
+      <span class="description-tag">Writers</span>
+      <div>
+        @for (writer of writers(); track writer.id) { @if(!$first) { &middot;
+        <a [href]="'#' + writer.id" class="director">{{
+          writer.displayName
+        }}</a>
+        } @else {
+        <a [href]="'#' + writer.id" class="director">{{
+          writer.displayName
+        }}</a>
+        } }
+      </div>
+    </div>
+    <div class="description-line">
+      <span class="description-tag">Stars</span>
+      <div>
+        @for (star of stars(); track star.id) { @if(!$first) { &middot;
+        <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
+        } @else {
+        <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
+        } }
+      </div>
+    </div>
   </div>
 </div>
