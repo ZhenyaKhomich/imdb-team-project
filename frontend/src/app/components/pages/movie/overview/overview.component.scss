@@ -18,6 +18,22 @@
   margin-bottom: 10px;
 }
 
+.block-image {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+
+  .video {
+    width: calc(100% - 356px);
+    min-width: 336px;
+    border-radius: 10px;
+    height: 491px;
+  }
+}
+
 .block-title {
   display: flex;
   justify-content: space-between;

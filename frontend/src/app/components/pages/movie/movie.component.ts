@@ -11,9 +11,10 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './services/navigation.service';
 import { SectionComponent } from './section/section.component';
 import { MoviesService } from '../../../shared/services/movies.service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { OverviewComponent } from './overview/overview.component';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-movie',
@@ -28,11 +29,11 @@ export class MovieComponent {
   public movie = inject(MoviesService);
   public title = inject(Title);
   public navService = inject(NavigationService);
+  public loadingTitles = signal(false);
 
   public data = toSignal(this.movie.getTitle(this.id() || ''), {
     initialValue: null,
   });
-
   public type = computed(() => {
     const currentData = this.data();
     if (currentData && 'type' in currentData) {
@@ -48,6 +49,25 @@ export class MovieComponent {
     }
     return '';
   });
+
+  public trillers = toSignal(
+    toObservable(this.titleMovie).pipe(
+      switchMap((name: string) => {
+        this.loadingTitles.set(true);
+        return this.movie.getTrillers(encodeURIComponent(`${name} triller`));
+      }),
+      map((data) => {
+        this.loadingTitles.set(false);
+
+        return data.items.map((element) => element.id.videoId);
+      }),
+      catchError(() => {
+        this.loadingTitles.set(false);
+        return of([]);
+      })
+    ),
+    { initialValue: [] }
+  );
 
   public year = computed(() => {
     const currentData = this.data();

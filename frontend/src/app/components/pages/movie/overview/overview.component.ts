@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
   output,
 } from '@angular/core';
@@ -9,6 +10,7 @@ import type { Director, Star, Writer } from '../../../../shared/types/movies';
 import { MatIconModule } from '@angular/material/icon';
 import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
 import { NgOptimizedImage } from '@angular/common';
+import { SafeUrlPipe } from '../../../../shared/pipes/safe-url.pipe';
 
 @Component({
   selector: 'app-overview',
@@ -17,6 +19,7 @@ import { NgOptimizedImage } from '@angular/common';
     MatIconModule,
     NumberSuffixPipe,
     NgOptimizedImage,
+    SafeUrlPipe,
   ],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
@@ -30,6 +33,7 @@ export class OverviewComponent {
   public endYear = input<number>(0);
   public time = input<number>(0);
   public genres = input<string[]>([]);
+  public trillers = input<string[]>([]);
   public plot = input<string>('');
   public directors = input<Pick<Director, 'id' | 'displayName'>[]>([]);
   public writers = input<Pick<Writer, 'id' | 'displayName'>[]>([]);
@@ -38,6 +42,14 @@ export class OverviewComponent {
   public vote = input<number>(0);
   public favorite = input<boolean>(false);
   public favoriteId = output();
+
+  public urlTriller = computed(() => {
+    const currentEmbedUrl = this.trillers();
+    if (currentEmbedUrl.length > 0) {
+      return `https://www.youtube.com/embed/${currentEmbedUrl[0]}?enablejsapi=1&modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3&fs=0`;
+    }
+    return '';
+  });
 
   public isPathStar(rating: number): boolean {
     return Math.floor(rating) < rating;

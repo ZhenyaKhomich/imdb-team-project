@@ -132,3 +132,33 @@ export interface Interest {
   name: string;
   isSubgenre?: boolean;
 }
+
+export interface VideosData {
+  videos: Video[];
+  totalCount: number;
+}
+
+export interface Video {
+  id: string;
+  type: string;
+  name: string;
+  primaryImage: PrimaryImage;
+  description: string;
+  width: number;
+  height: number;
+  runtimeSeconds: number;
+}
+
+export interface PrimaryImage {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface TrillerData {
+  items: {
+    id: {
+      videoId: string;
+    };
+  }[];
+}

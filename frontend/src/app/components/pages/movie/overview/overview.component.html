@@ -32,7 +32,7 @@
 
     }
   </div>
-  <div>
+  <div class="block-image">
     <div class="image">
       <div
         class="bookmark"
@@ -59,6 +59,14 @@
       <div class="error-img">no poster</div>
       }
     </div>
+    <iframe
+      class="video"
+      width="100%"
+      height="100%"
+      [src]="urlTriller() | safeUrl"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
   </div>
 
   <div>
