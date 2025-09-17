@@ -162,3 +162,45 @@ export interface TrillerData {
     };
   }[];
 }
+
+export interface CompanyCreditData {
+  companyCredits: CompanyCredit[];
+  totalCount: number;
+  nextPageToken: string;
+}
+
+export interface CompanyCredit {
+  company: Company;
+  category: string;
+  countries: Country[];
+  yearsInvolved: YearsInvolved;
+  attributes: string[];
+}
+
+export interface Company {
+  id: string;
+  name: string;
+}
+
+export interface Country {
+  code?: string;
+  name?: string;
+}
+
+export interface YearsInvolved {
+  startYear: number;
+  endYear: number;
+}
+
+export interface ImageData {
+  images: Image[];
+  totalCount: number;
+  nextPageToken: string;
+}
+
+export interface Image {
+  url: string;
+  width: number;
+  height: number;
+  type: string;
+}

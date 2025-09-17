@@ -2,10 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type {
+  CompanyCreditData,
   Data,
   ErrorTypes,
   TitleTypes,
   TrillerData,
+  VideosData,
 } from '../types/movies';
 import { RequestsEnum } from '../enums/requests.enum';
 
@@ -49,6 +51,24 @@ export class MoviesService {
   public getTitle(id: string): Observable<TitleTypes | ErrorTypes> {
     return this.http.get<TitleTypes | ErrorTypes>(
       this.baseUrl + RequestsEnum.TITLES + '/' + id
+    );
+  }
+
+  public getVideos(id: string): Observable<VideosData> {
+    return this.http.get<VideosData>(
+      this.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos'
+    );
+  }
+
+  public getCompanies(id: string): Observable<CompanyCreditData> {
+    return this.http.get<CompanyCreditData>(
+      this.baseUrl + RequestsEnum.TITLES + '/' + id + '/companyCredits'
+    );
+  }
+
+  public getImages(id: string): Observable<ImageData> {
+    return this.http.get<ImageData>(
+      this.baseUrl + RequestsEnum.TITLES + '/' + id + '/images'
     );
   }
 
