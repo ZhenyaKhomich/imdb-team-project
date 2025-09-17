@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, inject} from '@angular/core';
 import type {OnInit, OnDestroy} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -52,6 +52,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private moviesService = inject(MoviesService);
   private destroy$ = new Subject<void>();
   private cdr = inject(ChangeDetectorRef);
+
+  @HostListener('document:click')
+  public change(): void {
+    if (this.searchValue.value) {
+     this.searchValue.reset();
+      this.foundMovies = null;
+    }
+  }
 
   public ngOnInit(): void {
     this.searchValue.valueChanges.pipe(
