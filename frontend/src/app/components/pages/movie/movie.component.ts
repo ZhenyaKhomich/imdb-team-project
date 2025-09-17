@@ -15,10 +15,16 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { OverviewComponent } from './overview/overview.component';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { CompanyComponent } from './company/company.component';
 
 @Component({
   selector: 'app-movie',
-  imports: [NavigationComponent, SectionComponent, OverviewComponent],
+  imports: [
+    NavigationComponent,
+    SectionComponent,
+    OverviewComponent,
+    CompanyComponent,
+  ],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +40,11 @@ export class MovieComponent {
   public data = toSignal(this.movie.getTitle(this.id() || ''), {
     initialValue: null,
   });
+
+  public dataCompany = toSignal(this.movie.getCompanies(this.id() || ''), {
+    initialValue: { companyCredits: [], totalCount: 0, nextPageToken: '' },
+  });
+
   public type = computed(() => {
     const currentData = this.data();
     if (currentData && 'type' in currentData) {

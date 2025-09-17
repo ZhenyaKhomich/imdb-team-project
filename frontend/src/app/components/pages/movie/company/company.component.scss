@@ -1,0 +1,46 @@
+@use "../../../../../styles/variables" as *;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: $filter-category-text;
+}
+
+h2 {
+  font-weight: 400;
+}
+
+.company {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.line {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  color: $filter-title-text;
+  width: 120px;
+}
+
+.att {
+  display: flex;
+  gap: 10px;
+}
+
+.item {
+  background-color: $background-light-transparent-100;
+  padding: 5px 15px;
+  border-radius: 50px;
+}

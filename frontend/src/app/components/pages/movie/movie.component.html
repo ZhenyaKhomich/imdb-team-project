@@ -24,20 +24,19 @@
   </app-section>
 
   <app-section id="section2" title="Videos">
-    <h3>Содержание раздела 2</h3>
+    <h2 class="title"><span class="circle"></span>Company</h2>
     <p>Текст и контент для второго раздела...</p>
     <!-- Дополнительный контент -->
   </app-section>
 
   <app-section id="section3" title="Photos">
-    <h3>Содержание раздела 3</h3>
+    <h2 class="title"><span class="circle"></span>Company</h2>
     <p>Текст и контент для третьего раздела...</p>
     <!-- Дополнительный контент -->
   </app-section>
 
-  <app-section id="section4" title="Cast & Crew">
-    <h3>Содержание раздела 4</h3>
-    <p>Текст и контент для четвертого раздела...</p>
-    <!-- Дополнительный контент -->
+  <app-section id="section4" title="Company">
+    <h2 class="title"><span class="circle"></span>Company</h2>
+    <app-company [data]="dataCompany().companyCredits" />
   </app-section>
 </main>
