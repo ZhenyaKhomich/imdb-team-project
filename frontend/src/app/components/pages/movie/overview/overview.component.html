@@ -78,19 +78,19 @@
       <span class="description-tag">Genre</span>
       <div class="genres">
         @for (genre of genres(); track genre) {
-        <span class="genre">{{ genre }}</span>
+        <p class="genre">{{ genre }}</p>
         }
       </div>
     </div>
     <div class="description-line">
-      <span class="description-tag">Plot</span>
+      <span class="description-tag plot-tag">Plot</span>
       <span class="plot">{{ plot() }}</span>
     </div>
     <div class="description-line">
       <span class="description-tag">Director</span>
-      <div>
+      <div class="people">
         @for (director of directors(); track director.id) { @if(!$first) {
-        &middot;
+        <span class="dot">&middot;</span>
         <a [href]="'#' + director.id" class="director">{{
           director.displayName
         }}</a>
@@ -103,8 +103,9 @@
     </div>
     <div class="description-line">
       <span class="description-tag">Writers</span>
-      <div>
-        @for (writer of writers(); track writer.id) { @if(!$first) { &middot;
+      <div class="people">
+        @for (writer of writers(); track writer.id) { @if(!$first) {
+        <span class="dot">&middot;</span>
         <a [href]="'#' + writer.id" class="director">{{
           writer.displayName
         }}</a>
@@ -117,8 +118,9 @@
     </div>
     <div class="description-line">
       <span class="description-tag">Stars</span>
-      <div>
-        @for (star of stars(); track star.id) { @if(!$first) { &middot;
+      <div class="people">
+        @for (star of stars(); track star.id) { @if(!$first) {
+        <span class="dot">&middot;</span>
         <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
         } @else {
         <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
