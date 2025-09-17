@@ -14,12 +14,13 @@
             <div class="card__name"> {{ actor.displayName }}</div>
             @if (id === SliderIdEnum.popular_actors) {
               <div class="card__rating">Rating: <span>{{ actor.meterRanking.currentRank }}</span>
-                (@if (actor.meterRanking.changeDirection === 'UP') {
-                  <mat-icon class="card__rating-up" fontIcon="arrow_upward"></mat-icon>
+                @if (actor.meterRanking.changeDirection === 'UP') {
+                  (<mat-icon class="card__rating-up" fontIcon="arrow_upward"></mat-icon>
+                  {{ actor.meterRanking.difference }})
                 } @else if (actor.meterRanking.changeDirection === 'DOWN') {
-                  <mat-icon class="card__rating-down" fontIcon="arrow_downward"></mat-icon>
+                  (<mat-icon class="card__rating-down" fontIcon="arrow_downward"></mat-icon>
+                  {{ actor.meterRanking.difference }})
                 }
-                {{ actor.meterRanking.difference }})
               </div>
             }
             @if (id === SliderIdEnum.birthdays_actors) {

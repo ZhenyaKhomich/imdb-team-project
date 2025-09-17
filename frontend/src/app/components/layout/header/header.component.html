@@ -76,7 +76,7 @@
         </div>
       </div>
       <span class="header__actions-line"></span>
-      <div class="header__actions-watchList">
+      <div class="header__actions-watchList" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
         WatchList
       </div>
@@ -156,7 +156,7 @@
               </div>
             </div>
             <span class="header__actions-line"></span>
-            <div class="header__actions-watchList">
+            <div class="header__actions-watchList" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
               WatchList
             </div>
