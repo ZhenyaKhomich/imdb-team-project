@@ -38,10 +38,10 @@
           <div class="card movie">
             <div class="movie__img">
               <img src="{{movie.primaryImage?.url}}" alt="No image" loading="lazy">
-              @if(id === 'watchlist') {
+              @if(signalService.idForCheckElementInWatchlist().includes(movie.id)) {
                 <mat-icon class="delete" (click)="deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
                 } @else {
-              <mat-icon fontIcon="bookmark_add"></mat-icon>
+              <mat-icon fontIcon="bookmark_add" (click)="watchlistService.addMovie(movie)"></mat-icon>
               }
             </div>
             <div class="movie__description">

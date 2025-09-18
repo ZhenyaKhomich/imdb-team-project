@@ -34,6 +34,9 @@
             I accept <a href="#">the terms of the user agreement</a> and consent <a href="#">to the processing of personal data.</a>
           </div>
         </label>
+        @if(signUpForm.invalid && signUpForm.get('rules')?.touched) {
+          <div class="error">Accept the terms of the confidentiality policy</div>
+        }
       </div>
       <button class="btn auth-form-button" (click)="signup()">Sign Up</button>
       <div class="auth-question">

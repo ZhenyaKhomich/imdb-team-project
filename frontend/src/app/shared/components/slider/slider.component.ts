@@ -15,7 +15,7 @@ import {SliderIdEnum} from '../../enums/slider-id.enum';
 import {WINDOW} from '../../injection-tokens/window.token';
 import {SignalService} from '../../services/signal.service';
 import type {FilmDataType, TitlesDataType} from '../../types/movies-response.type';
-import {WatchlistService} from '../../services/watchlist.service.service';
+import {WatchlistService} from '../../services/watchlist.service';
 
 @Component({
   selector: 'app-slider',
@@ -40,6 +40,7 @@ export class SliderComponent implements OnInit {
   public todayData = new Date(Date.now());
   public year = this.todayData.getFullYear();
   public signalService = inject(SignalService);
+  public watchlistService = inject(WatchlistService);
   public sliderConfig: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -62,7 +63,6 @@ export class SliderComponent implements OnInit {
   protected readonly SliderIdEnum = SliderIdEnum;
   private window = inject(WINDOW);
   private width = this.window.innerWidth;
-  private watchlistService = inject(WatchlistService);
 
   @HostListener('window:resize')
   public onResize(): void {
@@ -77,8 +77,6 @@ export class SliderComponent implements OnInit {
     } else if (this.elementsSlider && 'titles' in this.elementsSlider) {
       this.moviesList = this.elementsSlider.titles;
       this.sliderConfig.loop = !(this.moviesList && this.moviesList?.length < 5);
-      console.log(this.moviesList);
-      console.log(this.id);
     }
 
     this.changeWidth(this.width);
@@ -91,14 +89,6 @@ export class SliderComponent implements OnInit {
   public deleteMovie(id: string): void {
     this.watchlistService.deleteMovie(id);
   }
-
-  // public deleteMovieFromWatchList(id: string): void {
-  //   this.watchListService.deleteWatchListElement(id).subscribe(
-  //     (data) => {
-  //       console.log(data);
-  //     }
-  //   )
-  // }
 
   private changeWidth(width: number): void {
     if(width >= 1250) {
@@ -196,13 +186,11 @@ export class SliderComponent implements OnInit {
       this.signalService.refreshSliderWatchList.set(false);
       setTimeout(()=> {
         this.signalService.refreshSliderWatchList.set(true);
-        console.log('обновился слайдер watchlist');
       }, 5)
     } else {
       this.signalService.refreshSlider.set(true);
       setTimeout(()=> {
         this.signalService.refreshSlider.set(false);
-        console.log('обновился слайдер')
       }, 5)
     }
   }

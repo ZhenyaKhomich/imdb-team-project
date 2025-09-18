@@ -83,6 +83,10 @@
         &__img {
           position: relative;
 
+          .delete {
+            color: $red-color;
+          }
+
           img {
             width: 400px;
             border-radius: 5px;

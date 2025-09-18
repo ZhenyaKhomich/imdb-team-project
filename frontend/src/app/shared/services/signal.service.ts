@@ -12,5 +12,6 @@ export class SignalService {
   public refreshSlider = signal(false);
   public refreshSliderWatchList = signal(false);
   public watchlistData: WritableSignal<TitlesDataType> = signal({titles:[]});
-  public changeWatchlist: WritableSignal<boolean> = signal(true);
+  public changeWatchlist: WritableSignal<boolean> = signal(false);
+  public idForCheckElementInWatchlist: WritableSignal<string[]> = signal([]);
 }

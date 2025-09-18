@@ -12,12 +12,12 @@ import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 import {SignalService} from '../../../shared/services/signal.service';
 import {ActorsService} from '../../../shared/services/actors.service';
 import {ReductionTwentyElementsPipe} from '../../../shared/pipes/reduction-twenty-elements.pipe';
-import type {FilmDataType, TitlesDataType} from '../../../shared/types/movies-response.type';
+import type {TitlesDataType} from '../../../shared/types/movies-response.type';
 import {MoviesService} from '../../../shared/services/movies.service';
 import {LocalStorageService} from '../../../shared/services/local-storage.service';
 import {LoaderComponent} from '../../../shared/components/loader/loader.component';
 import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pipe';
-import {WatchlistService} from '../../../shared/services/watchlist.service.service';
+import {WatchlistService} from '../../../shared/services/watchlist.service';
 
 @Component({
   selector: 'app-main',
@@ -54,6 +54,15 @@ export class MainComponent implements OnInit {
   public indexFollowingSlides: number[] = [];
   public watchListService = inject(WatchlistService);
   public updateSlider = false;
+  public watchlistService = inject(WatchlistService);
+
+  public watchlist$ = effect(() => {
+    this.signalService.changeWatchlist.set(false);
+    setTimeout(()=> {
+      this.signalService.changeWatchlist.set(true);
+    },1)
+  });
+
   public customMovies: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -75,22 +84,12 @@ export class MainComponent implements OnInit {
   protected readonly SliderIdEnum = SliderIdEnum;
   private actorsService = inject(ActorsService);
   private moviesService = inject(MoviesService);
-  private watchlistService = inject(WatchlistService);
   private localStorageService = inject(LocalStorageService);
   private today = new Date();
   private cdr = inject(ChangeDetectorRef);
-  public watchlist$ = effect(() => {
-    console.log('Значение count изменилось:', this.signalService.watchlistData());
-    this.signalService.changeWatchlist.set(false);
-    setTimeout(()=> {
-      this.signalService.changeWatchlist.set(true);
-      console.log(this.signalService.watchlistData());
-    },1)
 
-  });
 
   public ngOnInit(): void {
-
     this.updateFollowingSlides(this.currentElementMainSlider);
 
     this.moviesService.getTitles().subscribe(
@@ -137,19 +136,6 @@ export class MainComponent implements OnInit {
       this.cdr.detectChanges();
     }
   }
-
-
-
-  public addMovie(movie: FilmDataType): void {
-    this.watchlistService.addMovieWatchList(movie).subscribe(
-      (data) => {
-        console.log(data)
-        this.watchListService.getMovies();
-        // console.log(this.watchlist);
-      }
-    );
-  }
-
 
   public updateFollowingSlides(currentIndex: number): void {
     this.indexFollowingSlides = [];
