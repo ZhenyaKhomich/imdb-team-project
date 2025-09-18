@@ -6,7 +6,6 @@ import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptorFunction } from './shared/interceptors/auth.interceptor';
-import { youtubeInterceptor } from './shared/interceptors/youtube.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,8 +17,6 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideAnimations(),
-    provideHttpClient(
-      withInterceptors([authInterceptorFunction, youtubeInterceptor])
-    ),
+    provideHttpClient(withInterceptors([authInterceptorFunction])),
   ],
 };

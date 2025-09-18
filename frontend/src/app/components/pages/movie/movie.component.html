@@ -19,20 +19,45 @@
       [img]="img()"
       [favorite]="isFavorite()"
       (favoriteId)="favoriteId()"
-      [trillers]="trillers()"
+      [trillers]="dataVideo()?.videos || []"
     />
   </app-section>
 
   <app-section id="section2" title="Videos">
-    <h2 class="title"><span class="circle"></span>Company</h2>
-    <p>Текст и контент для второго раздела...</p>
-    <!-- Дополнительный контент -->
+    <h2 class="title">
+      <span class="circle"></span>Videos
+      <div class="actions">
+        <mat-icon class="action">arrow_back_ios</mat-icon>
+        <mat-icon class="action">arrow_forward_ios</mat-icon>
+      </div>
+    </h2>
+    <app-videos #videos [data]="dataVideo()?.videos || []" />
   </app-section>
 
-  <app-section id="section3" title="Photos">
-    <h2 class="title"><span class="circle"></span>Company</h2>
-    <p>Текст и контент для третьего раздела...</p>
-    <!-- Дополнительный контент -->
+  <app-section id="section3" title="Images">
+    <h2 class="title">
+      <span class="circle"></span>Images
+      <div class="actions">
+        <mat-icon
+          class="action"
+          [class.active]="isPrevImageActive()"
+          (click)="imagePrev()"
+          >arrow_back_ios</mat-icon
+        >
+        <mat-icon
+          class="action"
+          [class.active]="isNextImageActive()"
+          (click)="imageNext()"
+          >arrow_forward_ios</mat-icon
+        >
+      </div>
+    </h2>
+    <app-images
+      #images
+      [images]="urlImages()"
+      (isPrevActive)="isPrevImageActive.set($event)"
+      (isNextActive)="isNextImageActive.set($event)"
+    />
   </app-section>
 
   <app-section id="section4" title="Company">

@@ -6,8 +6,8 @@ import type {
   Data,
   ErrorTypes,
   TitleTypes,
-  TrillerData,
   VideosData,
+  ImageData,
 } from '../types/movies';
 import { RequestsEnum } from '../enums/requests.enum';
 
@@ -40,12 +40,6 @@ export class MoviesService {
     return this.http.get<Data>(this.baseUrl + RequestsEnum.TITLES, {
       params: parameters,
     });
-  }
-
-  public getTrillers(search: string): Observable<TrillerData> {
-    return this.http.get<TrillerData>(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&type=video&key=AIzaSyD6BPolFqadEkCkmgn5HT7SynK3igkrm6M&maxResults=20`
-    );
   }
 
   public getTitle(id: string): Observable<TitleTypes | ErrorTypes> {

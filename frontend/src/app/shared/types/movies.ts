@@ -156,11 +156,16 @@ export interface PrimaryImage {
 }
 
 export interface TrillerData {
-  items: {
-    id: {
-      videoId: string;
-    };
-  }[];
+  items: Triller[];
+}
+
+export interface Triller {
+  snippet: {
+    title: string;
+  };
+  id: {
+    videoId: string;
+  };
 }
 
 export interface CompanyCreditData {

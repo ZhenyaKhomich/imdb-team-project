@@ -1,0 +1,17 @@
+@for (video of data(); track video.id) {
+
+<div class="block">
+  <div class="wrapper-video">
+    <div class="loading loader-video"></div>
+    <iframe
+      class="video"
+      width="100%"
+      height="100%"
+      [src]="`https://www.imdb.com/video/imdb/${video.id}/imdb/embed` | safeUrl"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <p class="text">{{ video.name | truncate }}</p>
+</div>
+}

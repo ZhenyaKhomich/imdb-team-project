@@ -6,7 +6,12 @@ import {
   output,
 } from '@angular/core';
 import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
-import type { Director, Star, Writer } from '../../../../shared/types/movies';
+import type {
+  Director,
+  Star,
+  Video,
+  Writer,
+} from '../../../../shared/types/movies';
 import { MatIconModule } from '@angular/material/icon';
 import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
 import { NgOptimizedImage } from '@angular/common';
@@ -33,7 +38,7 @@ export class OverviewComponent {
   public endYear = input<number>(0);
   public time = input<number>(0);
   public genres = input<string[]>([]);
-  public trillers = input<string[]>([]);
+  public trillers = input<Video[]>([]);
   public plot = input<string>('');
   public directors = input<Pick<Director, 'id' | 'displayName'>[]>([]);
   public writers = input<Pick<Writer, 'id' | 'displayName'>[]>([]);
@@ -46,7 +51,7 @@ export class OverviewComponent {
   public urlTriller = computed(() => {
     const currentEmbedUrl = this.trillers();
     if (currentEmbedUrl.length > 0) {
-      return `https://www.youtube.com/embed/${currentEmbedUrl[0]}?enablejsapi=1&modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3&fs=0`;
+      return `https://www.imdb.com/video/imdb/${currentEmbedUrl[0].id}/imdb/embed`;
     }
     return '';
   });

@@ -5,25 +5,31 @@ import {
   effect,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './services/navigation.service';
 import { SectionComponent } from './section/section.component';
 import { MoviesService } from '../../../shared/services/movies.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { OverviewComponent } from './overview/overview.component';
-import { catchError, map, of, switchMap } from 'rxjs';
 import { CompanyComponent } from './company/company.component';
+import { VideosComponent } from './videos/videos.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ImagesComponent } from './images/images.component';
 
 @Component({
   selector: 'app-movie',
   imports: [
     NavigationComponent,
+    MatIconModule,
     SectionComponent,
     OverviewComponent,
     CompanyComponent,
+    VideosComponent,
+    ImagesComponent,
   ],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.scss',
@@ -36,8 +42,21 @@ export class MovieComponent {
   public title = inject(Title);
   public navService = inject(NavigationService);
   public loadingTitles = signal(false);
+  public currentUrl = window.location.pathname;
+  public isPrevImageActive = signal(false);
+  public isNextImageActive = signal(true);
+
+  public images = viewChild(ImagesComponent);
 
   public data = toSignal(this.movie.getTitle(this.id() || ''), {
+    initialValue: null,
+  });
+
+  public dataVideo = toSignal(this.movie.getVideos(this.id() || ''), {
+    initialValue: null,
+  });
+
+  public dataImage = toSignal(this.movie.getImages(this.id() || ''), {
     initialValue: null,
   });
 
@@ -53,6 +72,14 @@ export class MovieComponent {
     return '';
   });
 
+  public urlImages = computed(() => {
+    const currentData = this.dataImage();
+    if (currentData && 'images' in currentData) {
+      return currentData.images.map((element) => element.url) || [];
+    }
+    return [];
+  });
+
   public titleMovie = computed(() => {
     const currentData = this.data();
     if (currentData && 'primaryTitle' in currentData) {
@@ -60,25 +87,6 @@ export class MovieComponent {
     }
     return '';
   });
-
-  public trillers = toSignal(
-    toObservable(this.titleMovie).pipe(
-      switchMap((name: string) => {
-        this.loadingTitles.set(true);
-        return this.movie.getTrillers(encodeURIComponent(`${name} triller`));
-      }),
-      map((data) => {
-        this.loadingTitles.set(false);
-
-        return data.items.map((element) => element.id.videoId);
-      }),
-      catchError(() => {
-        this.loadingTitles.set(false);
-        return of([]);
-      })
-    ),
-    { initialValue: [] }
-  );
 
   public year = computed(() => {
     const currentData = this.data();
@@ -206,5 +214,17 @@ export class MovieComponent {
 
   public favoriteId(): void {
     this.movie.toggleFavorite(this.id() || '');
+  }
+
+  public imagePrev(): void {
+    if (this.images()) {
+      this.images()?.prev();
+    }
+  }
+
+  public imageNext(): void {
+    if (this.images()) {
+      this.images()?.next();
+    }
   }
 }
