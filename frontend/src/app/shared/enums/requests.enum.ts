@@ -6,4 +6,5 @@ export enum RequestsEnum {
   USERS = 'users',
   ALL_ACTORS = 'chart/starmeter',
   SEARCH = 'search/titles?query=',
+  WATCHLIST = 'watchlist',
 }

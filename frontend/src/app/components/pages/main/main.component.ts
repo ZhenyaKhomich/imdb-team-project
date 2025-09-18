@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, ViewChild} from '@angular/core';
 import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {LowerCasePipe, NgForOf} from '@angular/common';
+import {LowerCasePipe, NgForOf, NgIf} from '@angular/common';
 import {MinutesToHoursPipe} from '../../../shared/pipes/minutes-to-hours.pipe';
 import type {CarouselComponent} from 'ngx-owl-carousel-o';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
@@ -12,11 +12,12 @@ import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 import {SignalService} from '../../../shared/services/signal.service';
 import {ActorsService} from '../../../shared/services/actors.service';
 import {ReductionTwentyElementsPipe} from '../../../shared/pipes/reduction-twenty-elements.pipe';
-import type {TitlesDataType} from '../../../shared/types/movies-response.type';
+import type {FilmDataType, TitlesDataType} from '../../../shared/types/movies-response.type';
 import {MoviesService} from '../../../shared/services/movies.service';
 import {LocalStorageService} from '../../../shared/services/local-storage.service';
 import {LoaderComponent} from '../../../shared/components/loader/loader.component';
 import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pipe';
+import {WatchlistService} from '../../../shared/services/watchlist.service.service';
 
 @Component({
   selector: 'app-main',
@@ -30,7 +31,8 @@ import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pi
     SliderComponent,
     LowerCasePipe,
     LoaderComponent,
-    SortMoviesYearPipe
+    SortMoviesYearPipe,
+    NgIf
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -41,15 +43,17 @@ import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pi
 export class MainComponent implements OnInit {
   @ViewChild('carouseMovies') public carouseMovies!: CarouselComponent
   public currentElementMainSlider = 0;
-  public watchlist = [];
+  public signalService = inject(SignalService);
+  // public watchlist: TitlesDataType = {titles: []};
   public movies: TitlesDataType | null = null;
   public moviesTopRating: TitlesDataType | null = null;
-  public moviesTopYears: TitlesDataType = { titles: [] };
+  public moviesTopYears: TitlesDataType = {titles: []};
   public birthdaysActors: ActorsDataType | null = null;
   public popularActors: ActorsDataType | null = null;
   public mainSliderLength = 0;
   public indexFollowingSlides: number[] = [];
-  public signalService = inject(SignalService);
+  public watchListService = inject(WatchlistService);
+  public updateSlider = false;
   public customMovies: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -71,17 +75,28 @@ export class MainComponent implements OnInit {
   protected readonly SliderIdEnum = SliderIdEnum;
   private actorsService = inject(ActorsService);
   private moviesService = inject(MoviesService);
+  private watchlistService = inject(WatchlistService);
   private localStorageService = inject(LocalStorageService);
   private today = new Date();
   private cdr = inject(ChangeDetectorRef);
+  public watchlist$ = effect(() => {
+    console.log('Значение count изменилось:', this.signalService.watchlistData());
+    this.signalService.changeWatchlist.set(false);
+    setTimeout(()=> {
+      this.signalService.changeWatchlist.set(true);
+      console.log(this.signalService.watchlistData());
+    },1)
+
+  });
 
   public ngOnInit(): void {
+
     this.updateFollowingSlides(this.currentElementMainSlider);
 
     this.moviesService.getTitles().subscribe(
       (data) => {
         this.movies = data;
-        if(this.movies.titles){
+        if (this.movies.titles) {
           this.mainSliderLength = this.movies.titles.length;
         }
         this.updateFollowingSlides(this.currentElementMainSlider);
@@ -102,9 +117,11 @@ export class MainComponent implements OnInit {
       }
     )
 
+    this.watchlistService.getMovies();
+
     this.loadAllPages(2022);
 
-    if(this.localStorageService.getActors() && this.localStorageService.getData() === `${this.today.getDate()}.${this.today.getMonth() + 1}`) {
+    if (this.localStorageService.getActors() && this.localStorageService.getData() === `${this.today.getDate()}.${this.today.getMonth() + 1}`) {
       this.birthdaysActors = JSON.parse(localStorage.getItem('actors')!);
     } else {
       this.actorsService.getAllActors(25).subscribe(
@@ -121,10 +138,23 @@ export class MainComponent implements OnInit {
     }
   }
 
+
+
+  public addMovie(movie: FilmDataType): void {
+    this.watchlistService.addMovieWatchList(movie).subscribe(
+      (data) => {
+        console.log(data)
+        this.watchListService.getMovies();
+        // console.log(this.watchlist);
+      }
+    );
+  }
+
+
   public updateFollowingSlides(currentIndex: number): void {
     this.indexFollowingSlides = [];
     for (let i = 1; i <= 3; i++) {
-      if(this.mainSliderLength) {
+      if (this.mainSliderLength) {
         const nextIndex = (currentIndex + i) % this.mainSliderLength;
         this.indexFollowingSlides.push(nextIndex);
       }
@@ -145,7 +175,7 @@ export class MainComponent implements OnInit {
     this.carouseMovies.prev();
     if (this.currentElementMainSlider !== 0) {
       this.currentElementMainSlider -= 1;
-    } else if(this.mainSliderLength) {
+    } else if (this.mainSliderLength) {
       this.currentElementMainSlider = this.mainSliderLength - 1;
     }
     this.updateFollowingSlides(this.currentElementMainSlider);
@@ -157,7 +187,7 @@ export class MainComponent implements OnInit {
       startYear: year,
       pageToken: pageToken ? pageToken : '',
     }).subscribe((data) => {
-      if (data.titles?.length &&  this.moviesTopYears && this.moviesTopYears.titles) {
+      if (data.titles?.length && this.moviesTopYears && this.moviesTopYears.titles) {
         this.moviesTopYears.titles.push(...data.titles);
       }
 

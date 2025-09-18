@@ -137,6 +137,10 @@
         color: $bookmark-add;
         transition: all 0.3s linear;
 
+        &.delete {
+          color: $red-color;
+        }
+
         &:hover {
           color: $light-background-primary;
         }
@@ -179,6 +183,7 @@
 
     .gray-btn {
       display: flex;
+      gap: 5px;
       justify-content: center;
       align-items: center;
       width: 150px;

@@ -8,13 +8,14 @@ import {
 import type {OnInit} from '@angular/core';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import type {ActorDataType, ActorsDataType} from '../../types/actors-data.type';
 import {SliderIdEnum} from '../../enums/slider-id.enum';
 import {WINDOW} from '../../injection-tokens/window.token';
 import {SignalService} from '../../services/signal.service';
 import type {FilmDataType, TitlesDataType} from '../../types/movies-response.type';
+import {WatchlistService} from '../../services/watchlist.service.service';
 
 @Component({
   selector: 'app-slider',
@@ -23,7 +24,8 @@ import type {FilmDataType, TitlesDataType} from '../../types/movies-response.typ
     CarouselModule,
     MatIconModule,
     NgForOf,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
@@ -54,12 +56,13 @@ export class SliderComponent implements OnInit {
     navText: ['<', '>'],
     items: 1,
   };
+
   protected readonly Math = Math;
   protected readonly Number = Number;
   protected readonly SliderIdEnum = SliderIdEnum;
   private window = inject(WINDOW);
   private width = this.window.innerWidth;
-
+  private watchlistService = inject(WatchlistService);
 
   @HostListener('window:resize')
   public onResize(): void {
@@ -70,16 +73,36 @@ export class SliderComponent implements OnInit {
   public ngOnInit(): void {
     if (this.elementsSlider && 'names' in this.elementsSlider) {
       this.actorsList = this.elementsSlider.names;
+      this.sliderConfig.loop = !(this.actorsList && this.actorsList.length < 6);
     } else if (this.elementsSlider && 'titles' in this.elementsSlider) {
       this.moviesList = this.elementsSlider.titles;
+      this.sliderConfig.loop = !(this.moviesList && this.moviesList?.length < 5);
+      console.log(this.moviesList);
+      console.log(this.id);
     }
 
     this.changeWidth(this.width);
   }
 
+  public trackBySliderId(index: number, movie: FilmDataType): string {
+    return movie.id;
+  }
+
+  public deleteMovie(id: string): void {
+    this.watchlistService.deleteMovie(id);
+  }
+
+  // public deleteMovieFromWatchList(id: string): void {
+  //   this.watchListService.deleteWatchListElement(id).subscribe(
+  //     (data) => {
+  //       console.log(data);
+  //     }
+  //   )
+  // }
+
   private changeWidth(width: number): void {
     if(width >= 1250) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 5;
         this.itemsInSlider = 5;
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
@@ -89,12 +112,14 @@ export class SliderComponent implements OnInit {
 
     }
     if(width < 1240 && width >= 1000) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 4;
         this.itemsInSlider = 4;
+        this.sliderConfig.loop = !(this.moviesList && this.moviesList?.length < 4);
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
         this.sliderConfig.items = 5;
         this.itemsInSlider = 5;
+        this.sliderConfig.loop = !(this.actorsList && this.actorsList.length < 5);
       }
       this.signalService.refreshSlider.set(true);
       setTimeout(()=> {
@@ -103,19 +128,21 @@ export class SliderComponent implements OnInit {
     }
 
     if(width < 1000 && width >= 900) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 4;
         this.itemsInSlider = 4;
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
         this.sliderConfig.items = 4;
         this.itemsInSlider = 4;
+        this.sliderConfig.loop = !(this.actorsList && this.actorsList.length < 4);
       }
     }
 
     if(width < 900 && width >= 800) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 3;
         this.itemsInSlider = 3;
+        this.sliderConfig.loop = !(this.moviesList && this.moviesList?.length < 3);
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
         this.sliderConfig.items = 4;
         this.itemsInSlider = 4;
@@ -123,19 +150,21 @@ export class SliderComponent implements OnInit {
     }
 
     if(width < 800 && width >= 690) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 3;
         this.itemsInSlider = 3;
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
         this.sliderConfig.items = 3;
         this.itemsInSlider = 3;
+        this.sliderConfig.loop = !(this.actorsList && this.actorsList.length < 3);
       }
     }
 
     if(width < 700 && width >= 600) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 2;
         this.itemsInSlider = 2;
+        this.sliderConfig.loop = !(this.moviesList && this.moviesList?.length < 2);
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
         this.sliderConfig.items = 3;
         this.itemsInSlider = 3;
@@ -143,17 +172,18 @@ export class SliderComponent implements OnInit {
     }
 
     if(width < 600 && width >= 450) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 2;
         this.itemsInSlider = 2;
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
         this.sliderConfig.items = 2;
         this.itemsInSlider = 2;
+        this.sliderConfig.loop = !(this.actorsList && this.actorsList.length < 2);
       }
     }
 
     if(width < 450) {
-      if (this.id === SliderIdEnum.movies) {
+      if (this.id === SliderIdEnum.movies || this.id === SliderIdEnum.watchlist) {
         this.sliderConfig.items = 1;
         this.itemsInSlider = 1;
       } else if (this.id === SliderIdEnum.birthdays_actors || this.id === SliderIdEnum.popular_actors) {
@@ -162,9 +192,18 @@ export class SliderComponent implements OnInit {
       }
     }
 
-    this.signalService.refreshSlider.set(true);
-    setTimeout(()=> {
-      this.signalService.refreshSlider.set(false);
-    }, 10)
+    if(this.id == 'watchlist') {
+      this.signalService.refreshSliderWatchList.set(false);
+      setTimeout(()=> {
+        this.signalService.refreshSliderWatchList.set(true);
+        console.log('обновился слайдер watchlist');
+      }, 5)
+    } else {
+      this.signalService.refreshSlider.set(true);
+      setTimeout(()=> {
+        this.signalService.refreshSlider.set(false);
+        console.log('обновился слайдер')
+      }, 5)
+    }
   }
 }

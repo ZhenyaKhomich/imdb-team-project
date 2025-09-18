@@ -3,7 +3,7 @@
     <form class="auth-form" [formGroup]="signUpForm">
       <div class="auth-form-title">Registration on the website</div>
       <div class="inputs">
-        <input type="text" formControlName="name"
+        <input type="text" formControlName="name" #name
                [ngStyle]="{'border-color': signUpForm.get('name')?.invalid &&
                 (signUpForm.get('name')?.touched || signUpForm.get('name')?.dirty) ? 'red' : ''}"
                class="input" placeholder="Name">
