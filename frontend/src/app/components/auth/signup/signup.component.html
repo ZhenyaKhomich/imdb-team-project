@@ -7,15 +7,27 @@
                [ngStyle]="{'border-color': signUpForm.get('name')?.invalid &&
                 (signUpForm.get('name')?.touched || signUpForm.get('name')?.dirty) ? 'red' : ''}"
                class="input" placeholder="Name">
+        @if(signUpForm.get('name')?.invalid &&
+        (signUpForm.get('name')?.touched || signUpForm.get('name')?.dirty)) {
+          <div class="error">Enter a valid English name consisting of a capital letter and at least 2 letters</div>
+        }
         <input type="text" formControlName="email"
                [ngStyle]="{'border-color': signUpForm.get('email')?.invalid &&
                 (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty) ? 'red' : ''}"
                class="input" placeholder="Email">
+        @if(signUpForm.get('email')?.invalid &&
+        (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)) {
+          <div class="error">Enter the correct E-mail address</div>
+        }
         <input [type]="showPasswordValue ? 'text' : 'password'" formControlName="password"
                [ngStyle]="{'border-color': signUpForm.get('password')?.invalid &&
                 (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty) ? 'red' : ''}"
                class="input" placeholder="Password">
         <mat-icon class="signup__eye" (click)="showPassword()" [fontIcon]="!showPasswordValue ? 'visibility' : 'visibility_off'"></mat-icon>
+        @if(signUpForm.get('password')?.invalid &&
+        (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty)) {
+          <div class="error">Enter password containing at least 7 digits and 1 uppercase English letter</div>
+        }
         <label>
           <input type="checkbox" formControlName="rules" class="auth-form-conditions">
           <div class="auth-form-conditions-text">
