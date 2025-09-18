@@ -1,6 +1,6 @@
 @if (!signalService.refreshSlider()) {
   <div class="slider">
-    @if (actorsList.length > itemsInSlider || moviesList.length > itemsInSlider) {
+    @if (actorsList.length > itemsInSlider || moviesList && moviesList.length > itemsInSlider) {
       <div class="slider__arrows">
         <mat-icon (click)="slider.next()" fontIcon="arrow_back_ios"></mat-icon>
         <mat-icon (click)="slider.prev()" fontIcon="arrow_forward_ios"></mat-icon>
@@ -14,18 +14,18 @@
             <div class="card__name"> {{ actor.displayName }}</div>
             @if (id === SliderIdEnum.popular_actors) {
               <div class="card__rating">Rating: <span>{{ actor.meterRanking.currentRank }}</span>
-                (@if (actor.meterRanking.changeDirection === 'UP') {
-                  <mat-icon class="card__rating-up" fontIcon="arrow_upward"></mat-icon>
+                @if (actor.meterRanking.changeDirection === 'UP') {
+                  (<mat-icon class="card__rating-up" fontIcon="arrow_upward"></mat-icon>
+                  {{ actor.meterRanking.difference }})
                 } @else if (actor.meterRanking.changeDirection === 'DOWN') {
-                  <mat-icon class="card__rating-down" fontIcon="arrow_downward"></mat-icon>
+                  (<mat-icon class="card__rating-down" fontIcon="arrow_downward"></mat-icon>
+                  {{ actor.meterRanking.difference }})
                 }
-                {{ actor.meterRanking.difference }})
               </div>
             }
             @if (id === SliderIdEnum.birthdays_actors) {
               <img src="images/birthday.png" alt="birthday" class="card__birthday-img">
-              <div class="card__birthday-data">{{ actor.birthDate.day }}.{{ actor.birthDate.month }}
-                .{{ actor.birthDate.year }}
+              <div class="card__birthday-data">{{ actor.birthDate.day }}.{{ actor.birthDate.month }}.{{ actor.birthDate.year }}
               </div>
               <div class="card__year">{{ year - actor.birthDate.year }}</div>
             }
@@ -37,12 +37,13 @@
         <ng-template carouselSlide *ngFor="let movie  of moviesList; let i = index">
           <div class="card movie">
             <div class="movie__img">
-              <img src="{{movie.primaryImage.url}}" alt="img">
+              <img src="{{movie.primaryImage?.url}}" alt="img">
               <mat-icon fontIcon="bookmark_add"></mat-icon>
             </div>
             <div class="movie__description">
               <div class="movie__top">Top-{{ i + 1 }} on IMDb</div>
               <div class="movie__rating">
+                @if(movie.rating && movie.rating.aggregateRating) {
                 <mat-icon fontIcon="star"
                           *ngFor="let star of [].constructor(Math.floor(movie.rating.aggregateRating))"></mat-icon>
                 @if (!Number.isInteger(movie.rating.aggregateRating)) {
@@ -51,6 +52,7 @@
                 <div class="movie__rating-number">{{ movie.rating.aggregateRating }}
                   (votes: {{ movie.rating.voteCount }})
                 </div>
+                }
               </div>
               <div class="movie__title">{{ movie.primaryTitle }}</div>
               <button class="btn gray-btn">

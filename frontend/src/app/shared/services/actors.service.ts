@@ -22,8 +22,8 @@ export class ActorsService {
       return this.http.get<ActorsDataType>(environment.baseUrl + RequestsEnum.ALL_ACTORS, {params: token ? {pageToken: token} :  {pageToken: ''}}).pipe(
         delay(1),
         switchMap((response: ActorsDataType): Observable<ActorsDataType> => {
+
           allActors.names.push(...response.names);
-          console.log(allActors);
           return response.nextPageToken ? loadPages(response.nextPageToken, ++pageCount) : of(allActors);
         })
       );

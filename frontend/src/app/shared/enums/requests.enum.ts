@@ -5,4 +5,5 @@ export enum RequestsEnum {
   TITLES = 'titles',
   USERS = 'users',
   ALL_ACTORS = 'chart/starmeter',
+  SEARCH = 'search/titles?query=',
 }

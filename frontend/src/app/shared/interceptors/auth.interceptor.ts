@@ -6,18 +6,14 @@ import {Router} from '@angular/router';
 import {AppRoutesEnum} from '../enums/app-router.enum';
 import {environment} from '../../../environments/environment';
 
-
 export const authInterceptorFunction: HttpInterceptorFn = (request, next) => {
   const localStorageService = inject(LocalStorageService);
   const accessToken = localStorageService.getRefreshToken();
   const router = inject(Router);
 
   const myRequest = request.url.startsWith(environment.api);
-  console.log(myRequest)
-  console.log(request.url)
 
   if (accessToken && myRequest) {
-    console.log(accessToken)
     const newRequest = request.clone({
       setHeaders: {'x-auth': accessToken},
     })

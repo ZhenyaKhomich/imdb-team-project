@@ -7,7 +7,7 @@ import type {PipeTransform} from '@angular/core';
 })
 export class MinutesToHoursPipe implements PipeTransform {
 
-  public transform(value: number): string {
+  public transform(value: number | undefined): string {
     if (!value && value !== 0) return '';
 
     const totalMinutes = Math.floor(value / 60);

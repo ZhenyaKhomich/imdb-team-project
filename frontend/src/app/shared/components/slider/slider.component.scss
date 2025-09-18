@@ -41,6 +41,7 @@
 
     &__actor-img {
       height: 230px;
+      border: 1px solid $light-text-secondary;
     }
 
     img {
@@ -86,8 +87,8 @@
 
     &__birthday-img {
       margin-top: 5px;
-      height: 60px;
-      filter: drop-shadow(1px 1px 1px $light-background-primary)
+      height: 72px;
+      filter: drop-shadow(1px 1px 1px $light-background-primary);
     }
 
     &__birthday-data {
@@ -149,6 +150,7 @@
       align-items: center;
       text-align: center;
       width: 210px;
+      min-height: 235px;
       background: $dark-background-primary;
     }
 

@@ -2,10 +2,10 @@ import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {SliderIdEnum} from '../../../shared/enums/slider-id.enum';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
-import type {AllTitlesDataType} from '../../../shared/types/all-titles-data.type';
 import {RouterLink} from '@angular/router';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 import {SignalService} from '../../../shared/services/signal.service';
+import type {TitlesDataType} from '../../../shared/types/movies-response.type';
 
 @Component({
   selector: 'app-footer',
@@ -21,172 +21,142 @@ import {SignalService} from '../../../shared/services/signal.service';
 })
 export class FooterComponent {
   public signalService = inject(SignalService);
-  public movies: AllTitlesDataType = {
+  public movies: TitlesDataType = {
     titles: [
       {
-        "id": "tt12001534",
+        "id": "tt0209144",
         "type": "movie",
-        "primaryTitle": "First",
-        "originalTitle": "The Thursday Murder Club",
+        "primaryTitle": "Memento",
         "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BYmQ4NWVjN2EtN2U3NC00YzZhLWIzYmMtNjQ0ZjNiN2MzNDI0XkEyXkFqcGc@._V1_.jpg",
-          "width": 1500,
-          "height": 2222
+          "url": "https://m.media-amazon.com/images/M/MV5BYmQ3MjliNjAtNWFiZS00YWI1LTlmZTktMzBiNDE1NjRhZjU0XkEyXkFqcGc@._V1_.jpg",
         },
-        "startYear": 2025,
-        "runtimeSeconds": 7080,
+        "startYear": 2000,
+        "runtimeSeconds": 6780,
         "genres": [
-          "Comedy",
-          "Crime",
+          "Drama",
           "Mystery",
           "Thriller"
         ],
         "rating": {
-          "aggregateRating": 6.6,
-          "voteCount": 24660
+          "aggregateRating": 8.4,
+          "voteCount": 1398215
         },
-        "plot": "Four irrepressible retirees spend their time solving cold case murders for fun, but their casual sleuthing takes a thrilling turn when they find themselves with a real whodunit on their hands."
+        "plot": "A former insurance investigator who now suffers from anterograde amnesia uses notes and tattoos to hunt down his wife's murderer."
       },
       {
-        "id": "tt33043892",
-        "type": "tvSeries",
-        "primaryTitle": "Dexter: Resurrection",
-        "originalTitle": "Dexter: Resurrection",
-        "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BMzgxNzUwZTctMzliNi00MDUwLWE4YzctNjgwMDE2OWQwNzMxXkEyXkFqcGc@._V1_.jpg",
-          "width": 2700,
-          "height": 4000
-        },
-        "startYear": 2025,
-        "runtimeSeconds": 3000,
-        "genres": [
-          "Crime",
-          "Drama",
-          "Thriller"
-        ],
-        "rating": {
-          "aggregateRating": 9.2,
-          "voteCount": 57589
-        },
-        "plot": "Dexter Morgan awakens from a coma and sets out for New York City, determined to find Harrison and make things right. But when Miami Metro's Angel Batista arrives with questions, Dexter realizes his past is catching up to him fast."
-      },
-      {
-        "id": "tt13623632",
-        "type": "tvSeries",
-        "primaryTitle": "Alien: Earth",
-        "originalTitle": "Alien: Earth",
-        "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BOGIyNGRiNzgtOWQxZC00YzJmLThlZTYtYTMyMDk0YWZjMTk5XkEyXkFqcGc@._V1_.jpg",
-          "width": 675,
-          "height": 1000
-        },
-        "startYear": 2025,
-        "runtimeSeconds": 3300,
-        "genres": [
-          "Horror",
-          "Sci-Fi",
-          "Thriller"
-        ],
-        "rating": {
-          "aggregateRating": 7.6,
-          "voteCount": 30344
-        },
-        "plot": "When a mysterious space vessel crash-lands on Earth, a young woman and a ragtag group of tactical soldiers make a fateful discovery that puts them face-to-face with the planet's greatest threat."
-      },
-      {
-        "id": "tt26581740",
+        "id": "tt0210945",
         "type": "movie",
-        "primaryTitle": "Weapons",
-        "originalTitle": "Weapons",
+        "primaryTitle": "Remember the Titans",
         "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BNTBhNWJjZWItYzY3NS00M2NkLThmOWYtYTlmNzBmN2UxZWFjXkEyXkFqcGc@._V1_.jpg",
-          "width": 1638,
-          "height": 2048
+          "url": "https://m.media-amazon.com/images/M/MV5BZWY0NzgxMWQtMjM4NC00MjRiLWE0YjctYTFiNjA2NTNkZGY1XkEyXkFqcGc@._V1_.jpg",
         },
-        "startYear": 2025,
-        "runtimeSeconds": 7680,
+        "startYear": 2000,
+        "runtimeSeconds": 6780,
         "genres": [
-          "Horror",
-          "Mystery"
+          "Biography",
+          "Comedy",
+          "Drama",
+          "Sport"
         ],
         "rating": {
           "aggregateRating": 7.8,
-          "voteCount": 94031
+          "voteCount": 243399
         },
-        "plot": "When all but one child from the same class mysteriously vanish on the same night at exactly the same time, a community is left questioning who or what is behind their disappearance."
+        "plot": "In 1971, Virginia high-school football was everything to the people of Alexandria, but when the school board was forced to integrate an all-Black school with an all-white one, the foundation of football's tradition was put to the test."
       },
       {
-        "id": "tt20969586",
-        "type": "movie",
-        "primaryTitle": "Thunderbolts*",
-        "originalTitle": "Thunderbolts*",
+        "id": "tt0212671",
+        "type": "tvSeries",
+        "primaryTitle": "Malcolm in the Middle",
         "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BYWE2NmNmYTItZGY0ZC00MmY2LTk1NDAtMGUyMGEzMjcxNWM0XkEyXkFqcGc@._V1_.jpg",
-          "width": 2000,
-          "height": 2818
+          "url": "https://m.media-amazon.com/images/M/MV5BY2M0Y2M4YTQtZDdjMC00MDZiLWI1OGEtZDdjZjBiZDE4ODU3XkEyXkFqcGc@._V1_.jpg",
         },
-        "startYear": 2025,
-        "runtimeSeconds": 7620,
-        "genres": [
-          "Action",
-          "Adventure",
-          "Crime",
-          "Drama",
-          "Fantasy",
-          "Sci-Fi"
-        ],
-        "rating": {
-          "aggregateRating": 7.2,
-          "voteCount": 197636
-        },
-        "plot": "After finding themselves ensnared in a death trap, an unconventional team of antiheroes must go on a dangerous mission that will force them to confront the darkest corners of their pasts."
-      },
-      {
-        "id": "tt13443470",
-        "type": "tvMiniSeries",
-        "primaryTitle": "Wednesday",
-        "originalTitle": "Wednesday",
-        "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BMDE1NjNmZjgtZTg0OC00NjkxLWEzYzItMDNkMTc3YjgxZWQyXkEyXkFqcGc@._V1_.jpg",
-          "width": 1500,
-          "height": 2222
-        },
-        "startYear": 2022,
-        "runtimeSeconds": 2700,
+        "startYear": 2000,
+        "runtimeSeconds": 1320,
         "genres": [
           "Comedy",
-          "Crime",
-          "Fantasy",
-          "Mystery"
+          "Family"
         ],
         "rating": {
-          "aggregateRating": 8,
-          "voteCount": 447120
+          "aggregateRating": 8.2,
+          "voteCount": 151682
         },
-        "plot": "Follows Wednesday Addams' years as a student, when she attempts to master her emerging psychic ability, thwart a killing spree, and solve the mystery that embroiled her parents."
+        "plot": "A gifted young teen tries to survive life with his dimwitted, dysfunctional family."
       },
       {
-        "id": "tt26576161",
-        "type": "tvSeries",
-        "primaryTitle": "Last",
-        "originalTitle": "The Terminal List: Dark Wolf",
+        "id": "tt0208092",
+        "type": "movie",
+        "primaryTitle": "Snatch",
         "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BNGVlNmU2YmItOTE1Mi00NjhlLWE0ODMtNDVjMjY0OTUyOWY2XkEyXkFqcGc@._V1_.jpg",
-          "width": 2000,
-          "height": 3000
+          "url": "https://m.media-amazon.com/images/M/MV5BYzk5NjJkMTQtN2IyNC00YWM5LTlhZmMtNGI3MWNhMTU1YTc4XkEyXkFqcGc@._V1_.jpg",
         },
-        "startYear": 2025,
-        "runtimeSeconds": 3600,
+        "startYear": 2000,
+        "runtimeSeconds": 6120,
         "genres": [
-          "Action",
-          "Drama",
-          "Thriller"
+          "Comedy",
+          "Crime"
         ],
         "rating": {
-          "aggregateRating": 8,
-          "voteCount": 3005
+          "aggregateRating": 8.2,
+          "voteCount": 956373
         },
-        "plot": "Before joining THE TERMINAL LIST, Navy SEAL Ben Edwards works CIA black ops. As he delves deeper into moral gray areas, he struggles between light and dark impulses - two wolves fighting within him."
+        "plot": "Unscrupulous boxing promoters, violent bookmakers, a Russian gangster, incompetent amateur robbers and supposedly Jewish jewelers fight to track down a priceless stolen diamond."
+      },
+      {
+        "id": "tt0264235",
+        "type": "tvSeries",
+        "primaryTitle": "Curb Your Enthusiasm",
+        "primaryImage": {
+          "url": "https://m.media-amazon.com/images/M/MV5BZmFiZDY2ZDItZDliOC00Y2JhLTliMWYtODkzMTA0YmIwZDA3XkEyXkFqcGc@._V1_.jpg",
+        },
+        "startYear": 2000,
+        "runtimeSeconds": 1800,
+        "genres": [
+          "Comedy"
+        ],
+        "rating": {
+          "aggregateRating": 8.8,
+          "voteCount": 159902
+        },
+        "plot": "Larry David stars as an over-the-top version of himself in this comedy series that shows how seemingly trivial details of day-to-day life can precipitate a catastrophic chain of events."
+      },
+      {
+        "id": "tt0144084",
+        "type": "movie",
+        "primaryTitle": "American Psycho",
+        "primaryImage": {
+          "url": "https://m.media-amazon.com/images/M/MV5BNzBjM2I5ZjUtNmIzNy00OGNkLWIwZDMtOTAwYWUwMzA2YjdlXkEyXkFqcGc@._V1_.jpg",
+        },
+        "startYear": 2000,
+        "runtimeSeconds": 6120,
+        "genres": [
+          "Crime",
+          "Drama",
+          "Horror"
+        ],
+        "rating": {
+          "aggregateRating": 7.6,
+          "voteCount": 798193
+        },
+        "plot": "A wealthy New York City investment banking executive, Patrick Bateman, hides his alternate psychopathic ego from his co-workers and friends as he delves deeper into his violent, hedonistic fantasies."
+      },
+      {
+        "id": "tt0175142",
+        "type": "movie",
+        "primaryTitle": "Scary Movie",
+        "primaryImage": {
+          "url": "https://m.media-amazon.com/images/M/MV5BZGRmMGRhOWMtOTk3Ni00OTRjLTkyYTAtYzA1M2IzMGE3NGRkXkEyXkFqcGc@._V1_.jpg",
+        },
+        "startYear": 2000,
+        "runtimeSeconds": 5280,
+        "genres": [
+          "Comedy"
+        ],
+        "rating": {
+          "aggregateRating": 6.3,
+          "voteCount": 308686
+        },
+        "plot": "A year after disposing of the body of a man they accidentally killed, a group of dumb teenagers are stalked by a bumbling serial killer."
       },
     ]
   }

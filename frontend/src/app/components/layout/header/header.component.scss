@@ -104,6 +104,79 @@
       right: 5px;
       cursor: pointer;
     }
+
+    &-list {
+      background: $light-background-secondary;
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      height: 420px;
+      z-index: 3;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .search__element {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      box-sizing: border-box;
+      color: $dark-background-primary;
+      border-bottom: 1px solid $dark-background-primary;
+      cursor: pointer;
+      transition: all 0.3s linear;
+
+      &:hover {
+          transform: scale(1.05);
+        background: $background-transparent-600;
+      }
+
+      &-img {
+        width: 70px;
+        height: 100px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &-description {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &-title {
+        font-weight: 600;
+        font-size: 18px;
+        text-shadow: 1px 1px 1px $main-light-yellow;
+      }
+
+      &-rating {
+        display: flex;
+        flex-direction: column;
+        font-weight: 500;
+
+        .stars {
+          margin-top: 3px;
+          text-shadow: 1px 1px 1px $dark-background-primary;
+
+          mat-icon {
+            color: $main-light-yellow;
+          }
+        }
+      }
+      &-year {
+        margin-top: 3px;
+        color: $main-light-yellow-sec-light;
+        text-shadow: 1px 1px 1px $dark-background-primary;
+      }
+
+    }
+
+
   }
 
   &__actions {
