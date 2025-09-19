@@ -1,4 +1,4 @@
-export interface Film {
+export interface FilmDataType {
   id: string;
   type: string;
   primaryTitle: string;
@@ -16,8 +16,8 @@ export interface Film {
   plot: string;
 }
 
-export interface Data {
-  titles?: Film[];
+export interface TitlesDataType {
+  titles?: FilmDataType[];
   totalCount?: number;
   nextPageToken?: string;
 }

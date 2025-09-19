@@ -6,16 +6,16 @@ import {
   output,
 } from '@angular/core';
 import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
+import { MatIconModule } from '@angular/material/icon';
+import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
+import { NgOptimizedImage } from '@angular/common';
+import { SafeUrlPipe } from '../../../../shared/pipes/safe-url.pipe';
 import type {
   Director,
   Star,
   Video,
   Writer,
-} from '../../../../shared/types/movies';
-import { MatIconModule } from '@angular/material/icon';
-import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
-import { NgOptimizedImage } from '@angular/common';
-import { SafeUrlPipe } from '../../../../shared/pipes/safe-url.pipe';
+} from '../../../../shared/types/movies-response.type';
 
 @Component({
   selector: 'app-overview',

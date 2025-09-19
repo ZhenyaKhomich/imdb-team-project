@@ -14,7 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FilterPanelComponent } from '../filter-panel/filter-panel.component';
-import type { FilterChoose } from '../../../../shared/types/movies';
+import type { FilterChoose } from '../../../../shared/types/movies-response.type';
 
 @Component({
   selector: 'app-filter-modal',

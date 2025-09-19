@@ -1,16 +1,17 @@
 <main class="main">
   <div class="container main__container">
     <section class="main__slider">
+      @if(movies) {
       <div class="main__slider-carousel">
         <div class="carousel-arrows">
           <mat-icon (click)="mainSlidePrev()" fontIcon="arrow_back_ios"></mat-icon>
           <mat-icon (click)="mainSlideNext()" fontIcon="arrow_forward_ios"></mat-icon>
         </div>
         <owl-carousel-o [options]="customMovies" #carouseMovies>
-          <ng-template carouselSlide *ngFor="let movie of movies.titles;">
+          <ng-template carouselSlide *ngFor="let movie of movies?.titles;">
             <div class="movie">
               <div class="movie__img">
-                <img src="{{ movie.primaryImage.url}}" alt="">
+                <img src="{{ movie.primaryImage?.url}}" alt="">
                 <mat-icon fontIcon="bookmark_add"></mat-icon>
               </div>
               <div class="movie__description">
@@ -19,7 +20,7 @@
                   year
                 </div>
                 <div class="movie__duration"><span
-                        class="description">Duration: </span>  {{ movie.runtimeSeconds | minutesToHours }}
+                  class="description">Duration: </span>  {{ movie.runtimeSeconds | minutesToHours }}
                 </div>
                 <div class="movie__categories-block">
                   <span class="description">Categories: </span>
@@ -32,6 +33,7 @@
                     }</div>
                   </div>
                 </div>
+                @if(movie.rating) {
                 <div class="movie__rating"><span class="description">Rating:</span>
                   <div class="rating-stars">
                     <mat-icon fontIcon="star"
@@ -42,6 +44,7 @@
                   </div>
                   {{ movie.rating.aggregateRating }} (votes: {{ movie.rating.voteCount }})
                 </div>
+                }
                 <div class="movie__text"><span class="description">Description:</span>  {{ movie.plot }}</div>
                 <button class="btn movie__btn">More detailed</button>
               </div>
@@ -49,44 +52,56 @@
           </ng-template>
         </owl-carousel-o>
       </div>
+      } @else {
+        <app-loader></app-loader>
+      }
       <div class="main__slider-next">
+        @if(movies?.titles) {
         <div class="up-next">Up next</div>
         <div class="slider__elements">
           <div class="slider__element" *ngFor="let index of indexFollowingSlides">
+            @if(movies && movies.titles && movies.titles[index]) {
             <div class="slider__element-img">
-              <img src="{{ movies.titles[index].primaryImage.url}}" alt="img">
+              <img src="{{movies.titles[index].primaryImage?.url}}" alt="img">
             </div>
             <div class="slider__element-description">
               <div class="slider__element-title"><span
-                      class="description">Title: </span> {{ movies.titles[index].primaryTitle }}
+                class="description">Title: </span> {{movies.titles[index].primaryTitle }}
               </div>
               <div class="slider__element-release"><span
-                      class="description">Year of release: </span>  {{ movies.titles[index].startYear }} year
+                class="description">Year of release: </span>  {{ movies.titles[index].startYear }} year
               </div>
               <div class="slider__element-duration"><span
-                      class="description">Duration: </span>  {{ movies.titles[index].runtimeSeconds | minutesToHours }}
+                class="description">Duration: </span>  {{movies.titles[index].runtimeSeconds | minutesToHours}}
               </div>
+              @if(movies.titles[index].rating) {
               <div class="slider__element-rating"><span
-                      class="description">Rating: </span>
-                <div class="rating-stars">
-                  <mat-icon fontIcon="star"
-                            *ngFor="let star of [].constructor(Math.floor(movies.titles[index].rating.aggregateRating))"></mat-icon>
-                  @if (!Number.isInteger(movies.titles[index].rating.aggregateRating)) {
-                    <mat-icon fontIcon="star_half"></mat-icon>
-                  }
-                </div>
-                {{ movies.titles[index].rating.aggregateRating }}
-                (votes: {{ movies.titles[index].rating.voteCount }})
+                class="description">Rating: </span>
+                  <div class="rating-stars">
+                    <mat-icon
+                      fontIcon="star"
+                      *ngFor="let star of [].constructor(Math.floor(movies?.titles?.[index]?.rating?.aggregateRating ?? 0))"
+                    ></mat-icon>
+                    @if (!Number.isInteger(movies.titles[index].rating?.aggregateRating)) {
+                      <mat-icon fontIcon="star_half"></mat-icon>
+                    }
+                  </div>
+                {{ movies.titles[index].rating?.aggregateRating}} (votes: {{ movies.titles[index].rating?.voteCount }})
               </div>
+              }
             </div>
+            }
           </div>
         </div>
+        }
       </div>
     </section>
     <section class="main__actors slider">
       <h3 class="section-title">Top 20 popular actors on IMDb</h3>
       @if(popularActors) {
-      <app-slider [id]="SliderIdEnum.popular_actors" [elementsSlider]="popularActors"></app-slider>
+        <app-slider [id]="SliderIdEnum.popular_actors" [elementsSlider]="popularActors | reductionTwentyElements"></app-slider>
+      } @else {
+        <app-loader></app-loader>
       }
       <div class="main__what-all-list">View the entire actors
         <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
@@ -122,43 +137,69 @@
       </div>
       <div class="main__what-top-all">
         <div class="main__second-title">Top 20 on IMDb</div>
-        <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+        @if(moviesTopRating) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopRating | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
         <div class="main__what-all-list">View the full list of categories
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
       <div class="main__what-top-2025">
         <div class="main__second-title">Top 20 on IMDb for 2025 year</div>
-        <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2025 | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
         <div class="main__what-all-list">View the full list of categories
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
       <div class="main__what-top-2024">
         <div class="main__second-title">Top 20 on IMDb for 2024 year</div>
-        <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2024 | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
         <div class="main__what-all-list">View the full list of categories
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
       <div class="main__what-top-2023">
         <div class="main__second-title">Top 20 on IMDb for 2023 year</div>
-        <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2023 | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
         <div class="main__what-all-list">View the full list of categories
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
       <div class="main__what-top-2022">
         <div class="main__second-title">Top 20 on IMDb for 2022 year</div>
-        <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2022 | reductionTwentyElements"></app-slider>
+        }  @else {
+          <app-loader></app-loader>
+        }
         <div class="main__what-all-list">View the full list of categories
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
     </section>
     <section class="main__birthday slider">
+
       <h3 class="section-title">Actors' birthdays</h3>
-      <app-slider [id]="SliderIdEnum.birthdays_actors" [elementsSlider]="actors"></app-slider>
+      @if(birthdaysActors) {
+      <app-slider [id]="SliderIdEnum.birthdays_actors" [elementsSlider]="birthdaysActors"></app-slider>
+
+      }  @else {
+        <app-loader></app-loader>
+      }
       <div class="main__what-all-list">View the entire list
         <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
       </div>
@@ -186,6 +227,3 @@
     </section>
   </div>
 </main>
-
-
-

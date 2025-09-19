@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
 import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
-import type { Film } from '../../../../shared/types/movies';
+import type { FilmDataType } from '../../../../shared/types/movies-response.type';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,7 +30,7 @@ import { Router } from '@angular/router';
 export class ListComponent {
   public view = input('grid');
   public favorite = input<string[]>([]);
-  public films = input<Film[]>();
+  public films = input<FilmDataType[]>();
   public favoriteId = output<string>();
 
   private router = inject(Router);

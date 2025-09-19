@@ -50,6 +50,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path: AppRoutesEnum.WATCHLIST,
+        title: 'Watch List',
+        loadComponent: () =>
+          import('./components/pages/watchlist/watchlist.component').then(
+            (m) => m.WatchlistComponent
+          ),
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./components/pages/error-404/error-404.component').then(

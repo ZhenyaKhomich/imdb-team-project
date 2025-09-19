@@ -1,7 +1,7 @@
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { VideosComponent } from './videos.component';
-import type { Video } from '../../../../shared/types/movies';
+import type { Video } from '../../../../shared/types/movies-response.type';
 
 describe('VideosComponent', () => {
   let fixture: ComponentFixture<VideosComponent>;

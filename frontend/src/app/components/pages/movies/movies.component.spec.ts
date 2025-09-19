@@ -11,7 +11,7 @@ import { FilterService } from './services/filter.service';
 import { NumberSuffixPipe } from '../../../shared/pipes/number-suffix.pipe';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
 import { MinutesToHoursPipe } from '../../../shared/pipes/minutes-to-hours.pipe';
-import type { Film } from '../../../shared/types/movies';
+import type { FilmDataType } from '../../../shared/types/movies-response.type';
 import type { MoviesService } from '../../../shared/services/movies.service';
 
 describe('MoviesComponent', () => {
@@ -23,7 +23,7 @@ describe('MoviesComponent', () => {
   let mockFilterService: jasmine.SpyObj<FilterService>;
   let mockMoviesService: jasmine.SpyObj<MoviesService>;
 
-  const mockFilms: Film[] = [
+  const mockFilms: FilmDataType [] = [
     {
       id: '1',
       type: 'movie',

@@ -152,6 +152,7 @@
       margin-left: 25px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       background: $dark-background-primary;
       gap: 5px;
 
@@ -162,9 +163,15 @@
         margin-bottom: 5px;
       }
 
+      .slider__elements {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
       .slider__element {
         display: flex;
-        gap: 15px;
+        gap: 10px;
 
         &-img {
           width: 140px;
@@ -186,8 +193,10 @@
           width: 240px;
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          justify-content: space-evenly;
           font-size: 18px;
+          padding-top: 5px;
+          padding-bottom: 5px;
         }
 
         &-title {
@@ -311,6 +320,7 @@
 
         .slider__elements {
           display: flex;
+          flex-direction: row;
           justify-content: space-between;
         }
 

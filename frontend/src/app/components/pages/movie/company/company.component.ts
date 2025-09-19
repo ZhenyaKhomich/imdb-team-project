@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import type { CompanyCredit } from '../../../../shared/types/movies';
 import { UpperCasePipe } from '@angular/common';
+import type { CompanyCredit } from '../../../../shared/types/movies-response.type';
 
 @Component({
   selector: 'app-company',

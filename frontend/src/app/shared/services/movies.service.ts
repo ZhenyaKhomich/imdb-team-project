@@ -3,13 +3,13 @@ import { inject, Injectable, signal } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type {
   CompanyCreditData,
-  Data,
   ErrorTypes,
+  TitlesDataType,
   TitleTypes,
   VideosData,
-  ImageData,
-} from '../types/movies';
+} from '../types/movies-response.type';
 import { RequestsEnum } from '../enums/requests.enum';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +18,10 @@ export class MoviesService {
   public favoriteId = signal<string[]>([]);
 
   private http = inject(HttpClient);
-  private readonly baseUrl = 'https://api.imdbapi.dev/';
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>
-  ): Observable<Data> {
+  ): Observable<TitlesDataType> {
     let parameters = new HttpParams();
 
     if (queryParameters) {
@@ -37,32 +36,35 @@ export class MoviesService {
       });
     }
 
-    return this.http.get<Data>(this.baseUrl + RequestsEnum.TITLES, {
-      params: parameters,
-    });
+    return this.http.get<TitlesDataType>(
+      environment.baseUrl + RequestsEnum.TITLES,
+      {
+        params: parameters,
+      }
+    );
   }
 
   public getTitle(id: string): Observable<TitleTypes | ErrorTypes> {
     return this.http.get<TitleTypes | ErrorTypes>(
-      this.baseUrl + RequestsEnum.TITLES + '/' + id
+      environment.baseUrl + RequestsEnum.TITLES + '/' + id
     );
   }
 
   public getVideos(id: string): Observable<VideosData> {
     return this.http.get<VideosData>(
-      this.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos'
+      environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos'
     );
   }
 
   public getCompanies(id: string): Observable<CompanyCreditData> {
     return this.http.get<CompanyCreditData>(
-      this.baseUrl + RequestsEnum.TITLES + '/' + id + '/companyCredits'
+      environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/companyCredits'
     );
   }
 
   public getImages(id: string): Observable<ImageData> {
     return this.http.get<ImageData>(
-      this.baseUrl + RequestsEnum.TITLES + '/' + id + '/images'
+      environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/images'
     );
   }
 
@@ -72,5 +74,11 @@ export class MoviesService {
         ? element.filter((item) => item !== id)
         : [...element, id];
     });
+  }
+
+  public searchTitles(word: string): Observable<TitlesDataType> {
+    return this.http.get<TitlesDataType>(
+      environment.baseUrl + RequestsEnum.SEARCH + word
+    );
   }
 }

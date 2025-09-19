@@ -9,9 +9,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import type { Video } from '../../../../shared/types/movies';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 import { SafeUrlPipe } from '../../../../shared/pipes/safe-url.pipe';
+import type { Video } from '../../../../shared/types/movies-response.type';
 
 @Component({
   selector: 'app-videos',

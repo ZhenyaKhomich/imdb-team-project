@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { CompanyComponent } from './company.component';
 import { UpperCasePipe } from '@angular/common';
 import { By } from '@angular/platform-browser';
-import type { CompanyCredit } from '../../../../shared/types/movies';
+import type { CompanyCredit } from '../../../../shared/types/movies-response.type';
 
 describe('CompanyComponent', () => {
   let fixture: ComponentFixture<CompanyComponent>;

@@ -78,8 +78,14 @@ export class MovieComponent {
 
   public urlImages = computed(() => {
     const currentData = this.dataImage();
-    if (currentData && 'images' in currentData) {
-      return currentData.images.map((element) => element.url) || [];
+    if (
+      currentData &&
+      'images' in currentData &&
+      Array.isArray(currentData.images)
+    ) {
+      return (
+        currentData.images.map((element: { url: string }) => element.url) || []
+      );
     }
     return [];
   });
