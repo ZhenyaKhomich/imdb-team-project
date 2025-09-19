@@ -15,7 +15,6 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
   standalone: true,
   imports: [
     NgForOf,
-    TruncatePipe,
     RouterLink
   ],
   templateUrl: './trailer.component.html',
