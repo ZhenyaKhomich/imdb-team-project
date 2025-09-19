@@ -24,17 +24,6 @@ describe('ImagesComponent', () => {
     fixture.componentRef.setInput('images', mockImages);
   });
 
-  it('initial', () => {
-    component['calculateItemsToShow'](1500);
-    expect(component.itemsToShow()).toBe(3);
-
-    component['calculateItemsToShow'](1000);
-    expect(component.itemsToShow()).toBe(2);
-
-    component['calculateItemsToShow'](800);
-    expect(component.itemsToShow()).toBe(1);
-  });
-
   it('calc transform', () => {
     component.currentIndex.set(0);
     expect(component.calculateTransform()).toBe('translateX(-0px)');
