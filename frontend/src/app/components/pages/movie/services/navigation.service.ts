@@ -57,9 +57,7 @@ export class NavigationService {
     }
   }
 
-  public initScrollTracking(): void {
-    if (typeof window === 'undefined') return;
-
+  public initScrollTracking(init: boolean): void {
     let ticking = false;
 
     const handleScroll = (): void => {
@@ -71,10 +69,13 @@ export class NavigationService {
         ticking = false;
       });
     };
+    if (init) {
+      this.setActiveSection('section1');
 
-    this.setActiveSection('section1');
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    } else {
+      window.removeEventListener('scroll', handleScroll);
+    }
   }
 
   private updateActiveSectionOnScroll(): void {

@@ -84,7 +84,9 @@ export class MoviesComponent {
     }
     return (this.currentPage() - 1) * 50 + 1;
   });
-  public query = signal<Record<string, string | number | string[]>>({});
+  public query = signal<Record<string, string | number | string[]>>({
+    sortOrder: 'DESC',
+  });
 
   public data = toSignal(
     toObservable(this.query).pipe(
@@ -214,7 +216,7 @@ export class MoviesComponent {
     this.query.update((q) => ({
       ...q,
       pageToken: '',
-      sortOrder: this.desc() ? 'DESC' : 'ASC',
+      sortOrder: this.desc() ? 'ASC' : 'DESC',
     }));
     this.currentPage.set(1);
   }

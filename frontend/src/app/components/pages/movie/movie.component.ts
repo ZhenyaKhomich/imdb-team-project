@@ -45,8 +45,12 @@ export class MovieComponent {
   public currentUrl = window.location.pathname;
   public isPrevImageActive = signal(false);
   public isNextImageActive = signal(true);
+  public isPrevVideoActive = signal(false);
+  public isNextVideoActive = signal(true);
 
   public images = viewChild(ImagesComponent);
+
+  public videos = viewChild(VideosComponent);
 
   public data = toSignal(this.movie.getTitle(this.id() || ''), {
     initialValue: null,
@@ -200,15 +204,17 @@ export class MovieComponent {
   });
 
   constructor() {
-    this.navService.initScrollTracking();
+    this.navService.initScrollTracking(true);
 
-    effect(() => {
+    effect((clearUp) => {
       const currentData = this.data();
       if (currentData && 'primaryTitle' in currentData) {
         this.title.setTitle(currentData.primaryTitle || 'Movie not found');
       } else {
         this.title.setTitle('Movie not found');
       }
+
+      clearUp(() => this.navService.initScrollTracking(false));
     });
   }
 
@@ -225,6 +231,18 @@ export class MovieComponent {
   public imageNext(): void {
     if (this.images()) {
       this.images()?.next();
+    }
+  }
+
+  public videoPrev(): void {
+    if (this.videos()) {
+      this.videos()?.prev();
+    }
+  }
+
+  public videoNext(): void {
+    if (this.videos()) {
+      this.videos()?.next();
     }
   }
 }

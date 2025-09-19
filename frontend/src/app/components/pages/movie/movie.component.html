@@ -1,7 +1,10 @@
 <app-navigation />
 
 <main>
-  <div class="background" [style.backgroundImage]="backgroundUrl()"></div>
+  <div
+    class="background"
+    [style.backgroundImage]="backgroundUrl().slice(0, -4) + 'SL200_QL1.jpg'"
+  ></div>
   <app-section id="section1" title="Overview">
     <app-overview
       [type]="type()"
@@ -25,18 +28,38 @@
 
   <app-section id="section2" title="Videos">
     <h2 class="title">
-      <span class="circle"></span>Videos
+      <span class="circle"></span>Videos @if(dataVideo()?.videos?.length) {
       <div class="actions">
-        <mat-icon class="action">arrow_back_ios</mat-icon>
-        <mat-icon class="action">arrow_forward_ios</mat-icon>
+        <mat-icon
+          class="action"
+          [class.active]="isPrevVideoActive()"
+          (click)="videoPrev()"
+          >arrow_back_ios</mat-icon
+        >
+
+        <mat-icon
+          class="action"
+          [class.active]="isNextVideoActive()"
+          (click)="videoNext()"
+          >arrow_forward_ios</mat-icon
+        >
       </div>
+      }
     </h2>
-    <app-videos #videos [data]="dataVideo()?.videos || []" />
+    @if(dataVideo()?.videos?.length) {
+
+    <app-videos
+      #videos
+      [data]="dataVideo()?.videos || []"
+      (isPrevActive)="isPrevVideoActive.set($event)"
+      (isNextActive)="isNextVideoActive.set($event)"
+    />
+    }
   </app-section>
 
   <app-section id="section3" title="Images">
     <h2 class="title">
-      <span class="circle"></span>Images
+      <span class="circle"></span>Images @if(urlImages().length) {
       <div class="actions">
         <mat-icon
           class="action"
@@ -51,13 +74,17 @@
           >arrow_forward_ios</mat-icon
         >
       </div>
+      }
     </h2>
+    @if(urlImages().length ) {
+
     <app-images
       #images
       [images]="urlImages()"
       (isPrevActive)="isPrevImageActive.set($event)"
       (isNextActive)="isNextImageActive.set($event)"
     />
+    }
   </app-section>
 
   <app-section id="section4" title="Company">

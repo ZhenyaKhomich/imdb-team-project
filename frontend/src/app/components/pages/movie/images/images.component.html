@@ -3,6 +3,7 @@
     <div class="slider-track" [style.transform]="calculateTransform()">
       @for (image of images(); track $index) {
       <div class="slide-item">
+        <div class="loading loading-detail"></div>
         <img
           [src]="image"
           alt="image {{ $index + 1 }}"

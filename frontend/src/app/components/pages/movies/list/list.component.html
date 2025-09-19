@@ -21,13 +21,14 @@ item.id) {
       <img
         class="click-detail"
         (click)="detail(item.id)"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          item.primaryImage.url.slice(0, -4) + ' QL75_UX100_CR0,1,100,148_.jpg'
+        "
         [width]="72"
         [height]="106"
         [alt]="item.primaryTitle"
         tabindex="0"
         role="button"
-        priority
       />
       } @else {
       <div class="error-img">no poster</div>
@@ -97,11 +98,12 @@ item.id) {
         (click)="detail(item.id)"
         tabindex="0"
         role="button"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          item.primaryImage.url.slice(0, -4) + ' QL75_UX100_CR0,1,100,148_.jpg'
+        "
         [width]="270"
         [height]="400"
         [alt]="item.primaryTitle"
-        priority
       />
       } @else {
       <div class="image-empty">no poster</div>

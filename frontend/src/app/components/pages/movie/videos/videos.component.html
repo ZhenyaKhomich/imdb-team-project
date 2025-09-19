@@ -1,17 +1,23 @@
-@for (video of data(); track video.id) {
+<section class="slider-wrapper">
+  <div #sliderContainer class="slider-container">
+    <div class="slider-track" [style.transform]="calculateTransform()">
+      @for (video of data(); track video.id) {
 
-<div class="block">
-  <div class="wrapper-video">
-    <div class="loading loader-video"></div>
-    <iframe
-      class="video"
-      width="100%"
-      height="100%"
-      [src]="`https://www.imdb.com/video/imdb/${video.id}/imdb/embed` | safeUrl"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
+      <div class="block">
+        <div class="wrapper-video">
+          <div class="loading loader-video"></div>
+          <iframe
+            class="video"
+            width="100%"
+            height="100%"
+            [src]="`https://www.imdb.com/video/imdb/${video.id}/imdb/embed` | safeUrl"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p class="text">{{ video.name | truncate }}</p>
+      </div>
+      }
+    </div>
   </div>
-  <p class="text">{{ video.name | truncate }}</p>
-</div>
-}
+</section>
