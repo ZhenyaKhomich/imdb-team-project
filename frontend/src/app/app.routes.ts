@@ -34,7 +34,16 @@ export const routes: Routes = [
           ),
       },
       {
+        path: AppRoutesEnum.ACTORS,
+        title: 'Actors',
+        loadComponent: () =>
+          import('./components/pages/actors/actors.component').then(
+            (m) => m.ActorsComponent
+          ),
+      },
+      {
         path: AppRoutesEnum.MOVIES,
+        title: 'Movies',
         loadComponent: () =>
           import('./components/pages/movies/movies.component').then(
             (m) => m.MoviesComponent
