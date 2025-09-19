@@ -55,11 +55,9 @@
         justify-self: start;
 
         &-img {
-          width: 100px;
-
           img {
             width: 100px;
-            height: 150px;
+            height: 100%;
           }
         }
 
@@ -111,13 +109,5 @@
         }
       }
     }
-  }
-
-  .btn {
-    margin-top: 50px;
-    font-size: 18px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-weight: 500;
   }
 }

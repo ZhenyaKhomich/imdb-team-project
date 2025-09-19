@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, ViewChild} from '@angular/core';
 import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
@@ -17,6 +17,10 @@ import {MoviesService} from '../../../shared/services/movies.service';
 import {LocalStorageService} from '../../../shared/services/local-storage.service';
 import {LoaderComponent} from '../../../shared/components/loader/loader.component';
 import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pipe';
+import {WatchlistService} from '../../../shared/services/watchlist.service';
+import {ChangeUrlPicturePipe} from '../../../shared/pipes/change-url-picture.pipe';
+import {Router} from '@angular/router';
+import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
   selector: 'app-main',
@@ -30,7 +34,8 @@ import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pi
     SliderComponent,
     LowerCasePipe,
     LoaderComponent,
-    SortMoviesYearPipe
+    SortMoviesYearPipe,
+    ChangeUrlPicturePipe
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -41,15 +46,23 @@ import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pi
 export class MainComponent implements OnInit {
   @ViewChild('carouseMovies') public carouseMovies!: CarouselComponent
   public currentElementMainSlider = 0;
-  public watchlist = [];
+  public signalService = inject(SignalService);
   public movies: TitlesDataType | null = null;
   public moviesTopRating: TitlesDataType | null = null;
-  public moviesTopYears: TitlesDataType = { titles: [] };
+  public moviesTopYears: TitlesDataType = {titles: []};
   public birthdaysActors: ActorsDataType | null = null;
   public popularActors: ActorsDataType | null = null;
   public mainSliderLength = 0;
   public indexFollowingSlides: number[] = [];
-  public signalService = inject(SignalService);
+  public watchlistService = inject(WatchlistService);
+  public watchlist$ = effect(() => {
+    this.signalService.watchlistData()
+    this.signalService.changeWatchlist.set(false);
+    setTimeout(()=> {
+      this.signalService.changeWatchlist.set(true);
+    },1)
+  });
+
   public customMovies: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -74,6 +87,7 @@ export class MainComponent implements OnInit {
   private localStorageService = inject(LocalStorageService);
   private today = new Date();
   private cdr = inject(ChangeDetectorRef);
+  private router = inject(Router);
 
   public ngOnInit(): void {
     this.updateFollowingSlides(this.currentElementMainSlider);
@@ -81,7 +95,7 @@ export class MainComponent implements OnInit {
     this.moviesService.getTitles().subscribe(
       (data) => {
         this.movies = data;
-        if(this.movies.titles){
+        if (this.movies.titles) {
           this.mainSliderLength = this.movies.titles.length;
         }
         this.updateFollowingSlides(this.currentElementMainSlider);
@@ -102,9 +116,11 @@ export class MainComponent implements OnInit {
       }
     )
 
+    this.watchlistService.getMovies();
+
     this.loadAllPages(2022);
 
-    if(this.localStorageService.getActors() && this.localStorageService.getData() === `${this.today.getDate()}.${this.today.getMonth() + 1}`) {
+    if (this.localStorageService.getActors() && this.localStorageService.getData() === `${this.today.getDate()}.${this.today.getMonth() + 1}`) {
       this.birthdaysActors = JSON.parse(localStorage.getItem('actors')!);
     } else {
       this.actorsService.getAllActors(25).subscribe(
@@ -124,7 +140,7 @@ export class MainComponent implements OnInit {
   public updateFollowingSlides(currentIndex: number): void {
     this.indexFollowingSlides = [];
     for (let i = 1; i <= 3; i++) {
-      if(this.mainSliderLength) {
+      if (this.mainSliderLength) {
         const nextIndex = (currentIndex + i) % this.mainSliderLength;
         this.indexFollowingSlides.push(nextIndex);
       }
@@ -145,10 +161,21 @@ export class MainComponent implements OnInit {
     this.carouseMovies.prev();
     if (this.currentElementMainSlider !== 0) {
       this.currentElementMainSlider -= 1;
-    } else if(this.mainSliderLength) {
+    } else if (this.mainSliderLength) {
       this.currentElementMainSlider = this.mainSliderLength - 1;
     }
     this.updateFollowingSlides(this.currentElementMainSlider);
+  }
+
+  public openTrailerList(id: string): void {
+    this.moviesService.getTrailer(id).subscribe(
+      (data) => {
+        if(data.videos.length > 0){
+          this.signalService.trailerVideos.set(data);
+          this.router.navigate([AppRoutesEnum.TRAILER, id])
+        }
+      }
+    )
   }
 
   private loadAllPages(year: number, pageToken?: string): void {
@@ -157,7 +184,7 @@ export class MainComponent implements OnInit {
       startYear: year,
       pageToken: pageToken ? pageToken : '',
     }).subscribe((data) => {
-      if (data.titles?.length &&  this.moviesTopYears && this.moviesTopYears.titles) {
+      if (data.titles?.length && this.moviesTopYears && this.moviesTopYears.titles) {
         this.moviesTopYears.titles.push(...data.titles);
       }
 

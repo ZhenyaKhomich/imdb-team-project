@@ -1,4 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
+import {tap} from 'rxjs';
+import type {TrailerDataType} from '../types/trailer-data.type';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 import { inject, Injectable, signal } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type {
@@ -18,6 +22,7 @@ export class MoviesService {
   public favoriteId = signal<string[]>([]);
 
   private http = inject(HttpClient);
+  private snakeBar = inject(MatSnackBar);
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>
@@ -80,5 +85,15 @@ export class MoviesService {
     return this.http.get<TitlesDataType>(
       environment.baseUrl + RequestsEnum.SEARCH + word
     );
+  }
+
+  public getTrailer(id: string): Observable<TrailerDataType> {
+    return this.http.get<TrailerDataType>(environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos' ).pipe(
+      tap(data => {
+        if (!data.videos) {
+          this.snakeBar.open('The trailer was not found','', {duration: 4000})
+        }
+      })
+    )
   }
 }

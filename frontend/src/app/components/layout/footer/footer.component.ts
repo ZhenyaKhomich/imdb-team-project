@@ -23,66 +23,66 @@ export class FooterComponent {
   public signalService = inject(SignalService);
   public movies: TitlesDataType = {
     titles: [
-      {
-        "id": "tt0209144",
-        "type": "movie",
-        "primaryTitle": "Memento",
-        "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BYmQ3MjliNjAtNWFiZS00YWI1LTlmZTktMzBiNDE1NjRhZjU0XkEyXkFqcGc@._V1_.jpg",
-        },
-        "startYear": 2000,
-        "runtimeSeconds": 6780,
-        "genres": [
-          "Drama",
-          "Mystery",
-          "Thriller"
-        ],
-        "rating": {
-          "aggregateRating": 8.4,
-          "voteCount": 1398215
-        },
-        "plot": "A former insurance investigator who now suffers from anterograde amnesia uses notes and tattoos to hunt down his wife's murderer."
-      },
-      {
-        "id": "tt0210945",
-        "type": "movie",
-        "primaryTitle": "Remember the Titans",
-        "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BZWY0NzgxMWQtMjM4NC00MjRiLWE0YjctYTFiNjA2NTNkZGY1XkEyXkFqcGc@._V1_.jpg",
-        },
-        "startYear": 2000,
-        "runtimeSeconds": 6780,
-        "genres": [
-          "Biography",
-          "Comedy",
-          "Drama",
-          "Sport"
-        ],
-        "rating": {
-          "aggregateRating": 7.8,
-          "voteCount": 243399
-        },
-        "plot": "In 1971, Virginia high-school football was everything to the people of Alexandria, but when the school board was forced to integrate an all-Black school with an all-white one, the foundation of football's tradition was put to the test."
-      },
-      {
-        "id": "tt0212671",
-        "type": "tvSeries",
-        "primaryTitle": "Malcolm in the Middle",
-        "primaryImage": {
-          "url": "https://m.media-amazon.com/images/M/MV5BY2M0Y2M4YTQtZDdjMC00MDZiLWI1OGEtZDdjZjBiZDE4ODU3XkEyXkFqcGc@._V1_.jpg",
-        },
-        "startYear": 2000,
-        "runtimeSeconds": 1320,
-        "genres": [
-          "Comedy",
-          "Family"
-        ],
-        "rating": {
-          "aggregateRating": 8.2,
-          "voteCount": 151682
-        },
-        "plot": "A gifted young teen tries to survive life with his dimwitted, dysfunctional family."
-      },
+      // {
+      //   "id": "tt0209144",
+      //   "type": "movie",
+      //   "primaryTitle": "Memento",
+      //   "primaryImage": {
+      //     "url": "https://m.media-amazon.com/images/M/MV5BYmQ3MjliNjAtNWFiZS00YWI1LTlmZTktMzBiNDE1NjRhZjU0XkEyXkFqcGc@._V1_.jpg",
+      //   },
+      //   "startYear": 2000,
+      //   "runtimeSeconds": 6780,
+      //   "genres": [
+      //     "Drama",
+      //     "Mystery",
+      //     "Thriller"
+      //   ],
+      //   "rating": {
+      //     "aggregateRating": 8.4,
+      //     "voteCount": 1398215
+      //   },
+      //   "plot": "A former insurance investigator who now suffers from anterograde amnesia uses notes and tattoos to hunt down his wife's murderer."
+      // },
+      // {
+      //   "id": "tt0210945",
+      //   "type": "movie",
+      //   "primaryTitle": "Remember the Titans",
+      //   "primaryImage": {
+      //     "url": "https://m.media-amazon.com/images/M/MV5BZWY0NzgxMWQtMjM4NC00MjRiLWE0YjctYTFiNjA2NTNkZGY1XkEyXkFqcGc@._V1_.jpg",
+      //   },
+      //   "startYear": 2000,
+      //   "runtimeSeconds": 6780,
+      //   "genres": [
+      //     "Biography",
+      //     "Comedy",
+      //     "Drama",
+      //     "Sport"
+      //   ],
+      //   "rating": {
+      //     "aggregateRating": 7.8,
+      //     "voteCount": 243399
+      //   },
+      //   "plot": "In 1971, Virginia high-school football was everything to the people of Alexandria, but when the school board was forced to integrate an all-Black school with an all-white one, the foundation of football's tradition was put to the test."
+      // },
+      // {
+      //   "id": "tt0212671",
+      //   "type": "tvSeries",
+      //   "primaryTitle": "Malcolm in the Middle",
+      //   "primaryImage": {
+      //     "url": "https://m.media-amazon.com/images/M/MV5BY2M0Y2M4YTQtZDdjMC00MDZiLWI1OGEtZDdjZjBiZDE4ODU3XkEyXkFqcGc@._V1_.jpg",
+      //   },
+      //   "startYear": 2000,
+      //   "runtimeSeconds": 1320,
+      //   "genres": [
+      //     "Comedy",
+      //     "Family"
+      //   ],
+      //   "rating": {
+      //     "aggregateRating": 8.2,
+      //     "voteCount": 151682
+      //   },
+      //   "plot": "A gifted young teen tries to survive life with his dimwitted, dysfunctional family."
+      // },
       {
         "id": "tt0208092",
         "type": "movie",

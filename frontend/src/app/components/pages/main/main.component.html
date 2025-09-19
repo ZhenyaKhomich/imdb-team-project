@@ -11,8 +11,13 @@
           <ng-template carouselSlide *ngFor="let movie of movies?.titles;">
             <div class="movie">
               <div class="movie__img">
-                <img src="{{ movie.primaryImage?.url}}" alt="">
-                <mat-icon fontIcon="bookmark_add"></mat-icon>
+                <img src="{{ movie.primaryImage?.url}}" alt="img" loading="lazy">
+                <mat-icon class="play-trailer" (click)="openTrailerList(movie.id)" fontIcon="slow_motion_video"></mat-icon>
+                @if(signalService.idForCheckElementInWatchlist().includes(movie.id)) {
+                  <mat-icon class="delete" (click)="watchlistService.deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
+                } @else {
+                  <mat-icon fontIcon="bookmark_add" (click)="watchlistService.addMovie(movie)"></mat-icon>
+                }
               </div>
               <div class="movie__description">
                 <div class="movie__title"><span class="description">Title: </span> {{ movie.primaryTitle }}</div>
@@ -62,7 +67,7 @@
           <div class="slider__element" *ngFor="let index of indexFollowingSlides">
             @if(movies && movies.titles && movies.titles[index]) {
             <div class="slider__element-img">
-              <img src="{{movies.titles[index].primaryImage?.url}}" alt="img">
+              <img src="{{movies.titles[index].primaryImage?.url | changeUrlPicture}}" alt="img" loading="lazy">
             </div>
             <div class="slider__element-description">
               <div class="slider__element-title"><span
@@ -114,8 +119,8 @@
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
         @if (signalService.isLogin()) {
-          @if (watchlist.length) {
-            <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+          @if (signalService.changeWatchlist()) {
+            <app-slider [id]="SliderIdEnum.watchlist" [elementsSlider]="signalService.watchlistData()"></app-slider>
             <div class="main__what-all-list">View the entire watchlist
               <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
             </div>
