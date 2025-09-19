@@ -1,5 +1,5 @@
-@if(view() === 'detail' || view() === 'compact') { @for (item of films(); track
-item.id) {
+@if(view() === 'detail' || view() === 'compact') {
+@for (item of films(); track item.id) {
 <div class="movie">
   <div class="header">
     <div class="image">
@@ -19,28 +19,37 @@ item.id) {
       <div class="loading-detail"></div>
 
       <img
+        class="click-detail"
+        (click)="detail(item.id)"
         [ngSrc]="item.primaryImage.url"
         [width]="72"
         [height]="106"
         [alt]="item.primaryTitle"
-        priority
+        tabindex="0"
+        role="button"
       />
       } @else {
       <div class="error-img">no poster</div>
       }
     </div>
     <div class="header-content">
-      <h3>
+      <h3
+        (click)="detail(item.id)"
+        tabindex="0"
+        role="button"
+        class="click-detail"
+      >
         {{ item.primaryTitle }}
       </h3>
       <p class="time">
-        {{ item.startYear }} @if(item.runtimeSeconds) { &middot;
+        {{ item.startYear }}@if(item.endYear) { - {{ item.endYear }}
+        } @if(item.runtimeSeconds) { &middot;
         {{ item.runtimeSeconds | minutesToHours }}}
       </p>
       <div>
         @if(item.rating) {
         <div class="star">
-          @for (item of fullStars(item.rating.aggregateRating); track $index) {
+          @for (star of fullStars(item.rating.aggregateRating); track star) {
           <mat-icon class="icon-star">star</mat-icon>
           } @if(isPathStar(item.rating.aggregateRating)) {
           <div class="star-wrapper">
@@ -54,8 +63,7 @@ item.id) {
               star
             </mat-icon>
           </div>
-          } @for (item of emptyStars(item.rating.aggregateRating); track $index)
-          {
+          } @for (star of emptyStars(item.rating.aggregateRating); track star) {
           <mat-icon class="icon-star">star_border</mat-icon>
           }
           <span>({{ item.rating.voteCount | numberSuffix }})</span>
@@ -84,18 +92,26 @@ item.id) {
       @if(item.primaryImage) {
       <div class="loading-grid"></div>
       <img
+        class="click-detail"
+        (click)="detail(item.id)"
+        tabindex="0"
+        role="button"
         [ngSrc]="item.primaryImage.url"
         [width]="270"
         [height]="400"
         [alt]="item.primaryTitle"
-        priority
       />
       } @else {
       <div class="image-empty">no poster</div>
       }
 
       <div class="header-content">
-        <h3>
+        <h3
+          (click)="detail(item.id)"
+          tabindex="0"
+          role="button"
+          class="click-detail"
+        >
           {{ item.primaryTitle }}
         </h3>
         <p class="time">

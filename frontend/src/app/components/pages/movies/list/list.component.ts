@@ -4,12 +4,14 @@ import {
   ChangeDetectionStrategy,
   input,
   output,
+  inject,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NumberSuffixPipe } from '../../../../shared/pipes/number-suffix.pipe';
 import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pipe';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
-import type {FilmDataType} from '../../../../shared/types/movies-response.type';
+import type { FilmDataType } from '../../../../shared/types/movies-response.type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -30,6 +32,9 @@ export class ListComponent {
   public favorite = input<string[]>([]);
   public films = input<FilmDataType[]>();
   public favoriteId = output<string>();
+
+  private router = inject(Router);
+
   public toggleFavorite(id: string): void {
     this.favoriteId.emit(id);
   }
@@ -59,5 +64,9 @@ export class ListComponent {
     return Array(10 - Math.ceil(rating))
       .fill(0)
       .map((_, i) => i);
+  }
+
+  public detail(id: string): void {
+    this.router.navigate(['/movies', id]);
   }
 }

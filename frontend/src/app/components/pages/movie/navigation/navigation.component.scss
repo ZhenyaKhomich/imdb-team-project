@@ -1,0 +1,104 @@
+@use "../../../../../styles/variables" as *;
+
+.side-nav {
+  position: fixed;
+  top: 64px;
+  right: max(calc((100vw - 1400px) / 2), 0px);
+  padding: 11px;
+  padding-left: 19px;
+  overflow-y: auto;
+  height: calc(100vh - 64px);
+  z-index: 100;
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 4px;
+    top: 0;
+    left: 0px;
+    background-color: $background-light-transparent-100;
+    border-radius: 4px;
+    height: 170px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .side-nav {
+    display: none;
+  }
+}
+
+.side-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-nav li {
+  margin-bottom: 19px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.side-nav button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  color: $filter-category-text;
+}
+
+.side-nav button:hover {
+  color: $light-yellow;
+}
+
+.side-nav button.active {
+  color: $light-yellow;
+  position: relative;
+
+  &::before {
+    width: 4px;
+    content: "";
+    height: 43px;
+    background-color: $light-yellow;
+    position: absolute;
+    top: -10px;
+    left: -19px;
+    border-radius: 4px;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}

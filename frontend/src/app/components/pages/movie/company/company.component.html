@@ -1,0 +1,28 @@
+@for (data of data(); track data.company.id) {
+<div class="company">
+  <h2 class="title">
+    {{ data.company.name }}
+  </h2>
+
+  <div class="line">
+    <span class="name">Country</span>
+    <span>{{ data.countries[0].name }}</span>
+  </div>
+  <div class="line">
+    <span class="name">Year</span>
+    <span
+      >{{ data.yearsInvolved.startYear }} -
+      {{ data.yearsInvolved.endYear }}</span
+    >
+  </div>
+  <div class="line">
+    <span class="name">Distribution</span>
+    <div class="att">
+      @for (att of data.attributes; track att) {
+      <span class="item">{{ att | uppercase }}</span>
+      }
+    </div>
+  </div>
+</div>
+
+}
