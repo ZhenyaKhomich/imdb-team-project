@@ -1,0 +1,94 @@
+<app-navigation />
+
+<main>
+  <div
+    class="background"
+    [style.backgroundImage]="backgroundUrl().slice(0, -4) + 'SL200_QL1.jpg'"
+  ></div>
+  <app-section id="section1" title="Overview">
+    <app-overview
+      [type]="type()"
+      [title]="titleMovie()"
+      [year]="year()"
+      [endYear]="endYear()"
+      [time]="time()"
+      [genres]="genres()"
+      [plot]="plot()"
+      [directors]="directors()"
+      [writers]="writers()"
+      [stars]="stars()"
+      [rating]="rating()"
+      [vote]="vote()"
+      [img]="img()"
+      [favorite]="isFavorite()"
+      (favoriteId)="favoriteId()"
+      [trillers]="dataVideo()?.videos || []"
+    />
+  </app-section>
+
+  <app-section id="section2" title="Videos">
+    <h2 class="title">
+      <span class="circle"></span>Videos @if(dataVideo()?.videos?.length) {
+      <div class="actions">
+        <mat-icon
+          class="action"
+          [class.active]="isPrevVideoActive()"
+          (click)="videoPrev()"
+          >arrow_back_ios</mat-icon
+        >
+
+        <mat-icon
+          class="action"
+          [class.active]="isNextVideoActive()"
+          (click)="videoNext()"
+          >arrow_forward_ios</mat-icon
+        >
+      </div>
+      }
+    </h2>
+    @if(dataVideo()?.videos?.length) {
+
+    <app-videos
+      #videos
+      [data]="dataVideo()?.videos || []"
+      (isPrevActive)="isPrevVideoActive.set($event)"
+      (isNextActive)="isNextVideoActive.set($event)"
+    />
+    }
+  </app-section>
+
+  <app-section id="section3" title="Images">
+    <h2 class="title">
+      <span class="circle"></span>Images @if(urlImages().length) {
+      <div class="actions">
+        <mat-icon
+          class="action"
+          [class.active]="isPrevImageActive()"
+          (click)="imagePrev()"
+          >arrow_back_ios</mat-icon
+        >
+        <mat-icon
+          class="action"
+          [class.active]="isNextImageActive()"
+          (click)="imageNext()"
+          >arrow_forward_ios</mat-icon
+        >
+      </div>
+      }
+    </h2>
+    @if(urlImages().length ) {
+
+    <app-images
+      #images
+      [images]="urlImages()"
+      (isPrevActive)="isPrevImageActive.set($event)"
+      (isNextActive)="isNextImageActive.set($event)"
+    />
+    }
+  </app-section>
+
+  <app-section id="section4" title="Company">
+    <h2 class="title"><span class="circle"></span>Company</h2>
+    <app-company [data]="dataCompany().companyCredits" />
+  </app-section>
+</main>

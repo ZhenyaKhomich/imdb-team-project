@@ -12,8 +12,6 @@ export interface FilterOptions {
 export class FilterService {
   public currentFilters = computed(() => this.filtersSource());
 
-  public favoriteId = signal<string[]>([]);
-
   public rangeInputs = signal({
     yearMin: '',
     yearMax: '',
@@ -117,13 +115,5 @@ export class FilterService {
 
   public updateRangeInputs(name: string, value: string): void {
     this.rangeInputs.update((element) => ({ ...element, [name]: value }));
-  }
-
-  public toggleFavorite(id: string): void {
-    this.favoriteId.update((element) => {
-      return element.includes(id)
-        ? element.filter((item) => item !== id)
-        : [...element, id];
-    });
   }
 }

@@ -41,7 +41,16 @@ export const routes: Routes = [
           ),
       },
       {
+        path: `${AppRoutesEnum.MOVIES}/:id`,
+        title: 'Movie',
+        loadComponent: () =>
+          import('./components/pages/movie/movie.component').then(
+            (m) => m.MovieComponent
+          ),
+      },
+      {
         path: AppRoutesEnum.WATCHLIST,
+        title: 'Watch List',
         loadComponent: () =>
           import('./components/pages/watchlist/watchlist.component').then(
             (m) => m.WatchlistComponent

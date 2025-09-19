@@ -86,10 +86,10 @@
       } @else {
 
       <app-list
-        [favorite]="filterService.favoriteId()"
+        [favorite]="moviesService.favoriteId()"
         [films]="data().titles"
         [view]="view()"
-        (favoriteId)="filterService.toggleFavorite($event)"
+        (favoriteId)="moviesService.toggleFavorite($event)"
       ></app-list>
       @if(totalPage() > 50) {
       <div class="change-page">
