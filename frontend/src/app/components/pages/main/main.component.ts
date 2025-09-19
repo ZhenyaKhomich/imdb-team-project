@@ -3,7 +3,7 @@ import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {LowerCasePipe, NgForOf, NgIf} from '@angular/common';
+import {LowerCasePipe, NgForOf} from '@angular/common';
 import {MinutesToHoursPipe} from '../../../shared/pipes/minutes-to-hours.pipe';
 import type {CarouselComponent} from 'ngx-owl-carousel-o';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
@@ -18,6 +18,9 @@ import {LocalStorageService} from '../../../shared/services/local-storage.servic
 import {LoaderComponent} from '../../../shared/components/loader/loader.component';
 import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pipe';
 import {WatchlistService} from '../../../shared/services/watchlist.service';
+import {ChangeUrlPicturePipe} from '../../../shared/pipes/change-url-picture.pipe';
+import {Router} from '@angular/router';
+import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
   selector: 'app-main',
@@ -32,7 +35,7 @@ import {WatchlistService} from '../../../shared/services/watchlist.service';
     LowerCasePipe,
     LoaderComponent,
     SortMoviesYearPipe,
-    NgIf
+    ChangeUrlPicturePipe
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -44,7 +47,6 @@ export class MainComponent implements OnInit {
   @ViewChild('carouseMovies') public carouseMovies!: CarouselComponent
   public currentElementMainSlider = 0;
   public signalService = inject(SignalService);
-  // public watchlist: TitlesDataType = {titles: []};
   public movies: TitlesDataType | null = null;
   public moviesTopRating: TitlesDataType | null = null;
   public moviesTopYears: TitlesDataType = {titles: []};
@@ -52,11 +54,9 @@ export class MainComponent implements OnInit {
   public popularActors: ActorsDataType | null = null;
   public mainSliderLength = 0;
   public indexFollowingSlides: number[] = [];
-  public watchListService = inject(WatchlistService);
-  public updateSlider = false;
   public watchlistService = inject(WatchlistService);
-
   public watchlist$ = effect(() => {
+    this.signalService.watchlistData()
     this.signalService.changeWatchlist.set(false);
     setTimeout(()=> {
       this.signalService.changeWatchlist.set(true);
@@ -87,7 +87,7 @@ export class MainComponent implements OnInit {
   private localStorageService = inject(LocalStorageService);
   private today = new Date();
   private cdr = inject(ChangeDetectorRef);
-
+  private router = inject(Router);
 
   public ngOnInit(): void {
     this.updateFollowingSlides(this.currentElementMainSlider);
@@ -165,6 +165,17 @@ export class MainComponent implements OnInit {
       this.currentElementMainSlider = this.mainSliderLength - 1;
     }
     this.updateFollowingSlides(this.currentElementMainSlider);
+  }
+
+  public openTrailerList(id: string): void {
+    this.moviesService.getTrailer(id).subscribe(
+      (data) => {
+        if(data.videos.length > 0){
+          this.signalService.trailerVideos.set(data);
+          this.router.navigate([AppRoutesEnum.TRAILER, id])
+        }
+      }
+    )
   }
 
   private loadAllPages(year: number, pageToken?: string): void {

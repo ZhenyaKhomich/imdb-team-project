@@ -8,7 +8,7 @@ import {
 import type {OnInit} from '@angular/core';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import type {ActorDataType, ActorsDataType} from '../../types/actors-data.type';
 import {SliderIdEnum} from '../../enums/slider-id.enum';
@@ -16,6 +16,10 @@ import {WINDOW} from '../../injection-tokens/window.token';
 import {SignalService} from '../../services/signal.service';
 import type {FilmDataType, TitlesDataType} from '../../types/movies-response.type';
 import {WatchlistService} from '../../services/watchlist.service';
+import {ChangeUrlPicturePipe} from '../../pipes/change-url-picture.pipe';
+import {Router, RouterLink} from '@angular/router';
+import {AppRoutesEnum} from '../../enums/app-router.enum';
+import {MoviesService} from '../../services/movies.service';
 
 @Component({
   selector: 'app-slider',
@@ -25,7 +29,8 @@ import {WatchlistService} from '../../services/watchlist.service';
     MatIconModule,
     NgForOf,
     NgIf,
-    NgClass
+    ChangeUrlPicturePipe,
+    RouterLink
   ],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
@@ -61,7 +66,10 @@ export class SliderComponent implements OnInit {
   protected readonly Math = Math;
   protected readonly Number = Number;
   protected readonly SliderIdEnum = SliderIdEnum;
+  protected readonly AppRoutesEnum = AppRoutesEnum;
   private window = inject(WINDOW);
+  private moviesService = inject(MoviesService);
+  private router = inject(Router);
   private width = this.window.innerWidth;
 
   @HostListener('window:resize')
@@ -88,6 +96,17 @@ export class SliderComponent implements OnInit {
 
   public deleteMovie(id: string): void {
     this.watchlistService.deleteMovie(id);
+  }
+
+  public openTrailerList(id: string): void {
+    this.moviesService.getTrailer(id).subscribe(
+      (data) => {
+        if(data.videos.length > 0){
+          this.signalService.trailerVideos.set(data);
+          this.router.navigate([AppRoutesEnum.TRAILER, id])
+        }
+      }
+    )
   }
 
   private changeWidth(width: number): void {

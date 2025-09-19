@@ -7,15 +7,17 @@ import {RouterLink} from '@angular/router';
 import type {TitlesDataType} from '../../../shared/types/movies-response.type';
 import {SignalService} from '../../../shared/services/signal.service';
 import {WatchlistService} from '../../../shared/services/watchlist.service';
+import {ChangeUrlPicturePipe} from "../../../shared/pipes/change-url-picture.pipe";
 
 @Component({
   selector: 'app-watchlist',
   standalone: true,
-  imports: [
-    MatIconModule,
-    NgForOf,
-    RouterLink
-  ],
+    imports: [
+        MatIconModule,
+        NgForOf,
+        RouterLink,
+        ChangeUrlPicturePipe
+    ],
   templateUrl: './watchlist.component.html',
   styleUrl: './watchlist.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -2,6 +2,7 @@ import {Injectable, signal} from '@angular/core';
 import type {WritableSignal} from '@angular/core';
 import type {UserDataType} from '../types/user-data.type';
 import type {TitlesDataType} from '../types/movies-response.type';
+import type {TrailerDataType} from '../types/trailer-data.type';
 
 @Injectable({
   providedIn: 'root'
@@ -14,4 +15,5 @@ export class SignalService {
   public watchlistData: WritableSignal<TitlesDataType> = signal({titles:[]});
   public changeWatchlist: WritableSignal<boolean> = signal(false);
   public idForCheckElementInWatchlist: WritableSignal<string[]> = signal([]);
+  public trailerVideos: WritableSignal<TrailerDataType | null> = signal(null);
 }

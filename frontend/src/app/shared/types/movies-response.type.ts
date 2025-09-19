@@ -13,6 +13,7 @@ export interface FilmDataType {
     voteCount: number;
   };
   plot: string;
+  trailer?: boolean;
 }
 
 export interface TitlesDataType {

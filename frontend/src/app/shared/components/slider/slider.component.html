@@ -10,7 +10,7 @@
       <ng-container *ngIf="actorsList.length > 0; else movies">
         <ng-template carouselSlide *ngFor="let actor of actorsList">
           <div class="card">
-            <img class="card__actor-img" src="{{ actor.primaryImage.url}}" alt="img" loading="lazy">
+            <img class="card__actor-img" src="{{ actor.primaryImage.url | changeUrlPicture}}" alt="img" loading="lazy">
             <div class="card__name"> {{ actor.displayName }}</div>
             @if (id === SliderIdEnum.popular_actors) {
               <div class="card__rating">Rating: <span>{{ actor.meterRanking.currentRank }}</span>
@@ -37,7 +37,11 @@
         <ng-template carouselSlide *ngFor="let movie  of moviesList; trackBy: trackBySliderId let i = index">
           <div class="card movie">
             <div class="movie__img">
-              <img src="{{movie.primaryImage?.url}}" alt="No image" loading="lazy">
+              @if(movie.primaryImage) {
+                <img src="{{movie.primaryImage.url | changeUrlPicture}}" alt="No image" loading="lazy">
+              } @else {
+                <img src="images/IMDb.jpg" alt="imbd">
+              }
               @if(signalService.idForCheckElementInWatchlist().includes(movie.id)) {
                 <mat-icon class="delete" (click)="deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
                 } @else {
@@ -65,7 +69,7 @@
                 <mat-icon fontIcon="info"></mat-icon>
                 Information
               </button>
-              <button class="btn gray-btn transparent">
+              <button class="btn gray-btn transparent" (click)="openTrailerList(movie.id)">
                 <mat-icon fontIcon="arrow_right"></mat-icon>
                 Trailer
               </button>
@@ -88,7 +92,11 @@
         <ng-template carouselSlide *ngFor="let movie  of moviesList; trackBy: trackBySliderId let i = index">
           <div class="card movie">
             <div class="movie__img">
-              <img src="{{movie.primaryImage?.url}}" alt="No image" loading="lazy">
+              @if(movie.primaryImage) {
+                <img src="{{movie.primaryImage.url | changeUrlPicture}}" alt="No image" loading="lazy">
+              } @else {
+                <img src="images/IMDb.jpg" alt="imbd">
+              }
               @if(id === 'watchlist') {
                 <mat-icon class="delete" (click)="deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
               } @else {
@@ -116,7 +124,7 @@
                 <mat-icon fontIcon="info"></mat-icon>
                 Information
               </button>
-              <button class="btn gray-btn transparent">
+              <button class="btn gray-btn transparent" (click)="openTrailerList(movie.id)">
                 <mat-icon fontIcon="arrow_right"></mat-icon>
                 Trailer
               </button>

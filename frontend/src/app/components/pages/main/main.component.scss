@@ -105,6 +105,16 @@
             color: rgba(181, 172, 172, 0.7);
             transition: all 0.3s linear;
 
+            &.play-trailer {
+              top: auto;
+              bottom: 5px;
+              left: 5px;
+              font-size: 60px;
+              width: 60px;
+              height: 60px;
+              color: $green-color;
+            }
+
             &:hover {
               color: $light-background-primary;
             }

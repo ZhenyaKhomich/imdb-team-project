@@ -10,11 +10,13 @@
     <div class="watchlist__no-empty">
       <div class="watchlist__elements">
         <div class="watchlist__element" *ngFor="let movie of movies.titles">
-          @if(movie.primaryImage) {
           <div class="watchlist__element-img">
-            <img src="{{movie.primaryImage.url}}" alt="img">
+            @if(movie.primaryImage) {
+              <img src="{{movie.primaryImage.url | changeUrlPicture}}" alt="No image" loading="lazy">
+            } @else {
+              <img src="images/IMDb.jpg" alt="imbd">
+            }
           </div>
-          }
           <div class="watchlist__element-description">
             <div class="watchlist__element-title">{{movie.primaryTitle}}</div>
             @if(movie.rating) {
@@ -38,33 +40,10 @@
           </div>
         </div>
       </div>
-<!--      <div class="watchlist__movie">-->
-<!--        <div class="watchlist__movie-element-img">-->
-<!--          <img src="{{movie.primaryImage.url}}" alt="img">-->
-<!--        </div>-->
-<!--        <div class="watchlist__movie-description">-->
-<!--          <div class="watchlist__movie-title">{{movie.primaryTitle}}</div>-->
-<!--          <div class="watchlist__movie-rating">-->
-<!--            <div class="rating-stars">-->
-<!--              <mat-icon fontIcon="star"-->
-<!--                        *ngFor="let star of [].constructor(Math.floor(movie.rating.aggregateRating))"></mat-icon>-->
-<!--              @if (!Number.isInteger(movie.rating.aggregateRating)) {-->
-<!--                <mat-icon fontIcon="star_half"></mat-icon>-->
-<!--              }-->
-<!--            </div>-->
-<!--            {{ movie.rating.aggregateRating }} (votes: {{ movie.rating.voteCount }})-->
-<!--          </div>-->
-<!--          <div class="watchlist__movie-year">{{movie.startYear}}</div>-->
-<!--          <div class="watchlist__movie-duration">{{movie.runtimeSeconds | minutesToHours}}</div>-->
-<!--          <div class="watchlist__movie-text">{{movie.plot}}</div>-->
-<!--          <div class="watchlist__movie-categories" *ngFor="let category of movie.genres">-->
-<!--            <span>{{category}}</span>-->
-<!--          </div>-->
-<!--          <mat-icon class="delete" fontIcon="delete"></mat-icon>-->
-<!--        </div>-->
-<!--      </div>-->
     </div>
     }
-    <button class="btn" [routerLink]="'/' + AppRoutesEnum.MAIN">Back main</button>
+    <button class="btn btn-back-to-main" [routerLink]="'/' + AppRoutesEnum.MAIN">Back main</button>
   </div>
 </div>
+
+

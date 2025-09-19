@@ -12,6 +12,7 @@
             <div class="movie">
               <div class="movie__img">
                 <img src="{{ movie.primaryImage?.url}}" alt="img" loading="lazy">
+                <mat-icon class="play-trailer" (click)="openTrailerList(movie.id)" fontIcon="slow_motion_video"></mat-icon>
                 @if(signalService.idForCheckElementInWatchlist().includes(movie.id)) {
                   <mat-icon class="delete" (click)="watchlistService.deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
                 } @else {
@@ -66,7 +67,7 @@
           <div class="slider__element" *ngFor="let index of indexFollowingSlides">
             @if(movies && movies.titles && movies.titles[index]) {
             <div class="slider__element-img">
-              <img src="{{movies.titles[index].primaryImage?.url}}" alt="img" loading="lazy">
+              <img src="{{movies.titles[index].primaryImage?.url | changeUrlPicture}}" alt="img" loading="lazy">
             </div>
             <div class="slider__element-description">
               <div class="slider__element-title"><span
