@@ -177,7 +177,7 @@ export interface CompanyCreditData {
 export interface CompanyCredit {
   company: Company;
   category: string;
-  countries: Country[];
+  countries?: Country[];
   yearsInvolved: YearsInvolved;
   attributes: string[];
 }

@@ -6,13 +6,17 @@
 
   <div class="line">
     <span class="name">Country</span>
-    <span>{{ data.countries[0].name }}</span>
+    <span>
+      @if(data?.countries && data.countries?.length)
+      {{{ data.countries?.[0]?.name }} }</span
+    >
   </div>
   <div class="line">
     <span class="name">Year</span>
     <span
-      >{{ data.yearsInvolved.startYear }} -
-      {{ data.yearsInvolved.endYear }}</span
+      >@if(data?.yearsInvolved) { <span>{{ data.yearsInvolved.startYear }}</span
+      >} @if(data?.yearsInvolved?.endYear) {
+      <span>- {{ data.yearsInvolved.endYear }}</span> }</span
     >
   </div>
   <div class="line">
