@@ -51,7 +51,7 @@
                 </div>
                 }
                 <div class="movie__text"><span class="description">Description:</span>  {{ movie.plot }}</div>
-                <button class="btn movie__btn">More detailed</button>
+                <button class="btn movie__btn" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)">More detailed</button>
               </div>
             </div>
           </ng-template>

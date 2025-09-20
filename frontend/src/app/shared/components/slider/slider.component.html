@@ -65,7 +65,7 @@
                 }
               </div>
               <div class="movie__title">{{ movie.primaryTitle }}</div>
-              <button class="btn gray-btn">
+              <button class="btn gray-btn" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)">
                 <mat-icon fontIcon="info"></mat-icon>
                 Information
               </button>
@@ -120,7 +120,7 @@
                 }
               </div>
               <div class="movie__title">{{ movie.primaryTitle }}</div>
-              <button class="btn gray-btn">
+              <button class="btn gray-btn" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)">
                 <mat-icon fontIcon="info"></mat-icon>
                 Information
               </button>

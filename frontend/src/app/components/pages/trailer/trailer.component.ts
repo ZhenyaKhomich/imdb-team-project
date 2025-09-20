@@ -7,7 +7,6 @@ import {NgForOf} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import type {SafeResourceUrl} from '@angular/platform-browser';
 import {SignalService} from '../../../shared/services/signal.service';
-import {TruncatePipe} from '../../../shared/pipes/truncate.pipe';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({

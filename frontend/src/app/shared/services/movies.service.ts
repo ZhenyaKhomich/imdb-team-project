@@ -1,28 +1,33 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {tap} from 'rxjs';
 import type {TrailerDataType} from '../types/trailer-data.type';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-import { inject, Injectable, signal } from '@angular/core';
-import type { Observable } from 'rxjs';
+import {inject, Injectable, signal} from '@angular/core';
+import type {Observable} from 'rxjs';
 import type {
   CompanyCreditData,
-  ErrorTypes,
+  ErrorTypes, FilmDataType,
   TitlesDataType,
   TitleTypes,
   VideosData,
 } from '../types/movies-response.type';
-import { RequestsEnum } from '../enums/requests.enum';
-import { environment } from '../../../environments/environment';
+import {RequestsEnum} from '../enums/requests.enum';
+import {environment} from '../../../environments/environment';
+import type {ErrorResponseType} from '../types/error-response.type';
+import {Router} from '@angular/router';
+import {AppRoutesEnum} from '../enums/app-router.enum';
+import {SignalService} from './signal.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
   public favoriteId = signal<string[]>([]);
-
   private http = inject(HttpClient);
+  private router = inject(Router);
   private snakeBar = inject(MatSnackBar);
+  private signalService = inject(SignalService);
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>
@@ -88,12 +93,49 @@ export class MoviesService {
   }
 
   public getTrailer(id: string): Observable<TrailerDataType> {
-    return this.http.get<TrailerDataType>(environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos' ).pipe(
+    return this.http.get<TrailerDataType>(environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos').pipe(
       tap(data => {
         if (!data.videos) {
-          this.snakeBar.open('The trailer was not found','', {duration: 4000})
+          this.snakeBar.open('The trailer was not found', '', {duration: 4000})
         }
       })
     )
+  }
+
+  public addRecentlyViewed(element: { titleData: FilmDataType }): Observable<ErrorResponseType> {
+    return this.http.post<ErrorResponseType>(environment.api + RequestsEnum.VIEWED, element)
+  }
+
+  public getRecentlyViewed(): Observable<TitlesDataType> {
+    return this.http.get<TitlesDataType>(environment.api + RequestsEnum.VIEWED)
+  }
+
+  public deleteRecentlyViewed(): Observable<ErrorResponseType> {
+    return this.http.delete<ErrorResponseType>(environment.api + RequestsEnum.VIEWED)
+  }
+
+  public openMovieAndAddRecentlyViewed(movie: FilmDataType): void {
+    this.router.navigate(['/' + AppRoutesEnum.MOVIES, movie.id])
+
+    const movieInRecentlyViewed = this.signalService.recentlyViewedVideos()?.titles?.find((title) => {
+      return title.id === movie.id
+    })
+
+    if (!movieInRecentlyViewed) {
+      this.addRecentlyViewed({titleData: movie}).subscribe(
+        (data) => {
+          if (!data.error) {
+            this.getRecentlyViewed().subscribe(
+              (data) => {
+                this.signalService.recentlyViewedVideos.set({
+                  ...data,
+                  titles: data.titles?.reverse()
+                })
+              }
+            )
+          }
+        }
+      )
+    }
   }
 }

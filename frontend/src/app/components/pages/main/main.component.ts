@@ -19,7 +19,7 @@ import {LoaderComponent} from '../../../shared/components/loader/loader.componen
 import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pipe';
 import {WatchlistService} from '../../../shared/services/watchlist.service';
 import {ChangeUrlPicturePipe} from '../../../shared/pipes/change-url-picture.pipe';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
@@ -35,7 +35,8 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
     LowerCasePipe,
     LoaderComponent,
     SortMoviesYearPipe,
-    ChangeUrlPicturePipe
+    ChangeUrlPicturePipe,
+    RouterLink
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -55,6 +56,7 @@ export class MainComponent implements OnInit {
   public mainSliderLength = 0;
   public indexFollowingSlides: number[] = [];
   public watchlistService = inject(WatchlistService);
+  public moviesService = inject(MoviesService);
   public watchlist$ = effect(() => {
     this.signalService.watchlistData()
     this.signalService.changeWatchlist.set(false);
@@ -82,8 +84,8 @@ export class MainComponent implements OnInit {
   protected readonly Math = Math;
   protected readonly Number = Number;
   protected readonly SliderIdEnum = SliderIdEnum;
+  protected readonly AppRoutesEnum = AppRoutesEnum;
   private actorsService = inject(ActorsService);
-  private moviesService = inject(MoviesService);
   private localStorageService = inject(LocalStorageService);
   private today = new Date();
   private cdr = inject(ChangeDetectorRef);

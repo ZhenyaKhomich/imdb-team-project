@@ -5,11 +5,12 @@
       <div class="footer__viewed-title">Recently viewed</div>
       @if (signalService.isLogin()) {
         <div class="footer__viewed-cards">
-          <div class="footer__viewed-clear">Clear all
+          <div class="footer__viewed-clear" (click)="clearRecentlyViewed()"  tabindex="0"
+               (keyup.enter)="clearRecentlyViewed()">Clear all
             <mat-icon fontIcon="delete"></mat-icon>
           </div>
-          @if (movies.titles && movies.titles.length > 0) {
-            <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+          @if (movies && movies.titles && movies.titles.length > 0) {
+            <app-slider [key]='movies?.titles?.length || 0' [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
           } @else {
             <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
           }
@@ -300,10 +301,6 @@
         <a href="https://github.com/totoogg" class="footer__brand-user">
           <img src="images/github.png" alt="github">
           <div class="footer__brand__user-name">Uladzimir Hancharou</div>
-        </a>
-        <a href="https://github.com/lorenzo-stjohn" class="footer__brand-user">
-          <img src="images/github.png" alt="github">
-          <div class="footer__brand-user-name">Svetlana Arzamastceva</div>
         </a>
       </div>
     </div>
