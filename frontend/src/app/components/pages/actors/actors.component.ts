@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -8,10 +9,13 @@ import { ActorService } from './service/actor.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { ActorsPageService } from '../../../shared/services/actors-page.service';
 import { catchError, debounceTime, map, of, switchMap } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { SkeletonComponent } from './skeleton/skeleton.component';
+import { ActorComponent } from './actor/actor.component';
 
 @Component({
   selector: 'app-actors',
-  imports: [],
+  imports: [MatIconModule, SkeletonComponent, ActorComponent],
   templateUrl: './actors.component.html',
   styleUrl: './actors.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,7 +26,9 @@ export class ActorsComponent {
   public actor = inject(ActorService);
   public actorPageService = inject(ActorsPageService);
 
-  public query = signal<Record<string, string>>({}); //pageToken
+  public firstPage = computed(() => this.actor.currentPage() === 1);
+
+  public query = signal<Record<string, string>>({});
 
   public data = toSignal(
     toObservable(this.query).pipe(
@@ -51,4 +57,28 @@ export class ActorsComponent {
     ),
     { initialValue: { names: [], nextPageToken: '' } }
   );
+
+  public changeView(view: string): void {
+    this.view.set(view);
+  }
+
+  public nextPage(): void {
+    if (this.actor.nextToken()) {
+      this.actor.currentPage.update((c) => c + 1);
+      this.query.update((q) => ({
+        ...q,
+        pageToken: this.actor.nextToken(),
+      }));
+    }
+  }
+
+  public prevPage(): void {
+    if (this.actor.currentPage() > 1) {
+      this.actor.currentPage.update((c) => c - 1);
+      this.query.update((q) => ({
+        ...q,
+        pageToken: this.actor.prevToken(),
+      }));
+    }
+  }
 }
