@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 import {DOCUMENT, NgForOf} from '@angular/common';
 import {SignalService} from '../../../shared/services/signal.service';
@@ -52,12 +52,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private moviesService = inject(MoviesService);
   private destroy$ = new Subject<void>();
   private cdr = inject(ChangeDetectorRef);
+  private router = inject(Router);
 
   @HostListener('document:click')
   public change(): void {
     if (this.searchValue.value) {
      this.searchValue.reset();
       this.foundMovies = null;
+    }
+  }
+
+  @HostListener('click', ['$event'])
+  public onElementClick(event: MouseEvent): void {
+    const target = event.target;
+    let liElement: HTMLElement | null = null;
+    if (target instanceof HTMLElement) {
+     liElement = target.closest('li');
+    }
+
+    if (liElement) {
+      this.actionsToMenu();
     }
   }
 
@@ -105,6 +119,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.snakeBar.open(error.error.message, '', {duration: 4000});
         }
       })
+    }
+  }
+
+  public scrollToElement(adress: string, fragment: string): void {
+    this.router.navigate(['/' + adress]);
+
+    if(fragment) {
+      setTimeout(() => {
+        this.scrollToFragment(fragment);
+      }, 2000);
+    }
+  }
+
+  public scrollToFragment(fragment: string): void {
+    const element = document.getElementById(fragment);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   }
 

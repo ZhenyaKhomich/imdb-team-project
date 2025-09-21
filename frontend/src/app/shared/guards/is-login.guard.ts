@@ -4,7 +4,7 @@ import {inject} from '@angular/core';
 import {AppRoutesEnum} from '../enums/app-router.enum';
 import {LocalStorageService} from '../services/local-storage.service';
 
-export const isLoginGuard: CanActivateFn = (route, state) => {
+export const isLoginGuard: CanActivateFn = () => {
   const localStorageService = inject(LocalStorageService);
   const router = inject(Router);
   const accessToken = localStorageService.getAccessToken();

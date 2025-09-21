@@ -140,7 +140,7 @@
           </div>
         }
       </div>
-      <div class="main__what-top-all">
+      <div class="main__what-top-all" id="top-imdb">
         <div class="main__second-title">Top 20 on IMDb</div>
         @if(moviesTopRating) {
           <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopRating | reductionTwentyElements"></app-slider>
@@ -196,7 +196,7 @@
         </div>
       </div>
     </section>
-    <section class="main__birthday slider">
+    <section class="main__birthday slider" id="birthday">
 
       <h3 class="section-title">Actors' birthdays</h3>
       @if(birthdaysActors) {

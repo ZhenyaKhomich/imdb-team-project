@@ -1,13 +1,12 @@
-<footer class="footer">
+<footer class="footer" id="footer">
   <div class="container">
-
     <div class="footer__viewed">
       <div class="footer__viewed-title">Recently viewed</div>
       @if (signalService.isLogin()) {
         <div class="footer__viewed-cards">
-          <div class="footer__viewed-clear" (click)="clearRecentlyViewed()"  tabindex="0"
-               (keyup.enter)="clearRecentlyViewed()">Clear all
-            <mat-icon fontIcon="delete"></mat-icon>
+          <div class="footer__viewed-clear">
+            <span  (click)="clearRecentlyViewed()" (keyup.enter)="clearRecentlyViewed()" tabindex="0"> Clear all
+            <mat-icon fontIcon="delete"></mat-icon></span>
           </div>
           @if (movies && movies.titles && movies.titles.length > 0) {
             <app-slider [key]='movies?.titles?.length || 0' [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
