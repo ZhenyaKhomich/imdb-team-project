@@ -77,29 +77,6 @@ class ViewedController {
         }
     }
 
-    // static async removeFromViewed(req, res) {
-    //     try {
-    //         const { id } = req.params;
-    //
-    //         let viewed = await ViewedModel.findOne();
-    //         if (!viewed) {
-    //             return res.status(404).json({ error: true, message: "Список просмотренных не найден" });
-    //         }
-    //
-    //         // Удаляем title
-    //         viewed.titles = viewed.titles.filter(t => t.id !== id);
-    //         await viewed.save();
-    //
-    //         // Удаляем связанные комментарии
-    //         await CommentModel.deleteMany({ title: id });
-    //
-    //         res.status(200).json({ error: false, message: "Title удален из просмотренных" });
-    //     } catch (err) {
-    //         console.log('Error in removeFromViewed:', err);
-    //         res.status(500).json({ error: true, message: "Внутренняя ошибка сервера" });
-    //     }
-    // }
-
     static async clearAllViewed(req, res) {
         try {
             let viewed = await ViewedModel.findOne();

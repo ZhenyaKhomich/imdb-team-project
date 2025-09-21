@@ -27,6 +27,8 @@ export class LayoutComponent implements OnInit {
   public ngOnInit(): void {
     const accessToken = this.localStorageService.getAccessToken();
     this.signalService.isLogin.set(!!accessToken);
+    console.log(accessToken)
+    console.log(this.signalService.isLogin());
 
     if(accessToken) {
       this.authService.getUser().subscribe((data) => {

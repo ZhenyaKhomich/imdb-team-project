@@ -117,13 +117,20 @@ export class MoviesService {
   public openMovieAndAddRecentlyViewed(movie: FilmDataType): void {
     this.router.navigate(['/' + AppRoutesEnum.MOVIES, movie.id])
 
-    const movieInRecentlyViewed = this.signalService.recentlyViewedVideos()?.titles?.find((title) => {
+    const movieInRecentlyViewedElements = this.signalService.recentlyViewedVideos()?.titles;
+    const movieInRecentlyViewed = movieInRecentlyViewedElements?.find((title) => {
       return title.id === movie.id
     })
 
     if (!movieInRecentlyViewed) {
+
+      if(movieInRecentlyViewedElements && movieInRecentlyViewedElements.length > 30) {
+        this.deleteRecentlyViewed().subscribe();
+      }
+
       this.addRecentlyViewed({titleData: movie}).subscribe(
         (data) => {
+
           if (!data.error) {
             this.getRecentlyViewed().subscribe(
               (data) => {

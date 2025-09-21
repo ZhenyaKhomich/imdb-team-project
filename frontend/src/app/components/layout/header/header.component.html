@@ -76,10 +76,12 @@
         </div>
       </div>
       <span class="header__actions-line"></span>
+      @if(signalService.isLogin()) {
       <div class="header__actions-watchList" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
         WatchList
       </div>
+      }
       @if (!signalService.isLogin()) {
         <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN">Log in</div>
       } @else {
@@ -156,10 +158,12 @@
               </div>
             </div>
             <span class="header__actions-line"></span>
+            @if(signalService.isLogin()) {
             <div class="header__actions-watchList" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
               WatchList
             </div>
+            }
             @if (!signalService.isLogin()) {
               <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN">Log in</div>
             } @else {
