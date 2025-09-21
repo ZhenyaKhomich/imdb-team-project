@@ -21,7 +21,7 @@ import { ActorComponent } from './actor/actor.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActorsComponent {
-  public view = signal('');
+  public view = signal('compact');
   public loading = signal(false);
   public actor = inject(ActorService);
   public actorPageService = inject(ActorsPageService);

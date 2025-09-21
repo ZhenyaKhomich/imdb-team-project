@@ -9,21 +9,15 @@
         <div class="view-block">
           <mat-icon
             class="view"
-            [class.active]="view() === 'detail'"
-            (click)="changeView('detail')"
-            >view_list</mat-icon
+            [class.active]="view() === 'compact'"
+            (click)="changeView('compact')"
+            >view_headline</mat-icon
           >
           <mat-icon
             class="view"
             [class.active]="view() === 'grid'"
             (click)="changeView('grid')"
             >view_comfy</mat-icon
-          >
-          <mat-icon
-            class="view"
-            [class.active]="view() === 'compact'"
-            (click)="changeView('compact')"
-            >view_headline</mat-icon
           >
         </div>
       </div>

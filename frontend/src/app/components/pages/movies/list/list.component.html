@@ -1,5 +1,5 @@
-@if(view() === 'detail' || view() === 'compact') {
-@for (item of films(); track item.id) {
+@if(view() === 'detail' || view() === 'compact') { @for (item of films(); track
+item.id) {
 <div class="movie">
   <div class="header">
     <div class="image">
@@ -21,7 +21,9 @@
       <img
         class="click-detail"
         (click)="detail(item.id)"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          item.primaryImage.url.slice(0, -4) + 'QL75_UX380_CR0,4,380,562_.jpg'
+        "
         [width]="72"
         [height]="106"
         [alt]="item.primaryTitle"
@@ -96,7 +98,9 @@
         (click)="detail(item.id)"
         tabindex="0"
         role="button"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          item.primaryImage.url.slice(0, -4) + 'QL75_UX380_CR0,4,380,562_.jpg'
+        "
         [width]="270"
         [height]="400"
         [alt]="item.primaryTitle"

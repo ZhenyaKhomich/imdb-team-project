@@ -1,30 +1,20 @@
-@if(view() === 'detail' || view() === 'compact') { @for (item of films(); track
-item.id) {
+@if(view() === 'compact') { @for (item of names(); track item.id) {
 <div class="movie">
   <div class="header">
     <div class="image">
-      <div
-        class="bookmark"
-        (click)="toggleFavorite(item.id)"
-        tabindex="0"
-        role="button"
-      >
-        <mat-icon
-          class="icon-bookmark"
-          [class.active]="favorite().includes(item.id)"
-          >add</mat-icon
-        >
-      </div>
       @if(item.primaryImage) {
       <div class="loading-detail"></div>
 
       <img
         class="click-detail"
         (click)="detail(item.id)"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          (item.primaryImage.url || '').slice(0, -4) +
+          'QL75_UX380_CR0,4,380,562_.jpg'
+        "
         [width]="72"
         [height]="106"
-        [alt]="item.primaryTitle"
+        [alt]="item.displayName"
         tabindex="0"
         role="button"
       />
@@ -39,51 +29,14 @@ item.id) {
         role="button"
         class="click-detail"
       >
-        {{ item.primaryTitle }}
+        {{ item.displayName }}
       </h3>
-      <p class="time">
-        {{ item.startYear }}@if(item.endYear) { - {{ item.endYear }}
-        } @if(item.runtimeSeconds) { &middot;
-        {{ item.runtimeSeconds | minutesToHours }}}
-      </p>
-      <div>
-        @if(item.rating) {
-        <div class="star">
-          @for (star of fullStars(item.rating.aggregateRating); track star) {
-          <mat-icon class="icon-star">star</mat-icon>
-          } @if(isPathStar(item.rating.aggregateRating)) {
-          <div class="star-wrapper">
-            <mat-icon class="star-border">star_border</mat-icon>
-            <mat-icon
-              class="star-fill"
-              [style]="{
-                '--fill-percent': pathStar(item.rating.aggregateRating) + '%'
-              }"
-            >
-              star
-            </mat-icon>
-          </div>
-          } @for (star of emptyStars(item.rating.aggregateRating); track star) {
-          <mat-icon class="icon-star">star_border</mat-icon>
-          }
-          <span>({{ item.rating.voteCount | numberSuffix }})</span>
-        </div>
-        }
-      </div>
-      <div class="genres">
-        @for (genre of item.genres; track genre) {
-        <p class="genre">{{ genre }}</p>
-        }
-      </div>
     </div>
   </div>
-  @if(view() === 'detail') {
-  <p class="plot">{{ item.plot | truncate : 300 }}</p>
-  }
 </div>
 } } @else if(view() === 'grid') {
 <div class="grid">
-  @for (item of films(); track item.id) {
+  @for (item of names(); track item.id) {
   <div class="movie-grid">
     <div class="image">
       <div class="bookmark">
@@ -96,10 +49,13 @@ item.id) {
         (click)="detail(item.id)"
         tabindex="0"
         role="button"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          (item.primaryImage.url || '').slice(0, -4) +
+          'QL75_UX380_CR0,4,380,562_.jpg'
+        "
         [width]="270"
         [height]="400"
-        [alt]="item.primaryTitle"
+        [alt]="item.displayName"
       />
       } @else {
       <div class="image-empty">no poster</div>
@@ -112,30 +68,8 @@ item.id) {
           role="button"
           class="click-detail"
         >
-          {{ item.primaryTitle }}
+          {{ item.displayName }}
         </h3>
-        <p class="time">
-          {{ item.startYear }} @if(item.runtimeSeconds) { &middot;
-          {{ item.runtimeSeconds | minutesToHours }}}
-        </p>
-        <div>
-          @if(item.rating) {
-
-          <div class="star">
-            <mat-icon class="icon-star">star</mat-icon>
-            <span
-              >{{ item.rating.aggregateRating }} ({{
-                item.rating.voteCount | numberSuffix
-              }})</span
-            >
-          </div>
-          }
-        </div>
-        <div class="genres">
-          @for (genre of item.genres; track genre) {
-          <p class="genre">{{ genre }}</p>
-          }
-        </div>
       </div>
     </div>
   </div>
