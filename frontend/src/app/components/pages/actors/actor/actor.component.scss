@@ -179,6 +179,7 @@
   justify-content: space-evenly;
   gap: 10px;
 
+
   .movie-grid {
     display: flex;
     flex-direction: column;
@@ -202,6 +203,10 @@
     .header-content {
       padding: 10px;
     }
+  }
+
+  .rank {
+    padding: 10px;
   }
 }
 

@@ -70,8 +70,20 @@
   @for (item of names(); track item.id) {
   <div class="movie-grid">
     <div class="image">
+      @if(item.meterRanking) {
+      <p class="rank">
+        {{ item.meterRanking.currentRank }}
+        (@if(item.meterRanking.changeDirection === 'FLAT') {
+        <mat-icon>remove</mat-icon> } @else if(item.meterRanking.changeDirection
+        === 'UP') { <mat-icon class="up">arrow_drop_up</mat-icon
+        >{{ item.meterRanking.difference }} } @else if(item.meterRanking.changeDirection === 'DOWN') {
+        <mat-icon class="down">arrow_drop_down</mat-icon
+        >{{ item.meterRanking.difference }} })
+      </p>
+      }
       @if(item.primaryImage) {
       <div class="loading-grid"></div>
+
       <img
         class="click-detail"
         (click)="detail(item.id)"
@@ -98,6 +110,27 @@
         >
           {{ item.displayName }}
         </h3>
+        @if(item.heightCm) {
+      <p>Height: {{ item.heightCm }}cm</p>
+      } @if(item.birthDate) {
+      <p>
+        Birthday:
+        {{`${item.birthDate.day}`.padStart(2, '0')
+
+        }}.{{`${item.birthDate.month}`.padStart(2, '0') }}.{{
+          item.birthDate.year
+        }}
+      </p>
+      } @if(item.deathDate) {
+      <p>
+        Date of death:
+        {{`${item.deathDate.day}`.padStart(2, '0')
+
+        }}.{{`${item.deathDate.month}`.padStart(2, '0') }}.{{
+          item.deathDate.year
+        }}
+      </p>
+      }
       </div>
     </div>
   </div>
