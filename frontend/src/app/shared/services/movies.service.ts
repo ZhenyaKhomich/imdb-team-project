@@ -1,19 +1,22 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {tap} from 'rxjs';
-import type {TrailerDataType} from '../types/trailer-data.type';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { tap } from 'rxjs';
+import type { TrailerDataType } from '../types/trailer-data.type';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { inject, Injectable, signal } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type {
   CompanyCreditData,
   ErrorTypes,
+  FilmDataType,
   TitlesDataType,
   TitleTypes,
   VideosData,
 } from '../types/movies-response.type';
 import { RequestsEnum } from '../enums/requests.enum';
 import { environment } from '../../../environments/environment';
+import { SignalService } from './signal.service';
+import { WatchlistService } from './watchlist.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +26,8 @@ export class MoviesService {
 
   private http = inject(HttpClient);
   private snakeBar = inject(MatSnackBar);
+  private signalService = inject(SignalService);
+  private watchlistService = inject(WatchlistService);
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>
@@ -73,12 +78,27 @@ export class MoviesService {
     );
   }
 
-  public toggleFavorite(id: string): void {
-    this.favoriteId.update((element) => {
-      return element.includes(id)
-        ? element.filter((item) => item !== id)
-        : [...element, id];
-    });
+  public toggleFavorite(id: string, data: FilmDataType[]): void {
+    if (this.signalService.idForCheckElementInWatchlist().includes(id)) {
+      this.watchlistService.deleteMovie(id);
+    } else {
+      const currentData = data.find((element) => element.id === id);
+      if (currentData && 'primaryTitle' in currentData) {
+        const movieData = {
+          id: currentData.id,
+          type: currentData.type,
+          primaryTitle: currentData.primaryTitle,
+          primaryImage: currentData.primaryImage,
+          startYear: currentData.startYear,
+          endYear: currentData.endYear,
+          runtimeSeconds: currentData.runtimeSeconds || 0,
+          genres: currentData.genres,
+          rating: currentData.rating,
+          plot: currentData.plot,
+        };
+        this.watchlistService.addMovie(movieData);
+      }
+    }
   }
 
   public searchTitles(word: string): Observable<TitlesDataType> {
@@ -88,12 +108,18 @@ export class MoviesService {
   }
 
   public getTrailer(id: string): Observable<TrailerDataType> {
-    return this.http.get<TrailerDataType>(environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos' ).pipe(
-      tap(data => {
-        if (!data.videos) {
-          this.snakeBar.open('The trailer was not found','', {duration: 4000})
-        }
-      })
-    )
+    return this.http
+      .get<TrailerDataType>(
+        environment.baseUrl + RequestsEnum.TITLES + '/' + id + '/videos'
+      )
+      .pipe(
+        tap((data) => {
+          if (!data.videos) {
+            this.snakeBar.open('The trailer was not found', '', {
+              duration: 4000,
+            });
+          }
+        })
+      );
   }
 }

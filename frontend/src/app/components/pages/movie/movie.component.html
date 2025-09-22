@@ -20,8 +20,10 @@
       [rating]="rating()"
       [vote]="vote()"
       [img]="img()"
-      [favorite]="isFavorite()"
-      (favoriteId)="favoriteId()"
+      [favorite]="
+        signalService.idForCheckElementInWatchlist().includes(id() || '')
+      "
+      (favoriteId)="favoriteId($event)"
       [trillers]="dataVideo()?.videos || []"
     />
   </app-section>

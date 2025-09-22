@@ -34,15 +34,14 @@
   </div>
   <div class="block-image">
     <div class="image">
-      <div
-        class="bookmark"
-        (click)="this.favoriteId.emit()"
-        tabindex="0"
-        role="button"
-      >
-        <mat-icon class="icon-bookmark" [class.active]="favorite()"
-          >add</mat-icon
+      <div class="bookmark">
+        @if(favorite()) {
+        <mat-icon class="delete icon-bookmark" (click)="favoriteId.emit(!favorite())">delete</mat-icon>
+        } @else {
+        <mat-icon class="bookmark_add icon-bookmark" (click)="favoriteId.emit(!favorite())"
+          >bookmark_add</mat-icon
         >
+        }
       </div>
       @if(img()) {
       <div class="loading loading-detail"></div>

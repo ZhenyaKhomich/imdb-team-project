@@ -19,6 +19,8 @@ import { CompanyComponent } from './company/company.component';
 import { VideosComponent } from './videos/videos.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ImagesComponent } from './images/images.component';
+import { SignalService } from '../../../shared/services/signal.service';
+import { WatchlistService } from '../../../shared/services/watchlist.service';
 
 @Component({
   selector: 'app-movie',
@@ -47,6 +49,8 @@ export class MovieComponent {
   public isNextImageActive = signal(true);
   public isPrevVideoActive = signal(false);
   public isNextVideoActive = signal(true);
+  public signalService = inject(SignalService);
+  public watchlistService = inject(WatchlistService);
 
   public images = viewChild(ImagesComponent);
 
@@ -224,8 +228,27 @@ export class MovieComponent {
     });
   }
 
-  public favoriteId(): void {
-    this.movie.toggleFavorite(this.id() || '');
+  public favoriteId(state: boolean): void {
+    if (!state) {
+      this.watchlistService.deleteMovie(this.id() || '');
+    } else {
+      const currentData = this.data();
+      if (currentData && 'primaryTitle' in currentData) {
+        const movieData = {
+          id: currentData.id,
+          type: currentData.type,
+          primaryTitle: currentData.primaryTitle,
+          primaryImage: currentData.primaryImage,
+          startYear: currentData.startYear,
+          endYear: currentData.endYear,
+          runtimeSeconds: currentData.runtimeSeconds || 0,
+          genres: currentData.genres,
+          rating: currentData.rating,
+          plot: currentData.plot,
+        };
+        this.watchlistService.addMovie(movieData);
+      }
+    }
   }
 
   public imagePrev(): void {

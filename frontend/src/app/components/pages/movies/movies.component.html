@@ -86,10 +86,10 @@
       } @else {
 
       <app-list
-        [favorite]="moviesService.favoriteId()"
+        [favorite]="signalService.idForCheckElementInWatchlist()"
         [films]="data().titles"
         [view]="view()"
-        (favoriteId)="moviesService.toggleFavorite($event)"
+        (favoriteId)="moviesService.toggleFavorite($event, data().titles || [])"
       ></app-list>
       @if(totalPage() > 50) {
       <div class="change-page">
