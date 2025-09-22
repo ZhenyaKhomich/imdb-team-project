@@ -111,8 +111,8 @@
 
     .icon-bookmark {
       position: absolute;
-      top: -2px;
-      left: -12px;
+      top: 5px;
+      left: 5px;
 
       &.active {
         color: $light-yellow;
@@ -193,9 +193,7 @@
     flex-direction: column;
     width: 270px;
     background-color: $background-light-transparent-50;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 10px;
 
     .image {
       width: 270px;
