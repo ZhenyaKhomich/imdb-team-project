@@ -1,19 +1,22 @@
-@if(view() === 'detail' || view() === 'compact') {
-@for (item of films(); track item.id) {
+@if(view() === 'detail' || view() === 'compact') { @for (item of films(); track
+item.id) {
 <div class="movie">
   <div class="header">
     <div class="image">
-      <div
-        class="bookmark"
-        (click)="toggleFavorite(item.id)"
-        tabindex="0"
-        role="button"
-      >
+      <div class="bookmark">
+        @if(favorite().includes(item.id)) {
         <mat-icon
-          class="icon-bookmark"
-          [class.active]="favorite().includes(item.id)"
-          >add</mat-icon
+          class="delete icon-bookmark"
+          (click)="favoriteId.emit(item.id)"
+          >delete</mat-icon
         >
+        } @else {
+        <mat-icon
+          class="bookmark_add icon-bookmark"
+          (click)="favoriteId.emit(item.id)"
+          >bookmark_add</mat-icon
+        >
+        }
       </div>
       @if(item.primaryImage) {
       <div class="loading-detail"></div>
@@ -21,7 +24,9 @@
       <img
         class="click-detail"
         (click)="detail(item.id)"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          item.primaryImage.url.slice(0, -4) + 'QL75_UX380_CR0,4,380,562_.jpg'
+        "
         [width]="72"
         [height]="106"
         [alt]="item.primaryTitle"
@@ -87,7 +92,19 @@
   <div class="movie-grid">
     <div class="image">
       <div class="bookmark">
-        <mat-icon class="icon-bookmark" [class.active]="true">add</mat-icon>
+        @if(favorite().includes(item.id)) {
+        <mat-icon
+          class="delete icon-bookmark"
+          (click)="favoriteId.emit(item.id)"
+          >delete</mat-icon
+        >
+        } @else {
+        <mat-icon
+          class="bookmark_add icon-bookmark"
+          (click)="favoriteId.emit(item.id)"
+          >bookmark_add</mat-icon
+        >
+        }
       </div>
       @if(item.primaryImage) {
       <div class="loading-grid"></div>
@@ -96,7 +113,9 @@
         (click)="detail(item.id)"
         tabindex="0"
         role="button"
-        [ngSrc]="item.primaryImage.url"
+        [ngSrc]="
+          item.primaryImage.url.slice(0, -4) + 'QL75_UX380_CR0,4,380,562_.jpg'
+        "
         [width]="270"
         [height]="400"
         [alt]="item.primaryTitle"

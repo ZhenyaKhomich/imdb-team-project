@@ -23,6 +23,7 @@ import { ListComponent } from './list/list.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
 import { MoviesService } from '../../../shared/services/movies.service';
+import { SignalService } from '../../../shared/services/signal.service';
 
 @Component({
   selector: 'app-movies',
@@ -46,6 +47,7 @@ export class MoviesComponent {
   public filterService = inject(FilterService);
   public moviesService = inject(MoviesService);
   public dialog = inject(MatDialog);
+  public signalService = inject(SignalService);
 
   public currentPage = signal(1);
   public prevPageToken = signal('');

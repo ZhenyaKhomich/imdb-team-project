@@ -3,7 +3,7 @@ import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {LowerCasePipe, NgForOf} from '@angular/common';
+import {LowerCasePipe} from '@angular/common';
 import {MinutesToHoursPipe} from '../../../shared/pipes/minutes-to-hours.pipe';
 import type {CarouselComponent} from 'ngx-owl-carousel-o';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
@@ -28,14 +28,13 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
   imports: [
     MatIconModule,
     CarouselModule,
-    NgForOf,
     MinutesToHoursPipe,
     ReductionTwentyElementsPipe,
     SliderComponent,
     LowerCasePipe,
     LoaderComponent,
     SortMoviesYearPipe,
-    ChangeUrlPicturePipe
+    ChangeUrlPicturePipe,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -55,6 +54,7 @@ export class MainComponent implements OnInit {
   public mainSliderLength = 0;
   public indexFollowingSlides: number[] = [];
   public watchlistService = inject(WatchlistService);
+  public moviesService = inject(MoviesService);
   public watchlist$ = effect(() => {
     this.signalService.watchlistData()
     this.signalService.changeWatchlist.set(false);
@@ -82,8 +82,8 @@ export class MainComponent implements OnInit {
   protected readonly Math = Math;
   protected readonly Number = Number;
   protected readonly SliderIdEnum = SliderIdEnum;
+  protected readonly AppRoutesEnum = AppRoutesEnum;
   private actorsService = inject(ActorsService);
-  private moviesService = inject(MoviesService);
   private localStorageService = inject(LocalStorageService);
   private today = new Date();
   private cdr = inject(ChangeDetectorRef);

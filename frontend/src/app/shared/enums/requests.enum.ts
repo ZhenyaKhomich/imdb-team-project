@@ -7,4 +7,6 @@ export enum RequestsEnum {
   ALL_ACTORS = 'chart/starmeter',
   SEARCH = 'search/titles?query=',
   WATCHLIST = 'watchlist',
+  ACTOR = 'names',
+  VIEWED = 'viewed',
 }

@@ -40,7 +40,11 @@
       cursor: pointer;
       transition: all 0.3s linear;
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+
+      span {
+        display: flex;
+      }
 
       &:hover {
         color: $main-blue;

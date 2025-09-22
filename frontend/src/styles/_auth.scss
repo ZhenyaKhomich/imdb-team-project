@@ -12,10 +12,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-left: 200px;
+    width: 1200px;
+    margin: 0 auto;
 
     .auth-form {
       text-align: center;
+      margin-left: 3vw;
+
+      .error {
+        text-align: start;
+        color: $red-color;
+        font-size: 12px;
+      }
 
       .error {
         text-align: start;

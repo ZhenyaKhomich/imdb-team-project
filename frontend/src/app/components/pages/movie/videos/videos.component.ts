@@ -83,15 +83,15 @@ export class VideosComponent implements AfterViewInit, OnDestroy {
   }
 
   public calculateTransform(): string {
-    const itemWidth = 405;
+    const itemWidth = 325;
     const offset = this.currentIndex() * itemWidth;
     return `translateX(-${offset}px)`;
   }
 
   private calculateItemsToShow(containerWidth: number): void {
-    if (containerWidth >= 1190) {
+    if (containerWidth >= 990) {
       this.itemsToShow.set(3);
-    } else if (containerWidth >= 405) {
+    } else if (containerWidth >= 335) {
       this.itemsToShow.set(2);
     } else {
       this.itemsToShow.set(1);
