@@ -46,7 +46,7 @@ export class OverviewComponent {
   public rating = input<number>(0);
   public vote = input<number>(0);
   public favorite = input<boolean>(false);
-  public favoriteId = output();
+  public favoriteId = output<boolean>();
 
   public urlTriller = computed(() => {
     const currentEmbedUrl = this.trillers();

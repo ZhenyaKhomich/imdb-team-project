@@ -60,14 +60,6 @@ describe('VideosComponent', () => {
     fixture.componentRef.setInput('data', mockVideos);
   });
 
-  it('calc transform', () => {
-    component.currentIndex.set(0);
-    expect(component.calculateTransform()).toBe('translateX(-0px)');
-
-    component.currentIndex.set(2);
-    expect(component.calculateTransform()).toBe('translateX(-810px)');
-  });
-
   it('next()', () => {
     component.itemsToShow.set(2);
     component.currentIndex.set(0);

@@ -1,0 +1,49 @@
+<div class="app-container">
+  <div class="app-header">
+    <h2>Most popular celebs</h2>
+  </div>
+
+  <div class="main-content">
+    <div class="content">
+      <div class="sort">
+        <div class="view-block">
+          <mat-icon
+            class="view"
+            [class.active]="view() === 'compact'"
+            (click)="changeView('compact')"
+            >view_headline</mat-icon
+          >
+          <mat-icon
+            class="view"
+            [class.active]="view() === 'grid'"
+            (click)="changeView('grid')"
+            >view_comfy</mat-icon
+          >
+        </div>
+      </div>
+      @if (loading()) {
+      <app-skeleton [view]="view()" />
+      } @else { @if(!data().names) {
+      <p>No results found. Please try again later.</p>
+      } @else {
+
+      <app-actor [names]="data().names" [view]="view()"></app-actor>
+
+      <div class="change-page">
+        <mat-icon
+          class="prev icon-nav"
+          (click)="prevPage()"
+          [class.inactive]="firstPage()"
+          >arrow_back_ios</mat-icon
+        >
+        <mat-icon
+          class="next icon-nav"
+          (click)="nextPage()"
+          [class.inactive]="actor.lastPage()"
+          >arrow_forward_ios</mat-icon
+        >
+      </div>
+      } }
+    </div>
+  </div>
+</div>

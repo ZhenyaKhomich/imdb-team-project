@@ -5,5 +5,6 @@ export enum AppRoutesEnum {
   MOVIES = 'movies',
   ERROR404 = 'error404',
   WATCHLIST = 'watchlist',
-  TRAILER= 'trailer',
+  TRAILER = 'trailer',
+  ACTORS = 'actors',
 }
