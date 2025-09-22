@@ -1,8 +1,8 @@
 import type { Routes } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout/layout.component';
 import { AppRoutesEnum } from './shared/enums/app-router.enum';
-import {isLoginGuard} from './shared/guards/is-login.guard';
-import {isNotLoginGuard} from './shared/guards/is-not-login.guard';
+import { isLoginGuard } from './shared/guards/is-login.guard';
+import { isNotLoginGuard } from './shared/guards/is-not-login.guard';
 
 export const routes: Routes = [
   {
@@ -27,7 +27,7 @@ export const routes: Routes = [
           import('./components/auth/login/login.component').then(
             (m) => m.LoginComponent
           ),
-        canActivate: [isLoginGuard]
+        canActivate: [isLoginGuard],
       },
       {
         path: AppRoutesEnum.SIGNUP,
@@ -35,7 +35,7 @@ export const routes: Routes = [
           import('./components/auth/signup/signup.component').then(
             (m) => m.SignupComponent
           ),
-        canActivate: [isLoginGuard]
+        canActivate: [isLoginGuard],
       },
       {
         path: AppRoutesEnum.ACTORS,
@@ -43,6 +43,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/pages/actors/actors.component').then(
             (m) => m.ActorsComponent
+          ),
+      },
+      {
+        path: `${AppRoutesEnum.ACTORS}/:id`,
+        title: 'Actor',
+        loadComponent: () =>
+          import('./components/pages/actor/actor.component').then(
+            (m) => m.ActorComponent
           ),
       },
       {
@@ -68,7 +76,7 @@ export const routes: Routes = [
           import('./components/pages/watchlist/watchlist.component').then(
             (m) => m.WatchlistComponent
           ),
-        canActivate: [isNotLoginGuard]
+        canActivate: [isNotLoginGuard],
       },
       {
         path: `${AppRoutesEnum.TRAILER}/:id`,
