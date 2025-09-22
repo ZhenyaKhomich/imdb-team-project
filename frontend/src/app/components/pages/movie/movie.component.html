@@ -20,8 +20,10 @@
       [rating]="rating()"
       [vote]="vote()"
       [img]="img()"
-      [favorite]="isFavorite()"
-      (favoriteId)="favoriteId()"
+      [favorite]="
+        signalService.idForCheckElementInWatchlist().includes(id() || '')
+      "
+      (favoriteId)="favoriteId($event)"
       [trillers]="dataVideo()?.videos || []"
     />
   </app-section>
@@ -54,6 +56,8 @@
       (isPrevActive)="isPrevVideoActive.set($event)"
       (isNextActive)="isNextVideoActive.set($event)"
     />
+    } @else {
+    <div class="no-data">no data</div>
     }
   </app-section>
 
@@ -84,11 +88,18 @@
       (isPrevActive)="isPrevImageActive.set($event)"
       (isNextActive)="isNextImageActive.set($event)"
     />
+    }@else {
+    <div class="no-data">no data</div>
     }
   </app-section>
 
   <app-section id="section4" title="Company">
     <h2 class="title"><span class="circle"></span>Company</h2>
-    <app-company [data]="dataCompany().companyCredits" />
+    @if(dataCompany().companyCredits?.length) {
+
+    <app-company [data]="dataCompany().companyCredits || []" />
+    } @else {
+    <div class="no-data">no data</div>
+    }
   </app-section>
 </main>

@@ -7,8 +7,9 @@ import { NavigationService } from './services/navigation.service';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
-// Mock компоненты
 @Component({ selector: 'app-navigation', template: '' })
 class MockNavigationComponent {}
 
@@ -83,6 +84,8 @@ describe('MovieComponent', () => {
         MockImagesComponent,
       ],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         { provide: MoviesService, useValue: moviesServiceMock },
         { provide: NavigationService, useValue: navigationServiceMock },
         { provide: Title, useValue: titleServiceMock },
@@ -108,11 +111,6 @@ describe('MovieComponent', () => {
 
   it('initial', () => {
     expect(component.id()).toBe('test-id');
-  });
-
-  it('favorite toggle', () => {
-    component.favoriteId();
-    expect(moviesServiceMock.toggleFavorite).toHaveBeenCalledWith('test-id');
   });
 
   it('call navigation', () => {

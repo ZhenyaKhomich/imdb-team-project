@@ -38,7 +38,7 @@
 .wrapper-video {
   position: relative;
   height: 300px;
-  width: 380px;
+  width: 310px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -68,7 +68,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  max-width: 1190px;
+  max-width: 990px;
   height: 300px;
   margin-bottom: 100px;
 }
@@ -96,14 +96,14 @@
   margin-right: 0;
 }
 
-@media (max-width: 1430px) {
+@media (max-width: 1230px) {
   .slider-wrapper {
-    max-width: 785px;
+    max-width: 645px;
   }
 }
 
-@media (max-width: 975px) {
+@media (max-width: 775px) {
   .slider-wrapper {
-    max-width: 380px;
+    max-width: 335px;
   }
 }

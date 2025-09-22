@@ -170,7 +170,7 @@ export interface Triller {
 }
 
 export interface CompanyCreditData {
-  companyCredits: CompanyCredit[];
+  companyCredits?: CompanyCredit[];
   totalCount: number;
   nextPageToken: string;
 }

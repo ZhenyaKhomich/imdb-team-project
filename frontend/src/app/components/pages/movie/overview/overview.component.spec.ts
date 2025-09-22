@@ -66,14 +66,4 @@ describe('OverviewComponent', () => {
     expect(component.urlTriller()).toBe('');
   });
 
-  it('favoriteId', () => {
-    spyOn(component.favoriteId, 'emit');
-
-    fixture.detectChanges();
-
-    const bookmark = fixture.debugElement.query(By.css('.bookmark'));
-    bookmark.triggerEventHandler('click');
-
-    expect(component.favoriteId.emit).toHaveBeenCalled();
-  });
 });

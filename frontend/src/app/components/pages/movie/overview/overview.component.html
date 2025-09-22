@@ -34,15 +34,20 @@
   </div>
   <div class="block-image">
     <div class="image">
-      <div
-        class="bookmark"
-        (click)="this.favoriteId.emit()"
-        tabindex="0"
-        role="button"
-      >
-        <mat-icon class="icon-bookmark" [class.active]="favorite()"
-          >add</mat-icon
+      <div class="bookmark">
+        @if(favorite()) {
+        <mat-icon
+          class="delete icon-bookmark"
+          (click)="favoriteId.emit(!favorite())"
+          >delete</mat-icon
         >
+        } @else {
+        <mat-icon
+          class="bookmark_add icon-bookmark"
+          (click)="favoriteId.emit(!favorite())"
+          >bookmark_add</mat-icon
+        >
+        }
       </div>
       @if(img()) {
       <div class="loading loading-detail"></div>
@@ -80,12 +85,14 @@
       <div class="genres">
         @for (genre of genres(); track genre) {
         <p class="genre">{{ genre }}</p>
-        }
+        } @empty { no data }
       </div>
     </div>
     <div class="description-line">
       <span class="description-tag plot-tag">Plot</span>
+      @if ( plot()) {
       <span class="plot">{{ plot() }}</span>
+      } @else { no data }
     </div>
     <div class="description-line">
       <span class="description-tag">Director</span>
@@ -99,7 +106,7 @@
         <a [href]="'#' + director.id" class="director">{{
           director.displayName
         }}</a>
-        } }
+        } } @empty { no data }
       </div>
     </div>
     <div class="description-line">
@@ -114,7 +121,7 @@
         <a [href]="'#' + writer.id" class="director">{{
           writer.displayName
         }}</a>
-        } }
+        } } @empty { no data }
       </div>
     </div>
     <div class="description-line">
@@ -125,7 +132,7 @@
         <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
         } @else {
         <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
-        } }
+        } } @empty { no data }
       </div>
     </div>
   </div>
