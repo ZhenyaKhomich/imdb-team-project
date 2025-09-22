@@ -104,6 +104,7 @@ export class SliderComponent implements OnInit, OnChanges {
   public openTrailerList(id: string): void {
     this.moviesService.getTrailer(id).subscribe(
       (data) => {
+
         if(data.videos && data.videos.length > 0){
           this.signalService.trailerVideos.set(data);
           this.router.navigate([AppRoutesEnum.TRAILER, id])

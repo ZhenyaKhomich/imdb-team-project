@@ -1,8 +1,8 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {tap} from 'rxjs';
 import type {TrailerDataType} from '../types/trailer-data.type';
 import {MatSnackBar} from '@angular/material/snack-bar';
-
 import {inject, Injectable, signal} from '@angular/core';
 import type {Observable} from 'rxjs';
 import type {
@@ -28,6 +28,7 @@ export class MoviesService {
   private router = inject(Router);
   private snakeBar = inject(MatSnackBar);
   private signalService = inject(SignalService);
+
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>

@@ -69,6 +69,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: `${AppRoutesEnum.TRAILER}/:id`,
+        loadComponent: () =>
+          import('./components/pages/trailer/trailer.component').then(
+            (m) => m.TrailerComponent
+          ),
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./components/pages/error-404/error-404.component').then(
