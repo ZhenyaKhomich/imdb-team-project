@@ -7,7 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
-import {DOCUMENT, NgForOf} from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 import {SignalService} from '../../../shared/services/signal.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {AuthService} from '../../../shared/services/auth.service';
@@ -31,7 +31,6 @@ import {Subject, tap} from 'rxjs';
     RouterLink,
     MatMenuModule,
     ReactiveFormsModule,
-    NgForOf,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -42,6 +41,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public isOpenMenu = false;
   public foundMovies: TitlesDataType | null = null;
   public signalService = inject(SignalService);
+  public moviesService = inject(MoviesService);
   protected readonly AppRoutesEnum = AppRoutesEnum;
   protected readonly Math = Math;
   protected readonly Number = Number;
@@ -49,7 +49,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private localStorageService = inject(LocalStorageService);
   private snakeBar = inject(MatSnackBar);
-  private moviesService = inject(MoviesService);
   private destroy$ = new Subject<void>();
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);

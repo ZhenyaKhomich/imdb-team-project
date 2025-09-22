@@ -9,7 +9,8 @@
     } @else if(movies.titles && movies.titles.length > 0) {
     <div class="watchlist__no-empty">
       <div class="watchlist__elements">
-        <div class="watchlist__element" *ngFor="let movie of movies.titles">
+        @for(movie of movies.titles; track movie.id) {
+        <div class="watchlist__element">
           <div class="watchlist__element-img">
             @if(movie.primaryImage) {
               <img src="{{movie.primaryImage.url | changeUrlPicture}}" alt="No image" loading="lazy">
@@ -22,8 +23,9 @@
             @if(movie.rating) {
             <div class="watchlist__element-rating">
               <div class="rating-stars">
-                <mat-icon fontIcon="star"
-                          *ngFor="let star of [].constructor(Math.floor(movie.rating.aggregateRating))"></mat-icon>
+                @for(star of [].constructor(Math.floor(movie.rating.aggregateRating)); track $index) {
+                  <mat-icon fontIcon="star"></mat-icon>
+                }
                 @if (!Number.isInteger(movie.rating.aggregateRating)) {
                   <mat-icon fontIcon="star_half"></mat-icon>
                 }
@@ -33,12 +35,13 @@
               }
             <div class="watchlist__element-year">{{movie.startYear}} year</div>
             <div class="watchlist__element-actions">
-              <mat-icon class="play" fontIcon="slow_motion_video"></mat-icon>
-              <mat-icon class="info" fontIcon="info"></mat-icon>
+              <mat-icon class="play" fontIcon="slow_motion_video" (click)="openTrailerList(movie.id)" ></mat-icon>
+              <mat-icon class="info" fontIcon="info" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)"></mat-icon>
               <mat-icon class="delete" (click)="watchlistService.deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
             </div>
           </div>
         </div>
+        }
       </div>
     </div>
     }

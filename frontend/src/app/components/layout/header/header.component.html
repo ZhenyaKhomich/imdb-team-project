@@ -39,7 +39,8 @@
                 fontIcon="search"></mat-icon>
       @if (foundMovies && foundMovies.titles) {
         <div class="header__search-list">
-          <div class="search__element" *ngFor="let movie of foundMovies.titles">
+          @for(movie of foundMovies.titles; track movie.id) {
+          <div class="search__element" tabindex="0" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)" (keydown.enter)="moviesService.openMovieAndAddRecentlyViewed(movie)">
             <div class="search__element-img">
               <img src="{{movie.primaryImage?.url}}" alt="No img">
             </div>
@@ -48,8 +49,9 @@
               @if (movie.rating && movie.rating.aggregateRating) {
                 <div class="search__element-rating">
                   <div class="stars">
-                    <mat-icon fontIcon="star"
-                              *ngFor="let star of [].constructor(Math.floor(movie.rating.aggregateRating))"></mat-icon>
+                    @for(star of [].constructor(Math.floor(movie.rating.aggregateRating)); track $index) {
+                      <mat-icon fontIcon="star"></mat-icon>
+                    }
                     @if (!Number.isInteger(movie.rating.aggregateRating)) {
                       <mat-icon fontIcon="star_half"></mat-icon>
                     }
@@ -62,6 +64,7 @@
               }
             </div>
           </div>
+          }
         </div>
       }
     </div>
@@ -148,7 +151,8 @@
                       fontIcon="search"></mat-icon>
             @if (foundMovies && foundMovies.titles) {
               <div class="header__search-list">
-                <div class="search__element" *ngFor="let movie of foundMovies.titles">
+                @for(movie of foundMovies.titles; track movie.id) {
+                <div class="search__element">
                   <div class="search__element-img">
                     <img src="{{movie.primaryImage?.url}}" alt="No img">
                   </div>
@@ -157,8 +161,9 @@
                     @if (movie.rating && movie.rating.aggregateRating) {
                       <div class="search__element-rating">
                         <div class="stars">
-                          <mat-icon fontIcon="star"
-                                    *ngFor="let star of [].constructor(Math.floor(movie.rating.aggregateRating))"></mat-icon>
+                          @for(star of [].constructor(Math.floor(movie.rating.aggregateRating)); track $index) {
+                            <mat-icon fontIcon="star"></mat-icon>
+                          }
                           @if (!Number.isInteger(movie.rating.aggregateRating)) {
                             <mat-icon fontIcon="star_half"></mat-icon>
                           }
@@ -171,6 +176,7 @@
                     }
                   </div>
                 </div>
+                }
               </div>
             }
           </div>

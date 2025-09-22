@@ -9,7 +9,7 @@
             <mat-icon fontIcon="delete"></mat-icon></span>
           </div>
           @if (movies && movies.titles && movies.titles.length > 0) {
-            <app-slider [key]='movies?.titles?.length || 0' [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
+            <app-slider [key]='movies.titles.length || 0' [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
           } @else {
             <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
           }

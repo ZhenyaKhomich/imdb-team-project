@@ -3,7 +3,7 @@ import type {OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {LowerCasePipe, NgForOf} from '@angular/common';
+import {LowerCasePipe} from '@angular/common';
 import {MinutesToHoursPipe} from '../../../shared/pipes/minutes-to-hours.pipe';
 import type {CarouselComponent} from 'ngx-owl-carousel-o';
 import {SliderComponent} from '../../../shared/components/slider/slider.component';
@@ -19,7 +19,7 @@ import {LoaderComponent} from '../../../shared/components/loader/loader.componen
 import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pipe';
 import {WatchlistService} from '../../../shared/services/watchlist.service';
 import {ChangeUrlPicturePipe} from '../../../shared/pipes/change-url-picture.pipe';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
@@ -28,7 +28,6 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
   imports: [
     MatIconModule,
     CarouselModule,
-    NgForOf,
     MinutesToHoursPipe,
     ReductionTwentyElementsPipe,
     SliderComponent,
@@ -36,7 +35,6 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
     LoaderComponent,
     SortMoviesYearPipe,
     ChangeUrlPicturePipe,
-    RouterLink
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

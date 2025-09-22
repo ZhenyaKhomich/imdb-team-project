@@ -8,53 +8,73 @@
           <mat-icon (click)="mainSlideNext()" fontIcon="arrow_forward_ios"></mat-icon>
         </div>
         <owl-carousel-o [options]="customMovies" #carouseMovies>
-          <ng-template carouselSlide *ngFor="let movie of movies?.titles;">
-            <div class="movie">
-              <div class="movie__img">
-                <img src="{{ movie.primaryImage?.url}}" alt="img" loading="lazy">
-                <mat-icon class="play-trailer" (click)="openTrailerList(movie.id)" fontIcon="slow_motion_video"></mat-icon>
-                @if(signalService.idForCheckElementInWatchlist().includes(movie.id)) {
-                  <mat-icon class="delete" (click)="watchlistService.deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
-                } @else {
-                  <mat-icon fontIcon="bookmark_add" (click)="watchlistService.addMovie(movie)"></mat-icon>
-                }
-              </div>
-              <div class="movie__description">
-                <div class="movie__title"><span class="description">Title: </span> {{ movie.primaryTitle }}</div>
-                <div class="movie__release"><span class="description">Year of release: </span>  {{ movie.startYear }}
-                  year
+          @for (movie of movies.titles; track $index) {
+            <ng-template carouselSlide>
+              <div class="movie">
+                <div class="movie__img">
+                  <img [src]="movie.primaryImage?.url" alt="img" loading="lazy">
+                  <mat-icon class="play-trailer" (click)="openTrailerList(movie.id)" fontIcon="slow_motion_video"></mat-icon>
+                  @if (signalService.idForCheckElementInWatchlist().includes(movie.id)) {
+                    <mat-icon class="delete" (click)="watchlistService.deleteMovie(movie.id)" fontIcon="delete">
+                    </mat-icon>
+                  } @else {
+                    <mat-icon fontIcon="bookmark_add" (click)="watchlistService.addMovie(movie)"></mat-icon>
+                  }
                 </div>
-                <div class="movie__duration"><span
-                  class="description">Duration: </span>  {{ movie.runtimeSeconds | minutesToHours }}
-                </div>
-                <div class="movie__categories-block">
-                  <span class="description">Categories: </span>
-                  <div class="movie__categories">
-                    <div class="movie__category"
-                         *ngFor="let category of movie.genres; let i = index">{{ category | lowercase }} @if (i !== movie.genres.length - 1) {
-                      , &nbsp;
-                    } @else {
-                      .
-                    }</div>
+                <div class="movie__description">
+                  <div class="movie__title">
+                    <span class="description">Title: </span> {{ movie.primaryTitle }}
                   </div>
-                </div>
-                @if(movie.rating) {
-                <div class="movie__rating"><span class="description">Rating:</span>
-                  <div class="rating-stars">
-                    <mat-icon fontIcon="star"
-                              *ngFor="let star of [].constructor(Math.floor(movie.rating.aggregateRating))"></mat-icon>
-                    @if (!Number.isInteger(movie.rating.aggregateRating)) {
-                      <mat-icon fontIcon="star_half"></mat-icon>
-                    }
+                  <div class="movie__release">
+                    <span class="description">Year of release: </span>
+                    {{ movie.startYear }} year
                   </div>
-                  {{ movie.rating.aggregateRating }} (votes: {{ movie.rating.voteCount }})
+                  <div class="movie__duration">
+                    <span class="description">Duration: </span>
+                    {{ movie.runtimeSeconds | minutesToHours }}
+                  </div>
+                  <div class="movie__categories-block">
+                    <span class="description">Categories: </span>
+                    <div class="movie__categories">
+                      @for (category of movie.genres; let i = $index; track $index) {
+                        <div class="movie__category">
+                          {{ category | lowercase }}
+                          @if (i !== movie.genres.length - 1) {
+                            ,&nbsp;
+                          } @else {
+                            .
+                          }
+                        </div>
+                      }
+                    </div>
+                  </div>
+                  @if (movie.rating) {
+                    <div class="movie__rating">
+                      <span class="description">Rating:</span>
+                      <div class="rating-stars">
+                        @for (star of [].constructor(Math.floor(movie.rating.aggregateRating)); track $index) {
+                          <mat-icon fontIcon="star"></mat-icon>
+                        }
+                        @if (!Number.isInteger(movie.rating.aggregateRating)) {
+                          <mat-icon fontIcon="star_half"></mat-icon>
+                        }
+                      </div>
+                      {{ movie.rating.aggregateRating }}
+                      (votes: {{ movie.rating.voteCount }})
+                    </div>
+                  }
+                  <div class="movie__text">
+                    <span class="description">Description:</span>
+                    {{ movie.plot }}
+                  </div>
+                  <button class="btn movie__btn"
+                          (click)="moviesService.openMovieAndAddRecentlyViewed(movie)">
+                    More detailed
+                  </button>
                 </div>
-                }
-                <div class="movie__text"><span class="description">Description:</span>  {{ movie.plot }}</div>
-                <button class="btn movie__btn" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)">More detailed</button>
               </div>
-            </div>
-          </ng-template>
+            </ng-template>
+          }
         </owl-carousel-o>
       </div>
       } @else {
@@ -64,7 +84,8 @@
         @if(movies?.titles) {
         <div class="up-next">Up next</div>
         <div class="slider__elements">
-          <div class="slider__element" *ngFor="let index of indexFollowingSlides">
+          @for(index of indexFollowingSlides; track $index) {
+          <div class="slider__element">
             @if(movies && movies.titles && movies.titles[index]) {
             <div class="slider__element-img">
               <img src="{{movies.titles[index].primaryImage?.url | changeUrlPicture}}" alt="img" loading="lazy">
@@ -83,20 +104,20 @@
               <div class="slider__element-rating"><span
                 class="description">Rating: </span>
                   <div class="rating-stars">
-                    <mat-icon
-                      fontIcon="star"
-                      *ngFor="let star of [].constructor(Math.floor(movies?.titles?.[index]?.rating?.aggregateRating ?? 0))"
-                    ></mat-icon>
-                    @if (!Number.isInteger(movies.titles[index].rating?.aggregateRating)) {
+                    @for(star of [].constructor(Math.floor(movies.titles[index].rating.aggregateRating)); track $index) {
+                      <mat-icon fontIcon="star"></mat-icon>
+                    }
+                    @if (!Number.isInteger(movies.titles[index].rating.aggregateRating)) {
                       <mat-icon fontIcon="star_half"></mat-icon>
                     }
                   </div>
-                {{ movies.titles[index].rating?.aggregateRating}} (votes: {{ movies.titles[index].rating?.voteCount }})
+                {{ movies.titles[index].rating.aggregateRating}} (votes: {{ movies.titles[index].rating.voteCount }})
               </div>
               }
             </div>
             }
           </div>
+          }
         </div>
         }
       </div>

@@ -8,7 +8,6 @@ import {
 import type {OnInit, OnChanges, SimpleChanges,} from '@angular/core';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {NgForOf, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import type {ActorDataType, ActorsDataType} from '../../types/actors-data.type';
 import {SliderIdEnum} from '../../enums/slider-id.enum';
@@ -17,7 +16,7 @@ import {SignalService} from '../../services/signal.service';
 import type {FilmDataType, TitlesDataType} from '../../types/movies-response.type';
 import {WatchlistService} from '../../services/watchlist.service';
 import {ChangeUrlPicturePipe} from '../../pipes/change-url-picture.pipe';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {AppRoutesEnum} from '../../enums/app-router.enum';
 import {MoviesService} from '../../services/movies.service';
 
@@ -27,10 +26,7 @@ import {MoviesService} from '../../services/movies.service';
   imports: [
     CarouselModule,
     MatIconModule,
-    NgForOf,
-    NgIf,
     ChangeUrlPicturePipe,
-    RouterLink,
   ],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
