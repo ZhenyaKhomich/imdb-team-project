@@ -1,10 +1,11 @@
 import type {HttpErrorResponse, HttpInterceptorFn} from '@angular/common/http';
 import {LocalStorageService} from '../services/local-storage.service';
 import {inject} from '@angular/core';
-import {tap} from 'rxjs';
+import {EMPTY, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {AppRoutesEnum} from '../enums/app-router.enum';
 import {environment} from '../../../environments/environment';
+import {catchError} from 'rxjs/operators';
 
 export const authInterceptorFunction: HttpInterceptorFn = (request, next) => {
   const localStorageService = inject(LocalStorageService);
@@ -19,16 +20,28 @@ export const authInterceptorFunction: HttpInterceptorFn = (request, next) => {
     })
 
     return next(newRequest).pipe(
-      tap({
-        error: (error: HttpErrorResponse) => {
-          console.log('ошибка в интерcепторe');
-          console.log(error);
-          if (error.status === 401) {
-            console.log('ошибка в интерcепторe 401')
-            localStorageService.removeTokens();
-            router.navigate(['/' + AppRoutesEnum.MAIN])
-          }
+      // tap({
+      //   error: (error: HttpErrorResponse) => {
+      //     console.log('ошибка в интерcепторe');
+      //     console.log(error);
+      //     if (error.status === 401) {
+      //       console.log('ошибка в интерcепторe 401')
+      //       localStorageService.removeTokens();
+      //       router.navigate(['/' + AppRoutesEnum.MAIN])
+      //     }
+      //   }
+      // }),
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          console.log('ошибка в интерcепторe 401')
+          localStorageService.removeTokens();
+          router.navigate(['/' + AppRoutesEnum.MAIN])
         }
+        if (error.status === 400 && error.error?.message === 'Title уже есть в просмотренных') {
+          console.warn('Title уже есть в просмотренных');
+          return EMPTY;
+        }
+        return throwError(() => error);
       })
     );
   }

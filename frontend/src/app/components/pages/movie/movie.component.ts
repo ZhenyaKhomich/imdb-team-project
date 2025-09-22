@@ -12,13 +12,14 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './services/navigation.service';
 import { SectionComponent } from './section/section.component';
 import { MoviesService } from '../../../shared/services/movies.service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {toSignal} from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { OverviewComponent } from './overview/overview.component';
 import { CompanyComponent } from './company/company.component';
 import { VideosComponent } from './videos/videos.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ImagesComponent } from './images/images.component';
+import {SignalService} from '../../../shared/services/signal.service';
 
 @Component({
   selector: 'app-movie',
@@ -41,6 +42,7 @@ export class MovieComponent {
   public movie = inject(MoviesService);
   public title = inject(Title);
   public navService = inject(NavigationService);
+  public signalService = inject(SignalService);
   public loadingTitles = signal(false);
   public currentUrl = window.location.pathname;
   public isPrevImageActive = signal(false);
@@ -55,6 +57,7 @@ export class MovieComponent {
   public data = toSignal(this.movie.getTitle(this.id() || ''), {
     initialValue: null,
   });
+
 
   public dataVideo = toSignal(this.movie.getVideos(this.id() || ''), {
     initialValue: null,
