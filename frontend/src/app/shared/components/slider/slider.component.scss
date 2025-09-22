@@ -175,9 +175,12 @@
     }
 
     &__title {
+      display: flex;
+      align-items: center;
       font-weight: 500;
       margin-top: 10px;
       font-size: 17px;
+      height: 40px;
       color: $main-light-yellow-sec-dark;
     }
 

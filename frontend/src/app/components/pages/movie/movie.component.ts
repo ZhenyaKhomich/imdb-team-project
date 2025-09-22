@@ -12,7 +12,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NavigationService } from './services/navigation.service';
 import { SectionComponent } from './section/section.component';
 import { MoviesService } from '../../../shared/services/movies.service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {toSignal} from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { OverviewComponent } from './overview/overview.component';
 import { CompanyComponent } from './company/company.component';
@@ -43,13 +43,13 @@ export class MovieComponent {
   public movie = inject(MoviesService);
   public title = inject(Title);
   public navService = inject(NavigationService);
+  public signalService = inject(SignalService);
   public loadingTitles = signal(false);
   public currentUrl = window.location.pathname;
   public isPrevImageActive = signal(false);
   public isNextImageActive = signal(true);
   public isPrevVideoActive = signal(false);
   public isNextVideoActive = signal(true);
-  public signalService = inject(SignalService);
   public watchlistService = inject(WatchlistService);
 
   public images = viewChild(ImagesComponent);
@@ -59,6 +59,7 @@ export class MovieComponent {
   public data = toSignal(this.movie.getTitle(this.id() || ''), {
     initialValue: null,
   });
+
 
   public dataVideo = toSignal(this.movie.getVideos(this.id() || ''), {
     initialValue: null,

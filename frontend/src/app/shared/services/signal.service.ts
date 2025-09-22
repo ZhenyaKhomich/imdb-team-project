@@ -16,4 +16,5 @@ export class SignalService {
   public changeWatchlist: WritableSignal<boolean> = signal(false);
   public idForCheckElementInWatchlist: WritableSignal<string[]> = signal([]);
   public trailerVideos: WritableSignal<TrailerDataType | null> = signal(null);
+  public recentlyViewedVideos: WritableSignal<TitlesDataType> = signal({titles:[]});
 }

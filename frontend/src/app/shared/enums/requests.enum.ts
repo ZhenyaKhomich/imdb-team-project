@@ -8,4 +8,5 @@ export enum RequestsEnum {
   SEARCH = 'search/titles?query=',
   WATCHLIST = 'watchlist',
   ACTOR = 'names',
+  VIEWED = 'viewed',
 }

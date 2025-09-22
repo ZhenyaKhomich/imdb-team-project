@@ -3,12 +3,11 @@ import {
   Component,
   HostListener,
   inject,
-  Input,
+  Input
 } from '@angular/core';
-import type {OnInit} from '@angular/core';
+import type {OnInit, OnChanges, SimpleChanges,} from '@angular/core';
 import {CarouselModule} from 'ngx-owl-carousel-o';
 import type {OwlOptions} from 'ngx-owl-carousel-o';
-import {NgForOf, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import type {ActorDataType, ActorsDataType} from '../../types/actors-data.type';
 import {SliderIdEnum} from '../../enums/slider-id.enum';
@@ -27,17 +26,16 @@ import {MoviesService} from '../../services/movies.service';
   imports: [
     CarouselModule,
     MatIconModule,
-    NgForOf,
-    NgIf,
     ChangeUrlPicturePipe,
   ],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent implements OnInit, OnChanges {
   @Input() public elementsSlider: ActorsDataType | TitlesDataType | null = null;
   @Input() public id!: string;
+  @Input() public key!: number | undefined;
   public actorsList: ActorDataType[] = [];
   public moviesList: FilmDataType[] | undefined = [];
   public itemsInSlider = 0;
@@ -45,6 +43,7 @@ export class SliderComponent implements OnInit {
   public year = this.todayData.getFullYear();
   public signalService = inject(SignalService);
   public watchlistService = inject(WatchlistService);
+  public moviesService = inject(MoviesService);
   public sliderConfig: OwlOptions = {
     loop: true,
     responsiveRefreshRate: 50000,
@@ -67,7 +66,6 @@ export class SliderComponent implements OnInit {
   protected readonly SliderIdEnum = SliderIdEnum;
   protected readonly AppRoutesEnum = AppRoutesEnum;
   private window = inject(WINDOW);
-  private moviesService = inject(MoviesService);
   private router = inject(Router);
   private width = this.window.innerWidth;
 
@@ -89,6 +87,12 @@ export class SliderComponent implements OnInit {
     this.changeWidth(this.width);
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if(changes['key'] ) {
+    this.moviesList = this.signalService.recentlyViewedVideos()?.titles;
+    }
+  }
+
   public trackBySliderId(index: number, movie: FilmDataType): string {
     return movie.id;
   }
@@ -100,7 +104,8 @@ export class SliderComponent implements OnInit {
   public openTrailerList(id: string): void {
     this.moviesService.getTrailer(id).subscribe(
       (data) => {
-        if(data.videos.length > 0){
+
+        if(data.videos && data.videos.length > 0){
           this.signalService.trailerVideos.set(data);
           this.router.navigate([AppRoutesEnum.TRAILER, id])
         }

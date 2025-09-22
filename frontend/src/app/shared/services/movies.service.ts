@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs';
 import type { TrailerDataType } from '../types/trailer-data.type';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { inject, Injectable, signal } from '@angular/core';
 import type { Observable } from 'rxjs';
 import type {
@@ -15,6 +14,9 @@ import type {
 } from '../types/movies-response.type';
 import { RequestsEnum } from '../enums/requests.enum';
 import { environment } from '../../../environments/environment';
+import type { ErrorResponseType } from '../types/error-response.type';
+import { Router } from '@angular/router';
+import { AppRoutesEnum } from '../enums/app-router.enum';
 import { SignalService } from './signal.service';
 import { WatchlistService } from './watchlist.service';
 
@@ -23,11 +25,11 @@ import { WatchlistService } from './watchlist.service';
 })
 export class MoviesService {
   public favoriteId = signal<string[]>([]);
-
+  public watchlistService = inject(WatchlistService);
   private http = inject(HttpClient);
+  private router = inject(Router);
   private snakeBar = inject(MatSnackBar);
   private signalService = inject(SignalService);
-  private watchlistService = inject(WatchlistService);
 
   public getTitles(
     queryParameters?: Record<string, string | number | string[]>
@@ -121,5 +123,56 @@ export class MoviesService {
           }
         })
       );
+  }
+
+  public addRecentlyViewed(element: {
+    titleData: FilmDataType;
+  }): Observable<ErrorResponseType> {
+    return this.http.post<ErrorResponseType>(
+      environment.api + RequestsEnum.VIEWED,
+      element
+    );
+  }
+
+  public getRecentlyViewed(): Observable<TitlesDataType> {
+    return this.http.get<TitlesDataType>(environment.api + RequestsEnum.VIEWED);
+  }
+
+  public deleteRecentlyViewed(): Observable<ErrorResponseType> {
+    return this.http.delete<ErrorResponseType>(
+      environment.api + RequestsEnum.VIEWED
+    );
+  }
+
+  public openMovieAndAddRecentlyViewed(movie: FilmDataType): void {
+    this.router.navigate(['/' + AppRoutesEnum.MOVIES, movie.id]);
+
+    const movieInRecentlyViewedElements =
+      this.signalService.recentlyViewedVideos()?.titles;
+    const movieInRecentlyViewed = movieInRecentlyViewedElements?.find(
+      (title) => {
+        return title.id === movie.id;
+      }
+    );
+
+    if (!movieInRecentlyViewed) {
+      if (
+        movieInRecentlyViewedElements &&
+        movieInRecentlyViewedElements.length > 30
+      ) {
+        this.deleteRecentlyViewed().subscribe();
+      }
+
+      this.addRecentlyViewed({ titleData: movie }).subscribe((data) => {
+        if (!data.error) {
+          this.getRecentlyViewed().subscribe((data) => {
+            this.signalService.recentlyViewedVideos.set({
+              ...data,
+              titles: data.titles?.reverse(),
+            });
+          });
+        }
+      });
+    }
   }
 }

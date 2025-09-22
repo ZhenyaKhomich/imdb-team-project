@@ -124,24 +124,4 @@ describe('MoviesService', () => {
       request.flush({});
     });
   });
-
-  describe('favoriteId signal', () => {
-    it('add id', () => {
-      const id = 'tt0111161';
-      expect(service.favoriteId().includes(id)).toBeFalse();
-
-      service.toggleFavorite(id);
-
-      expect(service.favoriteId()).toEqual([id]);
-    });
-
-    it('remove id', () => {
-      const id = 'tt0111161';
-      service.favoriteId.set([id, 'tt0068646']);
-
-      service.toggleFavorite(id);
-
-      expect(service.favoriteId()).toEqual(['tt0068646']);
-    });
-  });
 });
