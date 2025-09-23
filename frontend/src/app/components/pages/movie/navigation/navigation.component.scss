@@ -16,7 +16,7 @@
     width: 4px;
     top: 0;
     left: 0px;
-    background-color: $background-light-transparent-100;
+    background-color: var(--background-light-transparent-100);
     border-radius: 4px;
     height: 170px;
   }
@@ -50,22 +50,22 @@
   cursor: pointer;
   font-size: 18px;
   transition: background-color 0.3s ease;
-  color: $filter-category-text;
+  color: var(--filter-category-text);
 }
 
 .side-nav button:hover {
-  color: $light-yellow;
+  color: var(--light-yellow);
 }
 
 .side-nav button.active {
-  color: $light-yellow;
+  color: var(--light-yellow);
   position: relative;
 
   &::before {
     width: 4px;
     content: "";
     height: 43px;
-    background-color: $light-yellow;
+    background-color: var(--light-yellow);
     position: absolute;
     top: -10px;
     left: -19px;

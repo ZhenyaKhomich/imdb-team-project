@@ -129,22 +129,19 @@
       } @else {
         <app-loader></app-loader>
       }
-      <div class="main__what-all-list">View the entire actors
+      <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.ACTORS">View the entire actors
         <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
       </div>
     </section>
     <section class="main__what slider">
       <h3 class="section-title">What to watch</h3>
       <div class="what__watchList">
-        <div class="main__second-title">From your WatchList
+        <div class="main__second-title" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">From your WatchList
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
         @if (signalService.isLogin()) {
           @if (signalService.changeWatchlist()) {
             <app-slider [id]="SliderIdEnum.watchlist" [elementsSlider]="signalService.watchlistData()"></app-slider>
-            <div class="main__what-all-list">View the entire watchlist
-              <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
-            </div>
           } @else {
             <div class="what__watchList-empty">
               <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
@@ -168,7 +165,7 @@
         } @else {
           <app-loader></app-loader>
         }
-        <div class="main__what-all-list">View the full list of categories
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
@@ -179,7 +176,7 @@
         } @else {
           <app-loader></app-loader>
         }
-        <div class="main__what-all-list">View the full list of categories
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
@@ -190,7 +187,7 @@
         } @else {
           <app-loader></app-loader>
         }
-        <div class="main__what-all-list">View the full list of categories
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
@@ -201,7 +198,7 @@
         } @else {
           <app-loader></app-loader>
         }
-        <div class="main__what-all-list">View the full list of categories
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
@@ -212,7 +209,7 @@
         }  @else {
           <app-loader></app-loader>
         }
-        <div class="main__what-all-list">View the full list of categories
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
           <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
         </div>
       </div>
@@ -226,9 +223,6 @@
       }  @else {
         <app-loader></app-loader>
       }
-      <div class="main__what-all-list">View the entire list
-        <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
-      </div>
     </section>
     <section class="main__information">
       <h3 class="section-title">Information about IMDb</h3>

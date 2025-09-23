@@ -15,7 +15,7 @@
 
   .section-title {
     font-size: 28px;
-    color: $light-yellow;
+    color: var(--light-yellow);
   }
 
   &__second-title {
@@ -24,7 +24,7 @@
     font-size: 22px;
     line-height: 24px;
     font-weight: 500;
-    border-left: 5px solid $light-yellow;
+    border-left: 5px solid var(--light-yellow);
     padding-left: 10px;
     margin-bottom: 20px;
 
@@ -40,7 +40,7 @@
     .description {
       font-size: 20px;
       font-style: italic;
-      color: $main-light-yellow-sec-dark;
+      color: var(--main-light-yellow-sec-dark);
       font-weight: 400;
     }
 
@@ -64,12 +64,12 @@
           height: 40px;
           width: 30px;
           padding: 5px;
-          background: $slider-arrows;
+          background: var(--slider-arrows);
           cursor: pointer;
           transition: all 0.3s linear;
 
           &:hover {
-            background: $slider-arrows-hover;
+            background: var(--slider-arrows-hover);
           }
         }
       }
@@ -78,20 +78,20 @@
         width: 765px;
         display: flex;
         gap: 10px;
-        background: $dark-background-primary;
+        background: var(--dark-background-primary);
 
         &__img {
           position: relative;
 
           .delete {
-            color: $red-color;
+            color: var(--red-color);
           }
 
           img {
             width: 400px;
             border-radius: 5px;
             height: 595px;
-            border: 1px solid $light-text-secondary;
+            border: 1px solid var(--main-light-yellow-sec-light);
           }
 
           mat-icon {
@@ -112,11 +112,12 @@
               font-size: 60px;
               width: 60px;
               height: 60px;
-              color: $green-color;
+              color: var(--green-color);
             }
 
             &:hover {
-              color: $light-background-primary;
+              color: var(--main-light-yellow-sec-light);
+              transform: scale(1.05);
             }
           }
         }
@@ -147,7 +148,7 @@
           }
 
           mat-icon {
-            color: $light-yellow;
+            color: var(--light-yellow);
           }
         }
 
@@ -167,13 +168,13 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: $dark-background-primary;
+      background: var(--dark-background-primary);
       gap: 5px;
 
       .up-next {
         font-size: 25px;
         font-weight: 600;
-        color: $light-yellow;
+        color: var(--light-yellow);
         margin-bottom: 5px;
       }
 
@@ -190,7 +191,7 @@
         &-img {
           width: 140px;
           height: 180px;
-          border: 1px solid $light-text-secondary;
+          border: 1px solid var(--light-text-secondary);
           border-radius: 5px;
 
           img {
@@ -223,7 +224,7 @@
             font-size: 18px;
             width: 18px;
             height: 18px;
-            color: $light-yellow;
+            color: var(--light-yellow);
           }
         }
       }
@@ -243,7 +244,7 @@
       transition: all 0.3s linear;
 
       &:hover {
-        color: $main-blue;
+        color: var(--main-blue);
       }
     }
 
@@ -257,10 +258,10 @@
       .main__second-title {
         cursor: pointer;
         transition: all 0.3s linear;
-        border-left-color: $main-blue;
+        border-left-color: var(--main-blue);
 
         &:hover {
-          color: $main-blue;
+          color: var(--main-blue);
         }
       }
 
@@ -269,7 +270,7 @@
         width: 60px;
         height: 60px;
         font-size: 60px;
-        color: $dark-text-secondary;
+        color: var(--dark-text-secondary);
       }
 
       &-text-top {

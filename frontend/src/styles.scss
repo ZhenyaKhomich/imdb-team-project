@@ -57,13 +57,13 @@ app-layout {
   }
 }
 
-.cdk-overlay-pane:has(.custom-select-panel) {
-  width: auto !important;
-
-  div.mat-mdc-select-panel {
-    max-height: 500px !important;
-  }
-}
+//.cdk-overlay-pane:has(.custom-select-panel) {
+//  width: auto !important;
+//
+//  div.mat-mdc-select-panel {
+//    max-height: 500px !important;
+//  }
+//}
 
 .mat-mdc-form-field.header__actions-lang {
   width: 45px;
@@ -72,7 +72,7 @@ app-layout {
 
   .mat-mdc-select-arrow {
     svg {
-      fill: white;
+      fill: var(--light-background-secondary);
     }
   }
 
@@ -108,10 +108,10 @@ app-layout {
   width: auto !important;
 
   .mat-select-panel-animations-enabled, .mat-mdc-option.mdc-list-item.mdc-list-item--selected.mat-mdc-option-active {
-    background: $dark-background-nav;
+    background: var(--dark-background-nav);
 
     .mdc-list-item__primary-text {
-      color: $light-background-secondary;
+      color: var(--light-background-secondary);
     }
 
     .mat-pseudo-checkbox {
@@ -119,7 +119,7 @@ app-layout {
     }
 
     .mat-pseudo-checkbox:after {
-      color: $light-background-secondary !important;
+      color: var(--light-background-secondary) !important;
     }
   }
 
@@ -156,10 +156,10 @@ app-layout {
 
 .mat-mdc-menu-content {
   .user-name {
-    text-shadow: 1px 1px 1px $light-text-secondary;
+    text-shadow: 1px 1px 1px var(--light-text-secondary);
     padding: 3px 5px;
     text-align: center;
-    color: $main-light-yellow
+    color: var(--main-light-yellow)
   }
 }
 

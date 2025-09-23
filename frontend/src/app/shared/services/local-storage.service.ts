@@ -45,6 +45,13 @@ export class LocalStorageService {
 
   public getData(): string | null {
     return this.localStorage.getItem(TokensEnum.Data);
+  }
 
+  public getTheme(): string | null {
+    return this.localStorage.getItem(TokensEnum.Theme);
+  }
+
+  public setTheme(theme: 'light' | 'dark'): void {
+    this.localStorage.setItem(TokensEnum.Theme, theme);
   }
 }

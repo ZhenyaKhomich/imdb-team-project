@@ -9,6 +9,7 @@ import type {TrailerDataType} from '../types/trailer-data.type';
 })
 export class SignalService {
   public isLogin = signal(false);
+  public darkTheme = signal(true);
   public userData: WritableSignal<UserDataType> = signal({id: "", name: "", email: ""});
   public refreshSlider = signal(false);
   public refreshSliderWatchList = signal(false);
@@ -17,4 +18,6 @@ export class SignalService {
   public idForCheckElementInWatchlist: WritableSignal<string[]> = signal([]);
   public trailerVideos: WritableSignal<TrailerDataType | null> = signal(null);
   public recentlyViewedVideos: WritableSignal<TitlesDataType> = signal({titles:[]});
+
+
 }

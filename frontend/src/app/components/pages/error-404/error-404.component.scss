@@ -16,15 +16,15 @@
     padding: 10px;
     font-size: 20px;
     font-weight: 500;
-    background: $light-text-primary;
-    color: $light-background-secondary;
+    background: var(--light-text-primary);
+    color: var(--light-background-secondary);
     position: absolute;
     bottom: 200px;
     left: 10%;
-    border: 1px solid $main-light-yellow;
+    border: 1px solid var(--main-light-yellow);
 
     &:hover {
-      background: $light-text-secondary;
+      background: var(--light-text-secondary);
     }
   }
 }

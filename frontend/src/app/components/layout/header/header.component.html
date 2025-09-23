@@ -6,34 +6,6 @@
       <div class="menu-text">Menu</div>
     </div>
     <div class="header__search">
-      <mat-form-field class="header__search-select" appearance="outline">
-        <mat-select required [value]="'all'" panelClass="custom-select-panel">
-          <mat-option value="all">
-            <mat-icon>search</mat-icon>
-            All
-          </mat-option>
-          <mat-option value="titles">
-            <mat-icon>theaters</mat-icon>
-            Titles
-          </mat-option>
-          <mat-option value="episodes">
-            <mat-icon>tv</mat-icon>
-            TV episodes
-          </mat-option>
-          <mat-option value="celebs">
-            <mat-icon>group</mat-icon>
-            Celebs
-          </mat-option>
-          <mat-option value="companies">
-            <mat-icon>domain</mat-icon>
-            Companies
-          </mat-option>
-          <mat-option value="keywords">
-            <mat-icon>label</mat-icon>
-            Keywords
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
       <input [formControl]="searchValue" class="header__search-input" type="text" placeholder="Search IMDb">
       <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon"
                 fontIcon="search"></mat-icon>
@@ -74,7 +46,7 @@
         <div class="imbdPro">
           <div class="imbdPro__wrapper">
             <img src="./images/imbdPro.png" alt="pro">
-            <button class="btn">Try ImbdPro for FREE</button>
+            <a href="https://pro.imdb.com/login/ap?u=/login/lwa&imdbPageAction=signUp&rf=cons_nb_hm&ref_=cons_nb_hm" class="btn">Try ImbdPro for FREE</a>
           </div>
         </div>
       </div>
@@ -97,16 +69,11 @@
           </button>
         </mat-menu>
       }
-      <mat-form-field class="header__actions-lang" appearance="outline">
-        <mat-select required [value]="'en'" panelClass="custom-select-lang">
-          <mat-option value="en">
-            EN
-          </mat-option>
-          <mat-option value="ru">
-            RU
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      @if(signalService.darkTheme()) {
+        <mat-icon class="theme-dark" fontIcon="bedtime" (click)="themeToggle()"></mat-icon>
+      } @else {
+        <mat-icon class="theme-light" fontIcon="sunny" (click)="themeToggle()"></mat-icon>
+      }
     </div>
 
     <div class="menu" [class.open]="isOpenMenu">
@@ -118,34 +85,6 @@
 
         <div class="menu__clone">
           <div class="header__search">
-            <mat-form-field class="header__search-select" appearance="outline">
-              <mat-select required [value]="'all'" panelClass="custom-select-panel">
-                <mat-option value="all">
-                  <mat-icon>search</mat-icon>
-                  All
-                </mat-option>
-                <mat-option value="titles">
-                  <mat-icon>theaters</mat-icon>
-                  Titles
-                </mat-option>
-                <mat-option value="episodes">
-                  <mat-icon>tv</mat-icon>
-                  TV episodes
-                </mat-option>
-                <mat-option value="celebs">
-                  <mat-icon>group</mat-icon>
-                  Celebs
-                </mat-option>
-                <mat-option value="companies">
-                  <mat-icon>domain</mat-icon>
-                  Companies
-                </mat-option>
-                <mat-option value="keywords">
-                  <mat-icon>label</mat-icon>
-                  Keywords
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
             <input [formControl]="searchValue" class="header__search-input" type="text" placeholder="Search IMDb">
             <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon"
                       fontIcon="search"></mat-icon>
@@ -209,16 +148,12 @@
                 </button>
               </mat-menu>
             }
-            <mat-form-field class="header__actions-lang" appearance="outline">
-              <mat-select required [value]="'en'" panelClass="custom-select-lang">
-                <mat-option value="en">
-                  EN
-                </mat-option>
-                <mat-option value="ru">
-                  RU
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+
+            @if(signalService.darkTheme()) {
+              <mat-icon class="theme-dark" fontIcon="bedtime" (click)="themeToggle()"></mat-icon>
+            } @else {
+              <mat-icon class="theme-light" fontIcon="sunny" (click)="themeToggle()"></mat-icon>
+            }
           </div>
         </div>
 
@@ -236,7 +171,7 @@
               <mat-icon fontIcon="tv"></mat-icon>
               <span>Catalog</span>
             </li>
-            <li class="menu__block-title">
+            <li class="menu__block-title" [routerLink]="'/' + AppRoutesEnum.ACTORS">
               <mat-icon fontIcon="group"></mat-icon>
               <span>Actors</span>
             </li>
