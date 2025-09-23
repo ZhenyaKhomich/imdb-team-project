@@ -4,4 +4,5 @@ export enum TokensEnum {
   UserId = 'userId',
   Actors = 'actors',
   Data = 'Data',
+  Theme = 'theme',
 }

@@ -19,7 +19,7 @@ import {LoaderComponent} from '../../../shared/components/loader/loader.componen
 import {SortMoviesYearPipe} from '../../../shared/pipes/sort-movies-year.pipe.pipe';
 import {WatchlistService} from '../../../shared/services/watchlist.service';
 import {ChangeUrlPicturePipe} from '../../../shared/pipes/change-url-picture.pipe';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 
 @Component({
@@ -35,6 +35,7 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
     LoaderComponent,
     SortMoviesYearPipe,
     ChangeUrlPicturePipe,
+    RouterLink,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

@@ -1,3 +1,4 @@
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs';
 import type { TrailerDataType } from '../types/trailer-data.type';

@@ -18,6 +18,7 @@ import type {TitlesDataType} from '../../../shared/types/movies-response.type';
 import {MoviesService} from '../../../shared/services/movies.service';
 import {debounceTime, filter, switchMap, takeUntil} from 'rxjs/operators';
 import {Subject, tap} from 'rxjs';
+import {ThemeService} from '../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -52,6 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
+  private themeService = inject(ThemeService);
 
   @HostListener('document:click')
   public change(): void {
@@ -82,13 +84,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }),
       takeUntil(this.destroy$),
-      debounceTime(500),
+      debounceTime(300),
       filter((value): value is string => !!value && value.trim() !== ''),
       switchMap(value => this.moviesService.searchTitles(value))
     ).subscribe(titles => {
       this.foundMovies = titles;
       this.cdr.detectChanges();
     });
+
+    this.themeService.initTheme();
   }
 
   public actionsToMenu(): void {
@@ -144,5 +148,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public themeToggle(): void {
+    this.themeService.toggleTheme();
   }
 }

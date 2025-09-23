@@ -2,22 +2,22 @@
 
 button {
   font-size: 14px;
-  background-color: $background-light-transparent-50;
-  color: $filter-category-text;
+  background-color: var(--background-light-transparent-50);
+  color: var(--filter-category-text);
   outline: none;
   border: none;
-  border: 1px solid $background-transparent-600;
+  border: 1px solid var(--background-transparent-600);
   border-radius: 20px;
   padding: 10px;
   cursor: pointer;
 
   &:hover {
-    border: 1px solid $light-yellow;
-    color: $light-yellow;
+    border: 1px solid var(--light-yellow);
+    color: var(--light-yellow);
   }
 }
 
 .active {
-  border: 1px solid $light-yellow;
-  color: $light-yellow;
+  border: 1px solid var(--light-yellow);
+  color: var(--light-yellow);
 }

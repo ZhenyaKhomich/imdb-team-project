@@ -4,8 +4,8 @@
 :root {
   @include mat.dialog-overrides(
     (
-      container-color: $dark-background-primary,
-      subhead-color: $filter-category-text,
+      container-color: var(--dark-background-primary),
+      subhead-color: var(--filter-category-text),
     )
   );
 }
@@ -13,8 +13,8 @@
 body {
   margin: 0;
   font-family: Roboto, sans-serif;
-  background: $dark-background-nav;
-  color: $light-background-secondary;
+  background: var(--dark-background-nav);
+  color: var(--light-background-secondary);
 }
 
 .container {
@@ -33,13 +33,13 @@ body {
   padding: 8px 18px;
   width: 207px;
   box-shadow: inset 0 -2px 2px 0 rgba(0, 0, 0, 0.25);
-  background: $light-yellow;
+  background: var(--light-yellow);
   border: none;
   cursor: pointer;
   transition: all 0.3s linear;
 
   &:hover {
-    background: $main-light-yellow-sec-light;
+    background: var(--main-light-yellow-sec-light);
   }
 }
 
@@ -55,21 +55,21 @@ body {
   margin-top: 30px;
   font-size: 18px;
   font-weight: 500;
-  background: $dark-background-secondary;
-  color: $main-blue;
+  background: var(--dark-background-secondary);
+  color: var(--main-blue);
 
   &:hover {
-    background: $background-light-transparent-100;
+    background: var(--background-light-transparent-100);
   }
 }
 
 a {
   text-decoration: none;
-  color: $light-background-primary;
+  color: var(--light-background-primary);
 }
 
 .input {
-  border: 4px solid $main-light-yellow;
+  border: 4px solid var(--main-light-yellow);
   border-radius: 3px;
   padding: 20px 64px 20px 20px;
   width: 422px;
@@ -78,9 +78,9 @@ a {
   font-weight: 400;
   font-size: 18px;
   line-height: 130%;
-  color: $light-text-primary;
+  color: var(--light-text-primary);
 
   &::placeholder {
-    color: $light-text-secondary;
+    color: var(--light-text-secondary);
   }
 }

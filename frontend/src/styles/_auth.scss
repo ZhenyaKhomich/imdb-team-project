@@ -21,13 +21,13 @@
 
       .error {
         text-align: start;
-        color: $red-color;
+        color: var(--red-color);
         font-size: 12px;
       }
 
       .error {
         text-align: start;
-        color: $red-color;
+        color: var(--red-color);
         font-size: 12px;
       }
 
@@ -35,9 +35,9 @@
         font-size: 34px;
         margin-top: 50px;
         margin-bottom: 35px;
-        color: $main-light-yellow;
+        color: var(--main-light-yellow);
         font-weight: 600;
-        text-shadow: 1px 1px 1px $light-text-primary;
+        text-shadow: 1px 1px 1px var(--light-text-primary);
       }
 
       .inputs {
@@ -65,13 +65,13 @@
           line-height: 130%;
 
           &::placeholder {
-            color: $light-text-secondary;
+            color: var(--light-text-secondary);
             font-weight: 500;
           }
 
           &:focus {
-            outline: 2px solid $green-color;
-            box-shadow: 0 0 5px 1px $green-color;
+            outline: 2px solid var(--green-color);
+            box-shadow: 0 0 5px 1px var(--green-color);
           }
         }
 
@@ -90,13 +90,13 @@
             font-weight: 500;
             font-size: 15px;
             line-height: 130%;
-            color: $main-light-yellow;
-            text-shadow: 1px 1px 1px $light-text-primary;
+            color: var(--main-light-yellow);
+            text-shadow: 1px 1px 1px var(--light-text-primary);
 
             a {
               text-decoration: underline;
               text-decoration-skip-ink: none;
-              color: $green-color;
+              color: var(--green-color);
               cursor: pointer;
             }
           }
@@ -110,8 +110,8 @@
         font-weight: 600;
         font-size: 20px;
         line-height: 130%;
-        color: $light-background-secondary;
-        text-shadow: 1px 1px 1px $light-text-primary;
+        color: var(--light-background-secondary);
+        text-shadow: 1px 1px 1px var(--light-text-primary);
         margin-top: 40px;
       }
 
@@ -121,11 +121,11 @@
         font-weight: 500;
         font-size: 15px;
         line-height: 130%;
-        color: $main-light-yellow;
-        text-shadow: 1px 1px 1px $light-text-primary;
+        color: var(--main-light-yellow);
+        text-shadow: 1px 1px 1px var(--light-text-primary);
 
         a {
-          color: $green-color;
+          color: var(--green-color);
           cursor: pointer;
         }
       }

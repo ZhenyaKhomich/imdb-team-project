@@ -10,7 +10,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  color: $filter-category-text;
+  color: var(--filter-category-text);
 }
 
 h2 {
@@ -23,7 +23,7 @@ h2 {
   gap: 10px;
   padding: 10px;
   border-radius: 10px;
-  border: 1px solid $background-light-transparent-100;
+  border: 1px solid var(--background-light-transparent-100);
 }
 
 .line {
@@ -33,7 +33,7 @@ h2 {
 }
 
 .name {
-  color: $filter-title-text;
+  color: var(--filter-title-text);
   width: 120px;
   align-self: self-start;
 }
@@ -47,7 +47,7 @@ h2 {
 
 .item {
   display: flex;
-  background-color: $background-light-transparent-100;
+  background-color: var(--background-light-transparent-100);
   padding: 5px 15px;
   border-radius: 50px;
 }

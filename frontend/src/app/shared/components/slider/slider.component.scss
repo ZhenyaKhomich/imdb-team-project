@@ -41,7 +41,7 @@
 
     &__actor-img {
       height: 230px;
-      border: 1px solid $light-text-secondary;
+      border: 1px solid var(--light-text-secondary);
     }
 
     img {
@@ -53,7 +53,7 @@
     &__name {
       font-size: 18px;
       font-weight: 500;
-      color: $light-yellow;
+      color: var(--light-yellow);
     }
 
     &__rating {
@@ -63,7 +63,7 @@
       height: 25px;
 
       span {
-        color: $main-blue;
+        color: var(--main-blue);
         margin-top: 1px;
         font-size: 18px;
       }
@@ -77,18 +77,18 @@
       }
 
       &-up {
-        color: $green-color;
+        color: var(--green-color);
       }
 
       &-down {
-        color: $red-color;
+        color: var(--red-color);
       }
     }
 
     &__birthday-img {
       margin-top: 5px;
       height: 72px;
-      filter: drop-shadow(1px 1px 1px $light-background-primary);
+      filter: drop-shadow(1px 1px 1px var(--light-background-primary));
     }
 
     &__birthday-data {
@@ -100,13 +100,13 @@
       bottom: 30px;
       font-size: 20px;
       font-weight: 500;
-      color: $light-yellow;
-      text-shadow: 1px 1px 3px $light-background-primary;
+      color: var(--light-yellow);
+      text-shadow: 1px 1px 3px var(--light-background-primary);
     }
   }
 
   .card.movie {
-    border: 1px solid $light-background-primary;
+    border: 1px solid var(--light-background-primary);
     max-width: 210px;
     width: 210px;
   }
@@ -134,15 +134,16 @@
         width: 30px;
         height: 30px;
         cursor: pointer;
-        color: $bookmark-add;
+        color: var(--bookmark-add);
         transition: all 0.3s linear;
 
         &.delete {
-          color: $red-color;
+          color: var(--red-color);
         }
 
         &:hover {
-          color: $light-background-primary;
+          color: var(--main-light-yellow-sec-dark);
+          transform: scale(1.05);
         }
       }
     }
@@ -155,11 +156,11 @@
       text-align: center;
       width: 210px;
       min-height: 235px;
-      background: $dark-background-primary;
+      background: var(--dark-background-primary);
     }
 
     &__top {
-      color: $red-color;
+      color: var(--red-color);
       margin-top: 5px;
     }
 
@@ -167,7 +168,7 @@
       margin-top: 10px;
 
       mat-icon {
-        color: $light-yellow;
+        color: var(--light-yellow);
         font-size: 18px;
         width: 17px;
         height: 17px;
@@ -181,7 +182,7 @@
       margin-top: 10px;
       font-size: 17px;
       height: 40px;
-      color: $main-light-yellow-sec-dark;
+      color: var(--main-light-yellow-sec-dark);
     }
 
     .gray-btn {
@@ -199,7 +200,7 @@
         margin-bottom: 10px;
 
         &:hover {
-          background: $background-light-transparent-100;
+          background: var(--background-light-transparent-100);
         }
       }
     }
