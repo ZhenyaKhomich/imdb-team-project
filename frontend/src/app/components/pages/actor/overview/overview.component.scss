@@ -115,9 +115,7 @@
   position: relative;
 
   img {
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
   }
 
   .bookmark {
@@ -139,9 +137,7 @@
 .loading-detail {
   width: 336px;
   height: 491px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
 }
 
 .loading {
@@ -193,9 +189,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
 }
 
 .description-block {

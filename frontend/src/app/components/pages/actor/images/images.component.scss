@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  max-width: 990px;
+  max-width: 1140px;
   height: 264px;
   margin-bottom: 100px;
 }
@@ -80,13 +80,8 @@
   }
 }
 
-@media (max-width: 1230px) {
-  .slider-wrapper {
-    max-width: 1131px;
-  }
-}
 
-@media (max-width: 1170px) {
+@media (max-width: 1200px) {
   .slider-wrapper {
     max-width: 842px;
   }
@@ -98,7 +93,7 @@
   }
 }
 
-@media (max-width: 352px) {
+@media (max-width: 635px) {
   .slider-wrapper {
     max-width: 289px;
   }

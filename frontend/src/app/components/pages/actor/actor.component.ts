@@ -5,16 +5,19 @@ import {
   effect,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActorsPageService } from '../../../shared/services/actors-page.service';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { OverviewComponent } from './overview/overview.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ImagesComponent } from './images/images.component';
 
 @Component({
   selector: 'app-actor',
-  imports: [OverviewComponent],
+  imports: [OverviewComponent, MatIconModule, ImagesComponent],
   templateUrl: './actor.component.html',
   styleUrl: './actor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,12 +33,28 @@ export class ActorComponent {
   public isPrevVideoActive = signal(false);
   public isNextVideoActive = signal(true);
 
-  // public images = viewChild(ImagesComponent);
-
-  // public videos = viewChild(VideosComponent);
+  public images = viewChild(ImagesComponent);
 
   public data = toSignal(this.actor.getActor(this.id() || ''), {
     initialValue: null,
+  });
+
+  public dataImage = toSignal(this.actor.getImages(this.id() || ''), {
+    initialValue: null,
+  });
+
+  public urlImages = computed(() => {
+    const currentData = this.dataImage();
+    if (
+      currentData &&
+      'images' in currentData &&
+      Array.isArray(currentData.images)
+    ) {
+      return (
+        currentData.images.map((element: { url: string }) => element.url) || []
+      );
+    }
+    return [];
   });
 
   public name = computed(() => {
@@ -147,27 +166,15 @@ export class ActorComponent {
     });
   }
 
-  // public imagePrev(): void {
-  //   if (this.images()) {
-  //     this.images()?.prev();
-  //   }
-  // }
+  public imagePrev(): void {
+    if (this.images()) {
+      this.images()?.prev();
+    }
+  }
 
-  // public imageNext(): void {
-  //   if (this.images()) {
-  //     this.images()?.next();
-  //   }
-  // }
-
-  // public videoPrev(): void {
-  //   if (this.videos()) {
-  //     this.videos()?.prev();
-  //   }
-  // }
-
-  // public videoNext(): void {
-  //   if (this.videos()) {
-  //     this.videos()?.next();
-  //   }
-  // }
+  public imageNext(): void {
+    if (this.images()) {
+      this.images()?.next();
+    }
+  }
 }

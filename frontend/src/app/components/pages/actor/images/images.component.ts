@@ -86,11 +86,11 @@ export class ImagesComponent implements AfterViewInit, OnDestroy {
   }
 
   private calculateItemsToShow(containerWidth: number): void {
-    if (containerWidth >= 990) {
+    if (containerWidth >= 1200) {
       this.itemsToShow.set(4);
-    } else if (containerWidth >= 641) {
+    } else if (containerWidth >= 862) {
       this.itemsToShow.set(3);
-    } else if (containerWidth >= 352) {
+    } else if (containerWidth >= 563) {
       this.itemsToShow.set(2);
     } else {
       this.itemsToShow.set(1);

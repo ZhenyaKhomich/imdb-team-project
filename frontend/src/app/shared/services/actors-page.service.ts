@@ -3,7 +3,12 @@ import { inject, Injectable } from '@angular/core';
 import type { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { RequestsEnum } from '../enums/requests.enum';
-import type { ActorData, ActorsData } from '../types/actors-page';
+import type {
+  ActorData,
+  ActorImages,
+  ActorsData,
+  Filmography,
+} from '../types/actors-page';
 import type { ErrorTypes } from '../types/movies-response.type';
 
 @Injectable({
@@ -40,6 +45,18 @@ export class ActorsPageService {
   public getActor(id: string): Observable<ActorData | ErrorTypes> {
     return this.http.get<ActorData | ErrorTypes>(
       environment.baseUrl + RequestsEnum.ACTOR + '/' + id
+    );
+  }
+
+  public getFilms(id: string): Observable<Filmography> {
+    return this.http.get<Filmography>(
+      environment.baseUrl + RequestsEnum.ACTOR + '/' + id + '/filmography'
+    );
+  }
+
+  public getImages(id: string): Observable<ActorImages> {
+    return this.http.get<ActorImages>(
+      environment.baseUrl + RequestsEnum.ACTOR + '/' + id + '/images'
     );
   }
 }

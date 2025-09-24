@@ -50,3 +50,58 @@ export interface ActorData {
   birthLocation?: string;
   deathDate?: DeathDate;
 }
+
+export interface Filmography {
+  credits: Credit[]
+  totalCount: number
+  nextPageToken: string
+}
+
+export interface Credit {
+  title: Title
+  category: string
+  characters?: string[]
+  episodeCount?: number
+}
+
+export interface Title {
+  id: string
+  type?: string
+  primaryTitle?: string
+  primaryImage?: PrimaryImage
+  startYear?: number
+  genres?: string[]
+  rating?: Rating
+  metacritic?: Metacritic
+  originCountries?: OriginCountry[]
+  originalTitle?: string
+}
+
+export interface Rating {
+  aggregateRating: number
+  voteCount: number
+}
+
+export interface Metacritic {
+  score: number
+  reviewCount: number
+}
+
+export interface OriginCountry {
+  code: string
+  name: string
+}
+
+
+export interface ActorImages {
+  images: Image[]
+  totalCount: number
+  nextPageToken: string
+}
+
+export interface Image {
+  url: string
+  width: number
+  height: number
+  type: string
+}
