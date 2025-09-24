@@ -48,4 +48,5 @@ export interface ActorData {
   birthName?: string;
   birthDate?: BirthDate;
   birthLocation?: string;
+  deathDate?: DeathDate;
 }
