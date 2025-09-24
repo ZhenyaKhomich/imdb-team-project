@@ -1,0 +1,139 @@
+<div>
+  <h2 class="title">
+    {{ title() }}
+  </h2>
+  <div class="block-title">
+    <p class="info">
+      {{ type() }} &middot; {{ year() }}@if(endYear()) { - {{ endYear() }} }
+      @if(time()) { &middot; {{ time() | minutesToHours }}}
+    </p>
+    @if (rating() && vote()) {
+
+    <div class="star">
+      @for (star of fullStars(rating()); track star) {
+      <mat-icon class="icon-star">star</mat-icon>
+      } @if(isPathStar(rating())) {
+      <div class="star-wrapper">
+        <mat-icon class="star-border">star_border</mat-icon>
+        <mat-icon
+          class="star-fill"
+          [style]="{
+            '--fill-percent': pathStar(rating()) + '%'
+          }"
+        >
+          star
+        </mat-icon>
+      </div>
+      } @for (star of emptyStars(rating()); track star) {
+      <mat-icon class="icon-star">star_border</mat-icon>
+      }
+      <span>({{ vote() | numberSuffix }})</span>
+    </div>
+
+    }
+  </div>
+  <div class="block-image">
+    <div class="image">
+      <div class="bookmark">
+        @if(favorite()) {
+        <mat-icon
+          class="delete icon-bookmark"
+          (click)="favoriteId.emit(!favorite())"
+          >delete</mat-icon
+        >
+        } @else {
+        <mat-icon
+          class="bookmark_add icon-bookmark"
+          (click)="favoriteId.emit(!favorite())"
+          >bookmark_add</mat-icon
+        >
+        }
+      </div>
+      @if(img()) {
+      <div class="loading loading-detail"></div>
+
+      <img
+        class="click-detail"
+        [ngSrc]="img().slice(0, -4) + 'QL75_UX380_CR0,4,380,562_.jpg'"
+        [width]="336"
+        [height]="491"
+        [alt]="title()"
+        priority
+      />
+      } @else {
+      <div class="error-img">no poster</div>
+      }
+    </div>
+    @if(trillers().length) {
+    <div class="wrapper-video">
+      <div class="loading loader-video"></div>
+      <iframe
+        class="video"
+        width="100%"
+        height="100%"
+        [src]="urlTriller() | safeUrl"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+    }
+  </div>
+
+  <div class="description-block">
+    <div class="description-line">
+      <span class="description-tag">Genre</span>
+      <div class="genres">
+        @for (genre of genres(); track genre) {
+        <p class="genre">{{ genre }}</p>
+        } @empty { no data }
+      </div>
+    </div>
+    <div class="description-line">
+      <span class="description-tag plot-tag">Plot</span>
+      @if ( plot()) {
+      <span class="plot">{{ plot() }}</span>
+      } @else { no data }
+    </div>
+    <div class="description-line">
+      <span class="description-tag">Director</span>
+      <div class="people">
+        @for (director of directors(); track director.id) { @if(!$first) {
+        <span class="dot">&middot;</span>
+        <a [href]="'#' + director.id" class="director">{{
+          director.displayName
+        }}</a>
+        } @else {
+        <a [href]="'#' + director.id" class="director">{{
+          director.displayName
+        }}</a>
+        } } @empty { no data }
+      </div>
+    </div>
+    <div class="description-line">
+      <span class="description-tag">Writers</span>
+      <div class="people">
+        @for (writer of writers(); track writer.id) { @if(!$first) {
+        <span class="dot">&middot;</span>
+        <a [href]="'#' + writer.id" class="director">{{
+          writer.displayName
+        }}</a>
+        } @else {
+        <a [href]="'#' + writer.id" class="director">{{
+          writer.displayName
+        }}</a>
+        } } @empty { no data }
+      </div>
+    </div>
+    <div class="description-line">
+      <span class="description-tag">Stars</span>
+      <div class="people">
+        @for (star of stars(); track star.id) { @if(!$first) {
+        <span class="dot">&middot;</span>
+        <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
+        } @else {
+        <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
+        } } @empty { no data }
+      </div>
+    </div>
+  </div>
+</div>
