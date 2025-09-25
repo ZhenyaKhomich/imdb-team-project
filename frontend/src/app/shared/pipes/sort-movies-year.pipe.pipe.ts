@@ -18,5 +18,4 @@ export class SortMoviesYearPipe implements PipeTransform {
     return value;
 
   }
-
 }
