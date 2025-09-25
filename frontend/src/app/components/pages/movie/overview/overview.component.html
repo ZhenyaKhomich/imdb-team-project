@@ -99,11 +99,11 @@
       <div class="people">
         @for (director of directors(); track director.id) { @if(!$first) {
         <span class="dot">&middot;</span>
-        <a [href]="'#' + director.id" class="director">{{
+        <a [href]="'/actors/' + director.id" class="director">{{
           director.displayName
         }}</a>
         } @else {
-        <a [href]="'#' + director.id" class="director">{{
+        <a [href]="'/actors/' + director.id" class="director">{{
           director.displayName
         }}</a>
         } } @empty { no data }
@@ -114,11 +114,11 @@
       <div class="people">
         @for (writer of writers(); track writer.id) { @if(!$first) {
         <span class="dot">&middot;</span>
-        <a [href]="'#' + writer.id" class="director">{{
+        <a [href]="'/actors/' + writer.id" class="director">{{
           writer.displayName
         }}</a>
         } @else {
-        <a [href]="'#' + writer.id" class="director">{{
+        <a [href]="'/actors/' + writer.id" class="director">{{
           writer.displayName
         }}</a>
         } } @empty { no data }
@@ -129,9 +129,9 @@
       <div class="people">
         @for (star of stars(); track star.id) { @if(!$first) {
         <span class="dot">&middot;</span>
-        <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
+        <a [href]="'/actors/' + star.id" class="director">{{ star.displayName }}</a>
         } @else {
-        <a [href]="'#' + star.id" class="director">{{ star.displayName }}</a>
+        <a [href]="'/actors/' + star.id" class="director">{{ star.displayName }}</a>
         } } @empty { no data }
       </div>
     </div>

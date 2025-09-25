@@ -135,6 +135,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-self: flex-start;
 }
 
 .icon-star {
@@ -252,5 +253,5 @@
 }
 
 .type {
-  color: var( --filter-title-text);
+  color: var(--filter-title-text);
 }
