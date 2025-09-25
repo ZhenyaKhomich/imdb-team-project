@@ -37,5 +37,10 @@
     (isPrevActive)="isPrevImageActive.set($event)"
     (isNextActive)="isNextImageActive.set($event)"
   />
+  } @if(films().length) {
+
+  <h2 class="title"><span class="circle"></span>Filmography</h2>
+
+  <app-filmography [films]="films()" />
   }
 </main>

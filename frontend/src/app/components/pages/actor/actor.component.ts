@@ -14,10 +14,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { OverviewComponent } from './overview/overview.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ImagesComponent } from './images/images.component';
+import { FilmographyComponent } from "./filmography/filmography.component";
 
 @Component({
   selector: 'app-actor',
-  imports: [OverviewComponent, MatIconModule, ImagesComponent],
+  imports: [OverviewComponent, MatIconModule, ImagesComponent, FilmographyComponent],
   templateUrl: './actor.component.html',
   styleUrl: './actor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,6 +44,10 @@ export class ActorComponent {
     initialValue: null,
   });
 
+  public dataFilms = toSignal(this.actor.getFilms(this.id() || ''), {
+    initialValue: null,
+  });
+
   public urlImages = computed(() => {
     const currentData = this.dataImage();
     if (
@@ -53,6 +58,18 @@ export class ActorComponent {
       return (
         currentData.images.map((element: { url: string }) => element.url) || []
       );
+    }
+    return [];
+  });
+
+  public films = computed(() => {
+    const currentData = this.dataFilms();
+    if (
+      currentData &&
+      'credits' in currentData &&
+      Array.isArray(currentData.credits)
+    ) {
+      return currentData.credits || [];
     }
     return [];
   });

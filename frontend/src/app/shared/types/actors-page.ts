@@ -58,8 +58,8 @@ export interface Filmography {
 }
 
 export interface Credit {
-  title: Title
-  category: string
+  title?: Title
+  category?: string
   characters?: string[]
   episodeCount?: number
 }
