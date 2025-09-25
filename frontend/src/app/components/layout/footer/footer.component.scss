@@ -5,7 +5,7 @@
   flex-direction: column;
   text-align: center;
   padding: 60px 20px 20px 20px;
-  color: $light-background-secondary;
+  color: var(--light-background-secondary);
 
   .container {
     display: flex;
@@ -47,13 +47,13 @@
       }
 
       &:hover {
-        color: $main-blue;
+        color: var(--main-blue);
       }
     }
 
     &-no-regist {
       mat-icon {
-        color: $light-background-secondary;
+        color: var(--light-background-secondary);
         font-size: 70px;
         width: 70px;
         height: 70px;
@@ -81,7 +81,7 @@
     margin-bottom: 30px;
 
     &-left {
-      border: 1px solid $light-text-secondary;
+      border: 1px solid var(--light-text-secondary);
       border-radius: 10px;
       padding: 16px 50px 10px 50px;
     }
@@ -107,16 +107,16 @@
       svg {
         width: 24px;
         height: 24px;
-        fill: $light-background-secondary;
+        fill: var(--light-background-secondary);
       }
 
       &:hover {
-        background: $background-light-transparent-100;
+        background: var(--background-light-transparent-100);
       }
     }
 
     &-right {
-      border: 1px solid $light-text-secondary;
+      border: 1px solid var(--light-text-secondary);
       border-radius: 10px;
       padding: 16px 30px 10px 30px;
       display: flex;
@@ -160,7 +160,7 @@
 
     a {
       text-decoration: none;
-      color: $light-background-secondary;
+      color: var(--light-background-secondary);
       border-bottom: 1px solid transparent;
       transition: all 0.3s linear;
     }
@@ -172,7 +172,7 @@
 
     &:hover {
       a {
-        border-bottom-color: $light-background-secondary;
+        border-bottom-color: var(--light-background-secondary);
       }
     }
   }
@@ -198,6 +198,9 @@
     img {
       width: 60px;
       height: 60px;
+      box-shadow: inset 1px 1px 10px 100px black;
+      border-radius: 50%;
+
     }
 
     &-rss {

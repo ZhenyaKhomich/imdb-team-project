@@ -10,7 +10,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: $background-light-transparent-50;
+  background-color: var(--background-light-transparent-50);
   margin: 10px;
   border-radius: 10px;
   padding: 10px;
@@ -21,7 +21,7 @@
     content: "";
     width: 100%;
     height: 2px;
-    background-color: $background-light-transparent-100;
+    background-color: var(--background-light-transparent-100);
     top: -10px;
     left: 0;
   }
@@ -32,8 +32,8 @@
   width: 72px;
   height: 106px;
   position: absolute;
-  box-shadow: 0 2px 10px 0 $background-light-transparent-50;
-  background: $background-light-transparent-50;
+  box-shadow: 0 2px 10px 0 var(--background-light-transparent-50);
+  background: var(--background-light-transparent-50);
   overflow: hidden;
   z-index: -1;
   border-radius: 10px;
@@ -49,7 +49,7 @@
     background: linear-gradient(
       to right,
       transparent 0%,
-      $background-light-transparent-100 50%,
+      var(--background-light-transparent-100) 50%,
       transparent 100%
     );
     animation: load 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -103,7 +103,7 @@
 
     &:hover {
       .icon-bookmark {
-        color: $light-yellow;
+        color: var(--light-yellow);
       }
     }
 
@@ -113,7 +113,7 @@
       left: -12px;
 
       &.active {
-        color: $light-yellow;
+        color: var(--light-yellow);
       }
     }
   }
@@ -129,7 +129,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: $filter-category-text;
+  color: var(--filter-category-text);
 }
 
 .header-content {
@@ -140,7 +140,7 @@
 }
 
 .icon-star {
-  color: $light-yellow;
+  color: var(--light-yellow);
   width: 18px;
   height: 18px;
   font-size: 18px;
@@ -154,11 +154,11 @@
 }
 
 .time {
-  color: $filter-title-text;
+  color: var(--filter-title-text);
 }
 
 .genre {
-  background-color: $background-light-transparent-100;
+  background-color: var(--background-light-transparent-100);
   padding: 5px 10px;
   border-radius: 50px;
 }
@@ -184,7 +184,7 @@
     display: flex;
     flex-direction: column;
     width: 270px;
-    background-color: $background-light-transparent-50;
+    background-color: var(--background-light-transparent-50);
     border-radius: 10px;
 
     .image {
@@ -220,7 +220,7 @@
 
 .star-border {
   font-size: 18px;
-  color: $light-yellow;
+  color: var(--light-yellow);
 }
 
 .star-fill {
@@ -228,7 +228,7 @@
   top: 0;
   left: 0;
   font-size: 18px;
-  color: $light-yellow;
+  color: var(--light-yellow);
   width: 100%;
   height: 100%;
   clip-path: inset(0 calc(100% - var(--fill-percent)) 0 0);
@@ -249,9 +249,9 @@
 }
 
 .up {
-  color: $green-color;
+  color: var(--green-color);
 }
 
 .down {
-  color: $red-color;
+  color: var(--red-color);
 }

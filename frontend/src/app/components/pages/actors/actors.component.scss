@@ -5,7 +5,7 @@
 }
 
 h2 {
-  color: $filter-category-text;
+  color: var(--filter-category-text);
 }
 
 .app-container {
@@ -59,7 +59,7 @@ h2 {
   margin-bottom: 20px;
 
   &:hover {
-    background-color: $filter-title-text;
+    background-color: var(--filter-title-text);
   }
 
   &.asc {
@@ -80,11 +80,11 @@ h2 {
   cursor: pointer;
 
   &:hover {
-    background-color: $filter-title-text;
+    background-color: var(--filter-title-text);
   }
 
   &.active {
-    border: 1px solid $filter-category-text;
+    border: 1px solid var(--filter-category-text);
   }
 }
 
@@ -104,7 +104,7 @@ h2 {
 }
 
 .page {
-  color: $filter-title-text;
+  color: var(--filter-title-text);
   font-size: 14px;
   align-self: center;
 }
@@ -124,15 +124,15 @@ h2 {
     cursor: pointer;
 
     &:hover {
-      background-color: $background-transparent-600;
+      background-color: var(--background-transparent-600);
     }
 
     &.inactive {
       cursor: default;
-      color: $background-transparent-600;
+      color: var(--background-transparent-600);
 
       &:hover {
-        background-color: $dark-background-nav;
+        background-color: var(--dark-background-nav);
       }
     }
   }
