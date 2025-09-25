@@ -14,7 +14,7 @@
           @for(movie of foundMovies.titles; track movie.id) {
           <div class="search__element" tabindex="0" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)" (keydown.enter)="moviesService.openMovieAndAddRecentlyViewed(movie)">
             <div class="search__element-img">
-              <img src="{{movie.primaryImage?.url}}" alt="No img">
+              <img src="{{movie.primaryImage?.url}}" alt="No img" loading="lazy">
             </div>
             <div class="search__element-description">
               <div class="search__element-title">{{ movie.primaryTitle }}</div>
@@ -45,7 +45,7 @@
         IMDb<span>Pro</span>
         <div class="imbdPro">
           <div class="imbdPro__wrapper">
-            <img src="./images/imbdPro.png" alt="pro">
+            <img src="./images/imbdPro.png" alt="pro" loading="lazy">
             <a href="https://pro.imdb.com/login/ap?u=/login/lwa&imdbPageAction=signUp&rf=cons_nb_hm&ref_=cons_nb_hm" class="btn">Try ImbdPro for FREE</a>
           </div>
         </div>
@@ -93,7 +93,7 @@
                 @for(movie of foundMovies.titles; track movie.id) {
                 <div class="search__element">
                   <div class="search__element-img">
-                    <img src="{{movie.primaryImage?.url}}" alt="No img">
+                    <img src="{{movie.primaryImage?.url}}" alt="No img" loading="lazy">
                   </div>
                   <div class="search__element-description">
                     <div class="search__element-title">{{ movie.primaryTitle }}</div>
@@ -124,7 +124,7 @@
               IMDb<span>Pro</span>
               <div class="imbdPro">
                 <div class="imbdPro__wrapper">
-                  <img src="./images/imbdPro.png" alt="pro">
+                  <img src="./images/imbdPro.png" alt="pro" loading="lazy">
                   <button class="btn">Try ImbdPro for FREE</button>
                 </div>
               </div>

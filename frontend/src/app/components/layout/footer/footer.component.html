@@ -2,27 +2,40 @@
   <div class="container">
     <div class="footer__viewed">
       <div class="footer__viewed-title">Recently viewed</div>
-      @if (signalService.isLogin()) {
+      <ng-template #loggedInWithMovies let-movies="movies">
         <div class="footer__viewed-cards">
           <div class="footer__viewed-clear">
-            <span  (click)="clearRecentlyViewed()" (keyup.enter)="clearRecentlyViewed()" tabindex="0"> Clear all
-            <mat-icon fontIcon="delete"></mat-icon></span>
+        <span (click)="clearRecentlyViewed()" (keyup.enter)="clearRecentlyViewed()" tabindex="0">
+          Clear all <mat-icon fontIcon="delete"></mat-icon>
+        </span>
           </div>
-          @if (movies && movies.titles && movies.titles.length > 0) {
-            <app-slider [key]='movies.titles.length || 0' [id]="SliderIdEnum.movies" [elementsSlider]="movies"></app-slider>
-          } @else {
-            <div class="footer__viewed-no-viewed">You have no recently viewed pages</div>
-          }
+          <app-slider *ngIf="movies.titles && movies.titles.length > 0"
+                      [key]="movies.titles.length || 0"
+                      [id]="SliderIdEnum.movies"
+                      [elementsSlider]="movies">
+          </app-slider>
+          <div *ngIf="!movies.titles || movies.titles.length === 0" class="footer__viewed-no-viewed">
+            You have no recently viewed pages
+          </div>
         </div>
-      } @else {
+      </ng-template>
+      <ng-template #notLoggedIn>
         <div class="footer__viewed-no-regist">
           <mat-icon fontIcon="how_to_reg"></mat-icon>
-          <div class="footer__viewed-no-viewed">To access the list of recently watched movies, you need to log in</div>
+          <div class="footer__viewed-no-viewed">
+            To access the list of recently watched movies, you need to log in
+          </div>
           <div class="footer__sign">
-            <button class="btn footer__sign-btn" [routerLink]="'/' + AppRoutesEnum.LOGIN">Sign in for more access
+            <button class="btn footer__sign-btn" [routerLink]="'/' + AppRoutesEnum.LOGIN">
+              Sign in for more access
             </button>
           </div>
         </div>
+      </ng-template>
+      @if(signalService.isLogin()) {
+        <ng-container *ngTemplateOutlet="loggedInWithMovies; context: { movies: movies }"></ng-container>
+      } @else {
+        <ng-container *ngTemplateOutlet="notLoggedIn"></ng-container>
       }
     </div>
     <div class="footer__socials">
@@ -73,7 +86,7 @@
         <a
           href="https://apps.apple.com/us/app/imdb-movies-tv-shows/id342792525?_branch_match_id=1188782113162527141&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL86pTNJLLCjQy8nMy9Z3TLQ0S%2FZJdkp1TLKvK0pNSy0qysxLj08qyi8vTi2ydc4oys9NBQC46bnMOwAAAA%3D%3D&utm_campaign=DesktopQRCodeFooter-Click&utm_medium=marketing&utm_source=Desktop"
           class="footer__socials-qr">
-          <img src="images/footer-qr.png" alt="qr-code">
+          <img src="images/footer-qr.png" alt="qr-code" loading="lazy">
         </a>
       </div>
     </div>
@@ -119,7 +132,7 @@
           <a href="#">Privacy Policy</a>
         </div>
         <div class="footer__link">
-          <img src="images/yes-no.png" alt="yes-no">
+          <img src="images/yes-no.png" alt="yes-no" loading="lazy">
           <a href="#">Your Ads Privacy Choices</a>
         </div>
       </div>

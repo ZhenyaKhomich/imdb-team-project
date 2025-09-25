@@ -41,7 +41,7 @@
                 @if (movie.primaryImage) {
                   <img [src]="movie.primaryImage.url | changeUrlPicture" alt="No image" loading="lazy">
                 } @else {
-                  <img src="images/IMDb.jpg" alt="imbd">
+                  <img src="images/IMDb.jpg" alt="imbd" loading="lazy">
                 }
 
                 @if (signalService.idForCheckElementInWatchlist().includes(movie.id)) {
@@ -97,7 +97,7 @@
               @if (movie.primaryImage) {
                 <img [src]="movie.primaryImage.url | changeUrlPicture" alt="No image" loading="lazy">
               } @else {
-                <img src="images/IMDb.jpg" alt="imbd">
+                <img src="images/IMDb.jpg" alt="imbd" loading="lazy">
               }
               @if (id === 'watchlist') {
                 <mat-icon class="delete" (click)="deleteMovie(movie.id)" fontIcon="delete"></mat-icon>
@@ -156,7 +156,7 @@
               @if(movie.primaryImage) {
                 <img src="{{movie.primaryImage.url | changeUrlPicture}}" alt="No image" loading="lazy">
               } @else {
-                <img src="images/IMDb.jpg" alt="imbd">
+                <img src="images/IMDb.jpg" alt="imbd" loading="lazy">
               }
               @if(id === 'watchlist') {
                 <mat-icon class="delete" (click)="deleteMovie(movie.id)" fontIcon="delete"></mat-icon>

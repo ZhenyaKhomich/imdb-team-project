@@ -8,6 +8,7 @@ import {AppRoutesEnum} from '../../../shared/enums/app-router.enum';
 import {SignalService} from '../../../shared/services/signal.service';
 import type {TitlesDataType} from '../../../shared/types/movies-response.type';
 import {MoviesService} from '../../../shared/services/movies.service';
+import {NgIf, NgTemplateOutlet} from '@angular/common';
 
 @Component({
   selector: 'app-footer',
@@ -15,7 +16,9 @@ import {MoviesService} from '../../../shared/services/movies.service';
   imports: [
     MatIconModule,
     SliderComponent,
-    RouterLink
+    RouterLink,
+    NgIf,
+    NgTemplateOutlet
   ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
