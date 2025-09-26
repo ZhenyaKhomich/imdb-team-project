@@ -85,5 +85,139 @@ ng serve
 http://localhost:4200
 ```
 
+### Архитектурная схема проекта
 
+```
+imdb-team-project/                                      # Корень проекта
+├── 📂 backend/                                         # Node.js JSON Server backend
+│   ├── 📂 data/                                        # JSON база данных
+│   │   ├── comments.json                               # Комментарии пользователей
+│   │   ├── users.json                                  # Данные пользователей
+│   │   ├── viewed.json                                 # История просмотров
+│   │   └── watchlist.json                              # Списки просмотра
+│   ├── 📂 controllers/                                 # Обработчики API endpoints
+│   │   ├── auth.controller.js                          # Аутентификация
+│   │   ├── comment.controller.js                       # Управление комментариями
+│   │   ├── user.controller.js                          # Управление пользователями
+│   │   ├── viewed.controller.js                        # История просмотров
+│   │   └── watchlist.controller.js                     # Списки просмотра
+│   ├── 📂 models/                                      # Модели данных MongoDB-style
+│   │   ├── comment.model.js                            # Модель комментария
+│   │   ├── user.model.js                               # Модель пользователя
+│   │   ├── user-comment-action.model.js                # Действия с комментариями
+│   │   ├── viewed.model.js                             # Модель просмотров
+│   │   └── watchlist.model.js                          # Модель списка просмотра
+│   ├── 📂 routes/                                      # Маршруты API
+│   │   ├── auth.routes.js                              # Маршруты аутентификации
+│   │   ├── comment.routes.js                           # Маршруты комментариев
+│   │   ├── user.routes.js                              # Маршруты пользователей
+│   │   ├── viewed.routes.js                            # Маршруты истории
+│   │   └── watchlist.routes.js                         # Маршруты списков
+│   └── app.js                                          # Главный файл сервера
+│
+└── 📂 frontend/                         
+└── 📂 angular/ 
+├── 📂 public/                                         # Статические ресурсы
+│   │   └── 📂 images/                                  # Изображения и иконки                     
+├── 📂 src/                                             # Исходный код приложения
+│   ├── 📂 app/                                         # Основной модуль приложения
+│   │   ├── 📂 components/                              # Умные компоненты (страницы)
+│   │   │   ├── 📂 auth/                                # Модуль аутентификации
+│   │   │   │   ├── 📂 login/                           # Компонент входа
+│   │   │   │   └── 📂 signup/                          # Компонент регистрации
+│   │   │   ├── 📂 layout/                              # Компоненты макета
+│   │   │   │   ├── 📂 footer/                          # Подвал сайта
+│   │   │   │   ├── 📂 header/                          # Шапка сайта
+│   │   │   │   └── 📂 layout/                          # Главный layout
+│   │   │   ├── 📂 pages/                               # Страницы приложения
+│   │   │   │   ├── 📂 actor/                           # Детальная страница актера
+│   │   │   │   │   ├── 📂 filmography/                 # Фильмография актера
+│   │   │   │   │   ├── 📂 images/                      # Фотографии актера
+│   │   │   │   │   ├── 📂 overview/                    # Обзор информации
+│   │   │   │   │   └── actor.component.*               # Главный компонент
+│   │   │   │   ├── 📂 actors/                          # Список актеров
+│   │   │   │   │   ├── 📂 actor/                       # Карточка актера
+    │   │   │   │   │   ├── 📂 service/                 # Сервисы актеров
+│   │   │   │   │   ├── 📂 skeleton/                    # Skeleton loading
+│   │   │   │   │   └── actors.component.*              # Главный компонент
+│   │   │   │   ├── 📂 error-404/                       # Страница 404 ошибки
+│   │   │   │   ├── 📂 main/                            # Главная страница
+│   │   │   │   ├── 📂 movie/                           # Детальная страница фильма
+│   │   │   │   │   ├── 📂 company/                     # Информация о студии
+│   │   │   │   │   ├── 📂 images/                      # Кадры из фильма
+│   │   │   │   │   ├── 📂 navigation/                  # Навигация по разделам
+│   │   │   │   │   ├── 📂 overview/                    # Обзор фильма
+│   │   │   │   │   ├── 📂 section/                     # Секции страницы
+│   │   │   │   │   ├── 📂 services/                    # Сервисы навигации
+│   │   │   │   │   ├── 📂 videos/                      # Видео и трейлеры
+│   │   │   │   │   └── movie.component.*               # Главный компонент
+│   │   │   │   ├── 📂 movies/                          # Список фильмов
+│   │   │   │   │   ├── 📂 choose/                      # Выбор и поиск фильмов
+│   │   │   │   │   ├── 📂 filter-modal/                # Модальное окно фильтров
+│   │   │   │   │   ├── 📂 filter-panel/                # Панель фильтров
+│   │   │   │   │   ├── 📂 list/                        # Список фильмов
+│   │   │   │   │   ├── 📂 range/                       # Компонент диапазона
+│   │   │   │   │   ├── 📂 services/                    # Сервисы фильтрации
+│   │   │   │   │   ├── 📂 skeleton/                    # Загрузка скелетона
+│   │   │   │   │   └── movies.component.*              # Главный компонент
+│   │   │   │   ├── 📂 trailer/                         # Просмотр трейлеров
+│   │   │   │   └── 📂 watchlist/                       # Список "Посмотреть позже"
+│   │   │   └── 📂 shared/                              # Переиспользуемые компоненты
+│   │   │       └── 📂 components/                      # Глупые компоненты
+│   │   │           ├── 📂 loader/                      # Индикатор загрузки
+│   │   │           └── 📂 slider/                      # Слайдер изображений
+│   │   ├── 📂 services/                                # Бизнес-логика приложения
+│   │   │   ├── actors.service.ts                       # Сервис работы с актерами
+│   │   │   ├── actors-page.service.ts                  # Пагинация актеров
+│   │   │   ├── auth.service.ts                         # Сервис аутентификации
+│   │   │   ├── local-storage.service.ts                # Работа с localStorage
+│   │   │   ├── movies.service.ts                       # Основной сервис фильмов
+│   │   │   ├── signal.service.ts                       # Управление сигналами
+│   │   │   ├── theme.service.ts                        # Темы оформления
+│   │   │   └── watchlist.service.ts                    # Сервис списка просмотра
+│   │   ├── 📂 enums/                                   # TypeScript перечисления
+│   │   │   ├── app-router.enum.ts                      # Маршруты приложения
+│   │   │   ├── requests.enum.ts                        # HTTP методы запросов
+│   │   │   ├── slider-id.enum.ts                       # Идентификаторы слайдеров
+│   │   │   └── tokens.enum.ts                          # Токены и ключи
+│   │   ├── 📂 guards/                                  # Защитники маршрутов
+│   │   │   ├── is-login.guard.ts                       # Проверка авторизации
+│   │   │   └── is-not-login.guard.ts                   # Проверка гостевого доступа
+│   │   ├── 📂 interceptors/                            # HTTP интерцепторы
+│   │   │   └── auth.interceptor.ts                     # Добавление токенов к запросам
+│   │   ├── 📂 pipes/                                   # Пайпы для трансформации данных
+│   │   │   ├── change-url-picture.pipe.ts              # Оптимизация URL изображений
+│   │   │   ├── minutes-to-hours.pipe.ts                # Конвертация минут в часы
+│   │   │   ├── number-suffix.pipe.ts                   # Форматирование чисел (1k, 1M)
+│   │   │   ├── safe-url.pipe.ts                        # Безопасные URL
+│   │   │   ├── sort-movies-year.pipe.ts                # Сортировка по году
+│   │   │   └── truncate.pipe.ts                        # Обрезка длинного текста
+│   │   ├── 📂 types/                                   # TypeScript типы данных
+│   │   │   ├── actors-data.type.ts                     # Типы данных актеров
+│   │   │   ├── actors-page.ts                          # Типы пагинации актеров
+│   │   │   ├── error-response.type.ts                  # Типы ошибок API
+│   │   │   ├── login-form.type.ts                      # Типы формы входа
+│   │   │   ├── movies-response.type.ts                 # Типы ответов API фильмов
+│   │   │   ├── trailer-data.type.ts                    # Типы данных трейлеров
+│   │   │   └── user-data.type.ts                       # Типы данных пользователя
+│   │   ├── 📂 injection-tokens/                        # Токены для Dependency Injection
+│   │   │   ├── local-storage.token.ts                  # Токен localStorage
+│   │   │   └── window.token.ts                         # Токен window объекта
+│   │   ├── app.component.*                             # Главный компонент приложения
+│   │   ├── app.config.ts                               # Конфигурация приложения
+│   │   └── app.routes.ts                               # Маршрутизация приложения
+│   ├── 📂 environments/                                # Конфигурации окружений
+│   │   ├── environment.ts                              # Продакшен конфигурация
+│   │   └── environment.development.ts                  # Разработка конфигурация
+│   ├── 📂 styles/                                      # Стили и темы оформления
+│   │   ├── _auth.scss                                  # Стили авторизации
+│   │   ├── _global.scss                                # Глобальные стили
+│   │   ├── _variables.scss                             # CSS переменные и цвета
+│   │   ├── styles.scss                                 # Главный файл стилей
+│   │   └── index.html                                  # HTML шаблон приложения
+│   └── main.ts                                         # Точка входа приложения
+├── angular.json                                        # Конфигурация Angular CLI
+├── package.json                                        # Зависимости и скрипты
+└── tsconfig.json                                       # Настройки TypeScript
+```
 

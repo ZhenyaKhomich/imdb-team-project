@@ -154,7 +154,7 @@
             <div class="what__watchList-text-top">Sign in to access your Watchlist</div>
             <div class="what__watchList-text-bottom">Save shows and movies to keep track of what you want to watch.
             </div>
-            <button class="btn gray-btn">Sign in to IMDb</button>
+            <button class="btn gray-btn"[routerLink]="'/' + AppRoutesEnum.LOGIN">Sign in to IMDb</button>
           </div>
         }
       </div>
@@ -219,7 +219,6 @@
       <h3 class="section-title">Actors' birthdays</h3>
       @if(birthdaysActors) {
       <app-slider [id]="SliderIdEnum.birthdays_actors" [elementsSlider]="birthdaysActors"></app-slider>
-
       }  @else {
         <app-loader></app-loader>
       }
