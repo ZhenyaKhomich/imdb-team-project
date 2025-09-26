@@ -1,1 +1,46 @@
-<p>actor works!</p>
+<main>
+  <app-overview
+    [img]="img()"
+    [name]="name()"
+    [birthName]="birthName()"
+    [birthDate]="birthDate()"
+    [deadDate]="deathDate()"
+    [height]="height()"
+    [biography]="biography()"
+    [professions]="professions()"
+    [birthLocation]="birthLocation()"
+  />
+
+  @if(urlImages().length) {
+
+  <h2 class="title">
+    <span class="circle"></span>Images
+    <div class="actions">
+      <mat-icon
+        class="action"
+        [class.active]="isPrevImageActive()"
+        (click)="imagePrev()"
+        >arrow_back_ios</mat-icon
+      >
+      <mat-icon
+        class="action"
+        [class.active]="isNextImageActive()"
+        (click)="imageNext()"
+        >arrow_forward_ios</mat-icon
+      >
+    </div>
+  </h2>
+
+  <app-images
+    #images
+    [images]="urlImages()"
+    (isPrevActive)="isPrevImageActive.set($event)"
+    (isNextActive)="isNextImageActive.set($event)"
+  />
+  } @if(films().length) {
+
+  <h2 class="title"><span class="circle"></span>Filmography</h2>
+
+  <app-filmography [films]="films()" />
+  }
+</main>
