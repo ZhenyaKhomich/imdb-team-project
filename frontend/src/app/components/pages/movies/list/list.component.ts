@@ -12,6 +12,7 @@ import { MinutesToHoursPipe } from '../../../../shared/pipes/minutes-to-hours.pi
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
 import type { FilmDataType } from '../../../../shared/types/movies-response.type';
 import { Router } from '@angular/router';
+import {SignalService} from '../../../../shared/services/signal.service';
 
 @Component({
   selector: 'app-list',
@@ -32,6 +33,7 @@ export class ListComponent {
   public favorite = input<string[]>([]);
   public films = input<FilmDataType[]>();
   public favoriteId = output<string>();
+  public signalService = inject(SignalService);
 
   private router = inject(Router);
 

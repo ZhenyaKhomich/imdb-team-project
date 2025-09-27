@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import type { Name } from '../../../../shared/types/actors-page';
 import { MatIconModule } from '@angular/material/icon';
 import { NgOptimizedImage } from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-actor',
@@ -13,8 +14,10 @@ import { NgOptimizedImage } from '@angular/common';
 export class ActorComponent {
   public names = input<Name[]>([]);
   public view = input<string>('grid');
+  public router = inject(Router);
+
 
   public detail(id: string): void {
-    console.log(id);
+    this.router.navigate(['/actors', id]);
   }
 }

@@ -14,11 +14,13 @@
                 <div class="movie__img">
                   <img [src]="movie.primaryImage?.url" alt="img" loading="lazy">
                   <mat-icon class="play-trailer" (click)="openTrailerList(movie.id)" fontIcon="slow_motion_video"></mat-icon>
+                  @if(signalService.isLogin()){
                   @if (signalService.idForCheckElementInWatchlist().includes(movie.id)) {
                     <mat-icon class="delete" (click)="watchlistService.deleteMovie(movie.id)" fontIcon="delete">
                     </mat-icon>
                   } @else {
                     <mat-icon fontIcon="bookmark_add" (click)="watchlistService.addMovie(movie)"></mat-icon>
+                  }
                   }
                 </div>
                 <div class="movie__description">
@@ -142,7 +144,8 @@
         @if (signalService.isLogin()) {
           @if (signalService.changeWatchlist()) {
             <app-slider [id]="SliderIdEnum.watchlist" [elementsSlider]="signalService.watchlistData()"></app-slider>
-          } @else {
+          }
+          @if(signalService.watchlistData() && signalService.watchlistData().titles && !signalService.watchlistData().titles?.length) {
             <div class="what__watchList-empty">
               <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
               <div class="what__watchList-text-top">Your watch list is empty</div>

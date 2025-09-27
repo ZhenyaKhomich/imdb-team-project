@@ -23,7 +23,7 @@ export class SectionComponent {
   private elementRef = inject(ElementRef);
 
   constructor() {
-    effect((onCleanup) => {
+    effect((clearUp) => {
       const element = this.elementRef.nativeElement;
       const id = this.id();
       const title = this.title();
@@ -32,7 +32,7 @@ export class SectionComponent {
         this.navService.registerSection(id, title, element);
       }
 
-      onCleanup(() => this.navService.unregisterSection(this.id()));
+      clearUp(() => this.navService.unregisterSection(this.id()));
     });
   }
 }

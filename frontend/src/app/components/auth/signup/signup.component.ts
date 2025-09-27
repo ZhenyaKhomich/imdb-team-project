@@ -58,17 +58,32 @@ export class SignupComponent implements OnInit {
 
       this.authService.signup(body).subscribe({
           next: (data): void => {
-            if(data.accessToken && data.refreshToken && data.userId) {
+            if (data.accessToken && data.refreshToken && data.userId) {
 
-              this.snakeBar.open('Registration was successful', '', {duration: 4000});
-              this.localStorageService.setTokens(data);
-              this.router.navigate([AppRoutesEnum.MAIN]);
-              this.signUpForm.reset();
-              this.signalService.isLogin.set(true);
+              const body = {
+                email: this.signUpForm.value.email,
+                password: this.signUpForm.value.password,
+                rememberMe: false,
+              }
 
-              this.authService.getUser().subscribe((data) => {
-                this.signalService.userData.set(data);
-              })
+              this.authService.login(body).subscribe({
+                  next: (data): void => {
+                    if(data.accessToken && data.refreshToken && data.userId) {
+                      this.snakeBar.open('Registration was successful', '', {duration: 4000});
+                      this.localStorageService.setTokens(data);
+                      this.router.navigate([AppRoutesEnum.MAIN]);
+                      this.signalService.isLogin.set(true);
+                      this.signUpForm.reset();
+                      this.authService.getUser().subscribe((data) => {
+                        this.signalService.userData.set(data);
+                      })
+                    }
+                  },
+                  error: (error: HttpErrorResponse) => {
+                    this.snakeBar.open(error.error.message, '', {duration: 4000});
+                  }
+                }
+              )
             }
           },
           error: (error: HttpErrorResponse) => {

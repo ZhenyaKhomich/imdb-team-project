@@ -20,7 +20,7 @@ export class ActorsService {
       if(pageCount > requestCount) return of(allActors);
 
       return this.http.get<ActorsDataType>(environment.baseUrl + RequestsEnum.ALL_ACTORS, {params: token ? {pageToken: token} :  {pageToken: ''}}).pipe(
-        delay(1),
+        delay(200),
         switchMap((response: ActorsDataType): Observable<ActorsDataType> => {
 
           allActors.names.push(...response.names);
