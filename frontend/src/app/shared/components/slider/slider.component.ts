@@ -16,7 +16,7 @@ import {SignalService} from '../../services/signal.service';
 import type {FilmDataType, TitlesDataType} from '../../types/movies-response.type';
 import {WatchlistService} from '../../services/watchlist.service';
 import {ChangeUrlPicturePipe} from '../../pipes/change-url-picture.pipe';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AppRoutesEnum} from '../../enums/app-router.enum';
 import {MoviesService} from '../../services/movies.service';
 
@@ -27,6 +27,7 @@ import {MoviesService} from '../../services/movies.service';
     CarouselModule,
     MatIconModule,
     ChangeUrlPicturePipe,
+    RouterLink,
   ],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
@@ -111,6 +112,10 @@ export class SliderComponent implements OnInit, OnChanges {
         }
       }
     )
+  }
+
+  public openDetailActor(id: string): void {
+    this.router.navigate(['/actors', id]);
   }
 
   private changeWidth(width: number): void {
