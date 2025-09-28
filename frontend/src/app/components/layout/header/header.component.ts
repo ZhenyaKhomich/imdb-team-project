@@ -57,10 +57,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click')
   public change(): void {
-    if (this.searchValue.value) {
      this.searchValue.reset();
       this.foundMovies = null;
-    }
   }
 
   @HostListener('click', ['$event'])
@@ -79,7 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.searchValue.valueChanges.pipe(
       tap(() => {
-        if(this.searchValue.value === ''){
+        if(this.searchValue.value === '') {
           this.foundMovies = null;
         }
       }),

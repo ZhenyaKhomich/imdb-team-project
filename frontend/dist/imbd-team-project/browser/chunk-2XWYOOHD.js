@@ -1,0 +1,1 @@
+import{Ma as i}from"./chunk-U6YJBN55.js";var n=class t{transform(r){if(r){if(!r.endsWith(".jpg"))return r;let e=r.lastIndexOf(".jpg");return r.slice(0,e)+"QL75_UX100_CR0,1,100,125_"+r.slice(e)}else return""}static \u0275fac=function(e){return new(e||t)};static \u0275pipe=i({name:"changeUrlPicture",type:t,pure:!0})};export{n as a};

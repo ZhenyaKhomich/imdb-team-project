@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
+  computed, inject,
   input,
   output,
 } from '@angular/core';
@@ -16,6 +16,7 @@ import type {
   Video,
   Writer,
 } from '../../../../shared/types/movies-response.type';
+import {SignalService} from '../../../../shared/services/signal.service';
 
 @Component({
   selector: 'app-overview',
@@ -47,6 +48,7 @@ export class OverviewComponent {
   public vote = input<number>(0);
   public favorite = input<boolean>(false);
   public favoriteId = output<boolean>();
+  public signalService = inject(SignalService);
 
   public urlTriller = computed(() => {
     const currentEmbedUrl = this.trillers();

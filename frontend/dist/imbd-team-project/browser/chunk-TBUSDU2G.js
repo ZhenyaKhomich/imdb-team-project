@@ -1,0 +1,1 @@
+import{Ma as i}from"./chunk-U6YJBN55.js";var e=class o{transform(t){if(!t&&t!==0)return"";let r=Math.floor(t/60),s=Math.floor(r/60),n=r%60,m=s.toString(),p=n<10?"0"+n:n.toString();return`${m}h:${p}min`}static \u0275fac=function(r){return new(r||o)};static \u0275pipe=i({name:"minutesToHours",type:o,pure:!0})};export{e as a};

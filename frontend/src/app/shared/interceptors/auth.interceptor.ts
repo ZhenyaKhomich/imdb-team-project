@@ -20,17 +20,6 @@ export const authInterceptorFunction: HttpInterceptorFn = (request, next) => {
     })
 
     return next(newRequest).pipe(
-      // tap({
-      //   error: (error: HttpErrorResponse) => {
-      //     console.log('ошибка в интерcепторe');
-      //     console.log(error);
-      //     if (error.status === 401) {
-      //       console.log('ошибка в интерcепторe 401')
-      //       localStorageService.removeTokens();
-      //       router.navigate(['/' + AppRoutesEnum.MAIN])
-      //     }
-      //   }
-      // }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           console.log('ошибка в интерcепторe 401')

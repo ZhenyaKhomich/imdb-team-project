@@ -4,6 +4,7 @@ item.id) {
   <div class="header">
     <div class="image">
       <div class="bookmark">
+        @if(signalService.isLogin()) {
         @if(favorite().includes(item.id)) {
         <mat-icon
           class="delete icon-bookmark"
@@ -16,6 +17,7 @@ item.id) {
           (click)="favoriteId.emit(item.id)"
           >bookmark_add</mat-icon
         >
+        }
         }
       </div>
       @if(item.primaryImage) {
@@ -92,6 +94,7 @@ item.id) {
   <div class="movie-grid">
     <div class="image">
       <div class="bookmark">
+        @if(signalService.isLogin()) {
         @if(favorite().includes(item.id)) {
         <mat-icon
           class="delete icon-bookmark"
@@ -104,6 +107,7 @@ item.id) {
           (click)="favoriteId.emit(item.id)"
           >bookmark_add</mat-icon
         >
+        }
         }
       </div>
       @if(item.primaryImage) {
