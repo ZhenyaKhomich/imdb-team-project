@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fb18d176-8ee8-4cc4-8f9b-c3425ed50628" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/auth/login/login.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/auth/login/login.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/auth/signup/signup.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/auth/signup/signup.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/footer/footer.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/footer/footer.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/footer/footer.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/header/header.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/header/header.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/header/header.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/layout/layout.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/layout/layout.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/layout/layout/layout.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/pages/error-404/error-404.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/pages/error-404/error-404.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/pages/error-404/error-404.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/pages/main/main.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/pages/main/main.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/pages/main/main.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/slider/slider.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/slider/slider.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/slider/slider.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/enums/app-router.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/enums/slider-id.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/pipes/minutes-to-hours.pipe.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/types/actors-data.type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/types/all-titles-data.type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/_auth.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/_global.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/_variables.scss" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SCSS File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/frontend" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="322ka9dl20eVsJbxvpUfwck6n3q" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "zhenya-feature",
+    "last_opened_file_path": "D:/УЧЕБА/RSSchool/Angular Q32025/Практика/imdb-team-project/src/app/shared/enums",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "D:\\УЧЕБА\\RSSchool\\Angular Q32025\\Практика\\imdb-team-project\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project\src\app\shared\enums" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project\public\images" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project\src\styles" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\imdb-team-project\src" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\imdb-team-project\public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project\frontend" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project\imbd-json-server" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project\src" />
+      <recent name="D:\УЧЕБА\RSSchool\Angular Q32025\Практика\imdb-team-project\src\app\shared\pipes" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-WS-242.20224.426" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fb18d176-8ee8-4cc4-8f9b-c3425ed50628" name="Changes" comment="" />
+      <created>1756626115276</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756626115276</updated>
+      <workItem from="1756626116329" duration="1111000" />
+      <workItem from="1756627283008" duration="25156000" />
+      <workItem from="1756701278695" duration="2859000" />
+      <workItem from="1756709906707" duration="12989000" />
+      <workItem from="1756788378343" duration="22270000" />
+      <workItem from="1756879577306" duration="16327000" />
+      <workItem from="1756961461568" duration="26585000" />
+      <workItem from="1757046048966" duration="22669000" />
+      <workItem from="1757149337883" duration="5293000" />
+      <workItem from="1757233410589" duration="5604000" />
+      <workItem from="1757240818625" duration="3572000" />
+      <workItem from="1757264841197" duration="2565000" />
+      <workItem from="1757311310846" duration="7714000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

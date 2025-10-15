@@ -1,0 +1,195 @@
+<header class="header">
+  <div class="container">
+    <div class="header__logo" [routerLink]="'/' + AppRoutesEnum.MAIN">IMDb</div>
+    <div class="header__menu" (click)="actionsToMenu()" (keyup.enter)="actionsToMenu()" tabindex="0">
+      <span class="menu-line"></span>
+      <div class="menu-text">Menu</div>
+    </div>
+    <div class="header__search">
+      <input [formControl]="searchValue" class="header__search-input" type="text" placeholder="Search IMDb">
+      <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon"
+                fontIcon="search"></mat-icon>
+      @if (foundMovies && foundMovies.titles) {
+        <div class="header__search-list">
+          @for(movie of foundMovies.titles; track movie.id) {
+          <div class="search__element" tabindex="0" (click)="moviesService.openMovieAndAddRecentlyViewed(movie)" (keydown.enter)="moviesService.openMovieAndAddRecentlyViewed(movie)">
+            <div class="search__element-img">
+              <img src="{{movie.primaryImage?.url}}" alt="No img" loading="lazy">
+            </div>
+            <div class="search__element-description">
+              <div class="search__element-title">{{ movie.primaryTitle }}</div>
+              @if (movie.rating && movie.rating.aggregateRating) {
+                <div class="search__element-rating">
+                  <div class="stars">
+                    @for(star of [].constructor(Math.floor(movie.rating.aggregateRating)); track $index) {
+                      <mat-icon fontIcon="star"></mat-icon>
+                    }
+                    @if (!Number.isInteger(movie.rating.aggregateRating)) {
+                      <mat-icon fontIcon="star_half"></mat-icon>
+                    }
+                  </div>
+                  {{ movie.rating.aggregateRating }} (votes: {{ movie.rating.voteCount }})
+                </div>
+              }
+              @if(movie.startYear){
+                <div class="search__element-year">{{movie.startYear}} year</div>
+              }
+            </div>
+          </div>
+          }
+        </div>
+      }
+    </div>
+    <div class="header__actions">
+      <div class="header__actions-pro">
+        IMDb<span>Pro</span>
+        <div class="imbdPro">
+          <div class="imbdPro__wrapper">
+            <img src="./images/imbdPro.png" alt="pro" loading="lazy">
+            <a href="https://pro.imdb.com/login/ap?u=/login/lwa&imdbPageAction=signUp&rf=cons_nb_hm&ref_=cons_nb_hm" class="btn">Try ImbdPro for FREE</a>
+          </div>
+        </div>
+      </div>
+      <span class="header__actions-line"></span>
+      @if(signalService.isLogin()) {
+      <div class="header__actions-watchList" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
+        WatchList
+      </div>
+      }
+      @if (!signalService.isLogin()) {
+        <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN">Log in</div>
+      } @else {
+        <mat-icon [matMenuTriggerFor]="menu" class="header__actions-user" fontIcon="person"></mat-icon>
+        <mat-menu #menu="matMenu">
+          <div class="user-name">{{ signalService.userData().name }}</div>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon fontIcon="logout"></mat-icon>
+            Log out
+          </button>
+        </mat-menu>
+      }
+      @if(signalService.darkTheme()) {
+        <mat-icon class="theme-dark" fontIcon="bedtime" (click)="themeToggle()"></mat-icon>
+      } @else {
+        <mat-icon class="theme-light" fontIcon="sunny" (click)="themeToggle()"></mat-icon>
+      }
+    </div>
+
+    <div class="menu" [class.open]="isOpenMenu">
+      <div class="menu__container">
+        <div class="menu__header">
+          <div class="header__logo">IMDb</div>
+          <mat-icon class="menu__close" fontIcon="cancel" (click)="actionsToMenu()"></mat-icon>
+        </div>
+
+        <div class="menu__clone">
+          <div class="header__search">
+            <input [formControl]="searchValue" class="header__search-input" type="text" placeholder="Search IMDb">
+            <mat-icon class="header__search-magnifier" aria-hidden="false" aria-label="Example home icon"
+                      fontIcon="search"></mat-icon>
+            @if (foundMovies && foundMovies.titles) {
+              <div class="header__search-list">
+                @for(movie of foundMovies.titles; track movie.id) {
+                <div class="search__element">
+                  <div class="search__element-img">
+                    <img src="{{movie.primaryImage?.url}}" alt="No img" loading="lazy">
+                  </div>
+                  <div class="search__element-description">
+                    <div class="search__element-title">{{ movie.primaryTitle }}</div>
+                    @if (movie.rating && movie.rating.aggregateRating) {
+                      <div class="search__element-rating">
+                        <div class="stars">
+                          @for(star of [].constructor(Math.floor(movie.rating.aggregateRating)); track $index) {
+                            <mat-icon fontIcon="star"></mat-icon>
+                          }
+                          @if (!Number.isInteger(movie.rating.aggregateRating)) {
+                            <mat-icon fontIcon="star_half"></mat-icon>
+                          }
+                        </div>
+                        {{ movie.rating.aggregateRating }} (votes: {{ movie.rating.voteCount }})
+                      </div>
+                    }
+                    @if(movie.startYear){
+                      <div class="search__element-year">{{movie.startYear}} year</div>
+                    }
+                  </div>
+                </div>
+                }
+              </div>
+            }
+          </div>
+          <div class="header__actions">
+            <div class="header__actions-pro">
+              IMDb<span>Pro</span>
+              <div class="imbdPro">
+                <div class="imbdPro__wrapper">
+                  <img src="./images/imbdPro.png" alt="pro" loading="lazy">
+                  <button class="btn">Try ImbdPro for FREE</button>
+                </div>
+              </div>
+            </div>
+            <span class="header__actions-line"></span>
+            @if(signalService.isLogin()) {
+            <div class="header__actions-watchList" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmark_add"></mat-icon>
+              WatchList
+            </div>
+            }
+            @if (!signalService.isLogin()) {
+              <div class="header__actions-signUp" [routerLink]="'/' + AppRoutesEnum.LOGIN">Log in</div>
+            } @else {
+              <mat-icon [matMenuTriggerFor]="menu" class="header__actions-user" fontIcon="person"></mat-icon>
+              <mat-menu #menu="matMenu">
+                <div class="user-name">{{ signalService.userData().name }}</div>
+                <button mat-menu-item>
+                  <mat-icon fontIcon="logout" (click)="logout()"></mat-icon>
+                  Log out
+                </button>
+              </mat-menu>
+            }
+
+            @if(signalService.darkTheme()) {
+              <mat-icon class="theme-dark" fontIcon="bedtime" (click)="themeToggle()"></mat-icon>
+            } @else {
+              <mat-icon class="theme-light" fontIcon="sunny" (click)="themeToggle()"></mat-icon>
+            }
+          </div>
+        </div>
+
+        <nav class="menu__blocks">
+          <ul class="menu__block">
+            <li class="menu__block-title" [routerLink]="'/' + AppRoutesEnum.MAIN">
+              <mat-icon fontIcon="theaters"></mat-icon>
+              <span>Main</span>
+            </li>
+            <li class="menu__block-title" tabindex="0" (click)="scrollToElement(AppRoutesEnum.MAIN, 'top-imdb')" (keydown.enter)="scrollToElement(AppRoutesEnum.MAIN, 'top-imdb')">
+              <mat-icon fontIcon="stars"></mat-icon>
+              <span>Top IMDb</span>
+            </li>
+            <li class="menu__block-title" [routerLink]="'/' + AppRoutesEnum.MOVIES">
+              <mat-icon fontIcon="tv"></mat-icon>
+              <span>Catalog</span>
+            </li>
+            <li class="menu__block-title" [routerLink]="'/' + AppRoutesEnum.ACTORS">
+              <mat-icon fontIcon="group"></mat-icon>
+              <span>Actors</span>
+            </li>
+            <li class="menu__block-title" tabindex="0" (click)="scrollToFragment('footer')" (keydown.enter)="scrollToFragment('footer')">
+              <mat-icon fontIcon="video_library"></mat-icon>
+              <span>Recently viewed</span>
+            </li>
+            <li class="menu__block-title" tabindex="0" (click)="scrollToFragment('footer')" (keydown.enter)="scrollToFragment('footer')">
+              <mat-icon fontIcon="public"></mat-icon>
+              <span>Contacts</span>
+            </li>
+            <li class="menu__block-title" tabindex="0"  (click)="scrollToElement(AppRoutesEnum.MAIN, 'birthday')"  (keydown.enter)="scrollToElement(AppRoutesEnum.MAIN, 'birthday')">
+              <mat-icon fontIcon="celebration"></mat-icon>
+              <span>Birthdays today</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

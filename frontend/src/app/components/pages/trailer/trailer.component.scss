@@ -1,0 +1,39 @@
+@use '../../../../styles/_variables' as *;
+
+.trailer {
+  padding: 40px 40px 0 40px;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--main-light-yellow);
+    margin-bottom: 20px;
+  }
+
+  &__elements {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &__element {
+    width: 30%;
+    min-width: 320px;
+    border: 1px solid white;
+    margin: 10px auto;
+    border-radius: 10px;
+
+    iframe {
+      width: 100%
+    }
+  }
+}

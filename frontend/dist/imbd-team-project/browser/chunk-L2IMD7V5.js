@@ -1,0 +1,1 @@
+import{Ma as n}from"./chunk-U6YJBN55.js";var i=class e{transform(r,t=100){return r?r.length>t?r.substring(0,t)+"\u2026":r:""}static \u0275fac=function(t){return new(t||e)};static \u0275pipe=n({name:"truncate",type:e,pure:!0})};export{i as a};

@@ -1,0 +1,25 @@
+@use "../../../../../styles/variables" as *;
+
+:host {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  width: 100%;
+
+  input {
+    background-color: var(--background-light-transparent-50);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid var(--background-transparent-600);
+    width: 100%;
+    color: var(--filter-category-text);
+
+    &:hover,
+    &:focus {
+      border: 1px solid var(--light-background-primary);
+    }
+  }
+}

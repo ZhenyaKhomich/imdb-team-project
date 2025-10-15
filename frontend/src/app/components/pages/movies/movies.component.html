@@ -1,0 +1,112 @@
+<div class="app-container">
+  <div class="app-header">
+    <h2>Catalog</h2>
+    @if (isMobile()) {
+    <button type="button" (click)="openFilterModal()" class="filter-button">
+      <mat-icon>filter_list</mat-icon>
+      Filters
+    </button>
+    }
+  </div>
+
+  <div class="main-content">
+    @if (!isMobile()) {
+    <div class="sidebar">
+      <app-filter-panel
+        [genres]="filterService.listGenres()"
+        [titleTypes]="filterService.types()"
+        [rangeInputs]="filterService.rangeInputs()"
+        (choseGenres)="choseGenres($event)"
+        (choseTypes)="choseTypes($event)"
+        (resetClick)="reset()"
+        (choseYearMin)="updateRangeInput('yearMin', $event)"
+        (choseYearMax)="updateRangeInput('yearMax', $event)"
+        (choseRatingMin)="updateRangeInput('ratingMin', $event)"
+        (choseRatingMax)="updateRangeInput('ratingMax', $event)"
+        (choseVotesMin)="updateRangeInput('votesMin', $event)"
+        (choseVotesMax)="updateRangeInput('votesMax', $event)"
+      />
+    </div>
+    }
+
+    <div class="content">
+      <div class="sort">
+        <div class="view-block">
+          <mat-icon
+            class="view"
+            [class.active]="view() === 'detail'"
+            (click)="changeView('detail')"
+            >view_list</mat-icon
+          >
+          <mat-icon
+            class="view"
+            [class.active]="view() === 'grid'"
+            (click)="changeView('grid')"
+            >view_comfy</mat-icon
+          >
+          <mat-icon
+            class="view"
+            [class.active]="view() === 'compact'"
+            (click)="changeView('compact')"
+            >view_headline</mat-icon
+          >
+        </div>
+        @if(data().titles) {
+        <div class="page">
+          {{ startCurrentPage() }}-{{ finishCurrentPage() }} of
+          {{ totalPage() }}
+        </div>
+        }
+
+        <div class="sort-by">
+          <mat-form-field appearance="outline" class="custom-form-field">
+            <mat-label>Sort by</mat-label>
+            <mat-select
+              [value]="selectedValue()"
+              (valueChange)="changeSelect($event)"
+              name="sort"
+            >
+              @for (item of filterService.sortBy(); track item.value) {
+              <mat-option [value]="item.value">{{ item.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-icon
+            class="icon-sort"
+            [class.desc]="desc()"
+            (click)="sortOrder()"
+            >arrow_right_alt</mat-icon
+          >
+        </div>
+      </div>
+      @if (loading()) {
+      <app-skeleton [view]="view()" />
+      } @else { @if(!data().titles) {
+      <p>No results found. Please adjust your filters.</p>
+      } @else {
+
+      <app-list
+        [favorite]="signalService.idForCheckElementInWatchlist()"
+        [films]="data().titles"
+        [view]="view()"
+        (favoriteId)="moviesService.toggleFavorite($event, data().titles || [])"
+      ></app-list>
+      @if(totalPage() > 50) {
+      <div class="change-page">
+        <mat-icon
+          class="prev icon-nav"
+          (click)="prevPage()"
+          [class.inactive]="firstPage()"
+          >arrow_back_ios</mat-icon
+        >
+        <mat-icon
+          class="next icon-nav"
+          (click)="nextPage()"
+          [class.inactive]="lastPage()"
+          >arrow_forward_ios</mat-icon
+        >
+      </div>
+      } } }
+    </div>
+  </div>
+</div>

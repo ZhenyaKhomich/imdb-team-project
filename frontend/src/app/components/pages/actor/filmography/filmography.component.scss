@@ -1,0 +1,257 @@
+@use "../../../../../styles/variables" as *;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.movie {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-light-transparent-50);
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+
+  &:first-child:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: var(--background-light-transparent-100);
+    top: -15px;
+    left: 0;
+  }
+}
+
+.loading-detail,
+.loading-grid {
+  width: 72px;
+  height: 106px;
+  position: absolute;
+  box-shadow: 0 2px 10px 0 var(--background-light-transparent-50);
+  background: var(--background-light-transparent-50);
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 10px;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -150px;
+    top: 0;
+    height: 100%;
+    width: 80%;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--background-light-transparent-100) 50%,
+      transparent 100%
+    );
+    animation: load 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+.loading-grid {
+  height: 400px;
+  width: 270px;
+}
+
+.error-img {
+  position: absolute;
+  width: 72px;
+  height: 106px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.genres {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.image {
+  flex-shrink: 0;
+  position: relative;
+  width: 72px;
+  height: 106px;
+
+  img {
+    border-radius: 10px;
+  }
+
+  .bookmark {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+
+    &:hover {
+      .icon-bookmark {
+        color: var(--light-yellow);
+      }
+    }
+
+    .icon-bookmark {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+
+      &.active {
+        color: var(--light-yellow);
+      }
+    }
+  }
+}
+
+.describe {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: flex-start;
+}
+
+.icon-star {
+  color: var(--light-yellow);
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+.star {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.time {
+  color: var(--filter-title-text);
+}
+
+.genre {
+  background-color: var(--background-light-transparent-100);
+  padding: 5px 10px;
+  border-radius: 50px;
+}
+
+.bookmark {
+  position: relative;
+}
+
+.delete {
+  position: absolute;
+  color: var(--red-color);
+}
+
+.icon-bookmark {
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+}
+
+.bookmark_add {
+  position: absolute;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+
+  .movie-grid {
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+    background-color: var(--background-light-transparent-50);
+    border-radius: 10px;
+
+    .image {
+      width: 270px;
+      height: auto;
+    }
+
+    .image-empty {
+      width: 270px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-content {
+      padding: 10px;
+    }
+  }
+}
+
+.star-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+}
+
+.star-border {
+  font-size: 18px;
+  color: var(--light-yellow);
+}
+
+.star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 18px;
+  color: var(--light-yellow);
+  width: 100%;
+  height: 100%;
+  clip-path: inset(0 calc(100% - var(--fill-percent)) 0 0);
+  pointer-events: none;
+}
+
+.click-detail {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.type {
+  color: var(--filter-title-text);
+}

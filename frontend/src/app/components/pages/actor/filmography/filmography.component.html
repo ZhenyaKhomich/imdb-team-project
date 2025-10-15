@@ -1,0 +1,81 @@
+@for (item of films(); track item.title?.id) {
+<div class="movie">
+  <div class="header">
+    <div class="image">
+      @if(item.title?.primaryImage) {
+      <div class="loading-detail"></div>
+
+      <img
+        class="click-detail"
+        (click)="detail(item.title?.id || '')"
+        [ngSrc]="
+          item.title?.primaryImage?.url?.slice(0, -4) +
+          'QL75_UX380_CR0,4,380,562_.jpg'
+        "
+        [width]="72"
+        [height]="106"
+        [alt]="item.title?.primaryTitle"
+        tabindex="0"
+        role="button"
+      />
+      } @else {
+      <div class="error-img">no poster</div>
+      }
+    </div>
+    <div class="header-content">
+      <h3
+        (click)="detail(item.title?.id || '')"
+        tabindex="0"
+        role="button"
+        class="click-detail"
+      >
+        {{ item.title?.primaryTitle }}
+        <span class="type"
+          >({{
+            (item.title?.type?.[0]?.toLocaleUpperCase() || '') + (item.title?.type?.slice(1) || '')
+
+          }})</span
+        >
+      </h3>
+      <div class="description">
+        @if(item.title?.rating) {
+        <div class="star">
+          @for (star of fullStars(item.title?.rating?.aggregateRating || 0);
+          track star) {
+          <mat-icon class="icon-star">star</mat-icon>
+          } @if(isPathStar(item.title?.rating?.aggregateRating || 0)) {
+          <div class="star-wrapper">
+            <mat-icon class="star-border">star_border</mat-icon>
+            <mat-icon
+              class="star-fill"
+              [style]="{
+                '--fill-percent':
+                  pathStar(item.title?.rating?.aggregateRating || 0) + '%'
+              }"
+            >
+              star
+            </mat-icon>
+          </div>
+          } @for (star of emptyStars(item.title?.rating?.aggregateRating || 0);
+          track star) {
+          <mat-icon class="icon-star">star_border</mat-icon>
+          }
+          <span>({{ item.title?.rating?.voteCount | numberSuffix }})</span>
+        </div>
+        } @if(item.title?.startYear) {
+        <p>
+          {{ item.title?.startYear }}
+        </p>
+        } @if (item.category) {
+        <p>
+          {{(item?.category?.[0]?.toLocaleUpperCase() || '') + (item?.category?.slice(1) || '')}}
+        </p>
+        } @if(item.characters) {
+
+        <p>{{ characters(item.characters) }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+}

@@ -1,0 +1,86 @@
+@use "variables" as *;
+@use "@angular/material" as mat;
+
+:root {
+  @include mat.dialog-overrides(
+    (
+      container-color: var(--dark-background-primary),
+      subhead-color: var(--filter-category-text),
+    )
+  );
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  background: var(--dark-background-nav);
+  color: var(--light-background-secondary);
+}
+
+.container {
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.btn {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 8px 18px;
+  width: 207px;
+  box-shadow: inset 0 -2px 2px 0 rgba(0, 0, 0, 0.25);
+  background: var(--light-yellow);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background: var(--main-light-yellow-sec-light);
+  }
+}
+
+.btn-back-to-main {
+  margin-top: 50px;
+  font-size: 18px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: 500;
+}
+
+.gray-btn {
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  background: var(--dark-background-secondary);
+  color: var(--main-blue);
+
+  &:hover {
+    background: var(--background-light-transparent-100);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--light-background-primary);
+}
+
+.input {
+  border: 4px solid var(--main-light-yellow);
+  border-radius: 3px;
+  padding: 20px 64px 20px 20px;
+  width: 422px;
+  height: 53px;
+  box-sizing: border-box;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 130%;
+  color: var(--light-text-primary);
+
+  &::placeholder {
+    color: var(--light-text-secondary);
+  }
+}

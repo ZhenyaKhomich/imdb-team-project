@@ -1,0 +1,16 @@
+<nav class="side-nav">
+  <ul>
+    @for (section of sections(); track section.id) {
+    <li>
+      <button
+        [class.active]="section.id === activeSectionId()"
+        (click)="navigateTo(section.id)"
+        animate.enter="fade-in"
+        animate.leave="fade-out"
+      >
+        {{ section.title }}
+      </button>
+    </li>
+    }
+  </ul>
+</nav>

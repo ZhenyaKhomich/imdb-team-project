@@ -1,0 +1,251 @@
+<main class="main">
+  <div class="container main__container">
+    <section class="main__slider">
+      @if(movies) {
+      <div class="main__slider-carousel">
+        <div class="carousel-arrows">
+          <mat-icon (click)="mainSlidePrev()" fontIcon="arrow_back_ios"></mat-icon>
+          <mat-icon (click)="mainSlideNext()" fontIcon="arrow_forward_ios"></mat-icon>
+        </div>
+        <owl-carousel-o [options]="customMovies" #carouseMovies>
+          @for (movie of movies.titles; track $index) {
+            <ng-template carouselSlide>
+              <div class="movie">
+                <div class="movie__img">
+                  <img [src]="movie.primaryImage?.url" alt="img" loading="lazy">
+                  <mat-icon class="play-trailer" (click)="openTrailerList(movie.id)" fontIcon="slow_motion_video"></mat-icon>
+                  @if(signalService.isLogin()){
+                  @if (signalService.idForCheckElementInWatchlist().includes(movie.id)) {
+                    <mat-icon class="delete" (click)="watchlistService.deleteMovie(movie.id)" fontIcon="delete">
+                    </mat-icon>
+                  } @else {
+                    <mat-icon fontIcon="bookmark_add" (click)="watchlistService.addMovie(movie)"></mat-icon>
+                  }
+                  }
+                </div>
+                <div class="movie__description">
+                  <div class="movie__title">
+                    <span class="description">Title: </span> {{ movie.primaryTitle }}
+                  </div>
+                  <div class="movie__release">
+                    <span class="description">Year of release: </span>
+                    {{ movie.startYear }} year
+                  </div>
+                  <div class="movie__duration">
+                    <span class="description">Duration: </span>
+                    {{ movie.runtimeSeconds | minutesToHours }}
+                  </div>
+                  <div class="movie__categories-block">
+                    <span class="description">Categories: </span>
+                    <div class="movie__categories">
+                      @for (category of movie.genres; let i = $index; track $index) {
+                        <div class="movie__category">
+                          {{ category | lowercase }}
+                          @if (i !== movie.genres.length - 1) {
+                            ,&nbsp;
+                          } @else {
+                            .
+                          }
+                        </div>
+                      }
+                    </div>
+                  </div>
+                  @if (movie.rating) {
+                    <div class="movie__rating">
+                      <span class="description">Rating:</span>
+                      <div class="rating-stars">
+                        @for (star of [].constructor(Math.floor(movie.rating.aggregateRating)); track $index) {
+                          <mat-icon fontIcon="star"></mat-icon>
+                        }
+                        @if (!Number.isInteger(movie.rating.aggregateRating)) {
+                          <mat-icon fontIcon="star_half"></mat-icon>
+                        }
+                      </div>
+                      {{ movie.rating.aggregateRating }}
+                      (votes: {{ movie.rating.voteCount }})
+                    </div>
+                  }
+                  <div class="movie__text">
+                    <span class="description">Description:</span>
+                    {{ movie.plot }}
+                  </div>
+                  <button class="btn movie__btn"
+                          (click)="moviesService.openMovieAndAddRecentlyViewed(movie)">
+                    More detailed
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          }
+        </owl-carousel-o>
+      </div>
+      } @else {
+        <app-loader></app-loader>
+      }
+      <div class="main__slider-next">
+        @if(movies?.titles) {
+        <div class="up-next">Up next</div>
+        <div class="slider__elements">
+          @for(index of indexFollowingSlides; track $index) {
+          <div class="slider__element">
+            @if(movies && movies.titles && movies.titles[index]) {
+            <div class="slider__element-img">
+              <img src="{{movies.titles[index].primaryImage?.url | changeUrlPicture}}" alt="img" loading="lazy">
+            </div>
+            <div class="slider__element-description">
+              <div class="slider__element-title"><span
+                class="description">Title: </span> {{movies.titles[index].primaryTitle }}
+              </div>
+              <div class="slider__element-release"><span
+                class="description">Year of release: </span>  {{ movies.titles[index].startYear }} year
+              </div>
+              <div class="slider__element-duration"><span
+                class="description">Duration: </span>  {{movies.titles[index].runtimeSeconds | minutesToHours}}
+              </div>
+              @if(movies.titles[index].rating) {
+              <div class="slider__element-rating"><span
+                class="description">Rating: </span>
+                  <div class="rating-stars">
+                    @for(star of [].constructor(Math.floor(movies.titles[index].rating.aggregateRating)); track $index) {
+                      <mat-icon fontIcon="star"></mat-icon>
+                    }
+                    @if (!Number.isInteger(movies.titles[index].rating.aggregateRating)) {
+                      <mat-icon fontIcon="star_half"></mat-icon>
+                    }
+                  </div>
+                {{ movies.titles[index].rating.aggregateRating}} (votes: {{ movies.titles[index].rating.voteCount }})
+              </div>
+              }
+            </div>
+            }
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </section>
+    <section class="main__actors slider">
+      <h3 class="section-title">Top 20 popular actors on IMDb</h3>
+      @if(popularActors) {
+        <app-slider [id]="SliderIdEnum.popular_actors" [elementsSlider]="popularActors | reductionTwentyElements"></app-slider>
+      } @else {
+        <app-loader></app-loader>
+      }
+      <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.ACTORS">View the entire actors
+        <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+      </div>
+    </section>
+    <section class="main__what slider">
+      <h3 class="section-title">What to watch</h3>
+      <div class="what__watchList">
+        <div class="main__second-title" [routerLink]="'/' + AppRoutesEnum.WATCHLIST">From your WatchList
+          <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+        </div>
+        @if (signalService.isLogin()) {
+          @if (signalService.changeWatchlist()) {
+            <app-slider [id]="SliderIdEnum.watchlist" [elementsSlider]="signalService.watchlistData()"></app-slider>
+          }
+          @if(signalService.watchlistData() && signalService.watchlistData().titles && !signalService.watchlistData().titles?.length) {
+            <div class="what__watchList-empty">
+              <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
+              <div class="what__watchList-text-top">Your watch list is empty</div>
+            </div>
+          }
+        } @else {
+          <div class="what__watchList-no-signup">
+            <mat-icon class="what__watchList-bookmark-icon" fontIcon="bookmark_add"></mat-icon>
+            <div class="what__watchList-text-top">Sign in to access your Watchlist</div>
+            <div class="what__watchList-text-bottom">Save shows and movies to keep track of what you want to watch.
+            </div>
+            <button class="btn gray-btn"[routerLink]="'/' + AppRoutesEnum.LOGIN">Sign in to IMDb</button>
+          </div>
+        }
+      </div>
+      <div class="main__what-top-all" id="top-imdb">
+        <div class="main__second-title">Top 20 on IMDb</div>
+        @if(moviesTopRating) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopRating | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
+          <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+        </div>
+      </div>
+      <div class="main__what-top-2025">
+        <div class="main__second-title">Top 20 on IMDb for 2025 year</div>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2025 | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
+          <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+        </div>
+      </div>
+      <div class="main__what-top-2024">
+        <div class="main__second-title">Top 20 on IMDb for 2024 year</div>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2024 | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
+          <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+        </div>
+      </div>
+      <div class="main__what-top-2023">
+        <div class="main__second-title">Top 20 on IMDb for 2023 year</div>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2023 | reductionTwentyElements"></app-slider>
+        } @else {
+          <app-loader></app-loader>
+        }
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
+          <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+        </div>
+      </div>
+      <div class="main__what-top-2022">
+        <div class="main__second-title">Top 20 on IMDb for 2022 year</div>
+        @if(moviesTopYears && moviesTopYears.titles && moviesTopYears.titles.length === 200) {
+          <app-slider [id]="SliderIdEnum.movies" [elementsSlider]="moviesTopYears | sortMoviesYearPipe : 2022 | reductionTwentyElements"></app-slider>
+        }  @else {
+          <app-loader></app-loader>
+        }
+        <div class="main__what-all-list" [routerLink]="'/' + AppRoutesEnum.MOVIES">View the full IMDB catalog
+          <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
+        </div>
+      </div>
+    </section>
+    <section class="main__birthday slider" id="birthday">
+
+      <h3 class="section-title">Actors' birthdays</h3>
+      @if(birthdaysActors) {
+      <app-slider [id]="SliderIdEnum.birthdays_actors" [elementsSlider]="birthdaysActors"></app-slider>
+      }  @else {
+        <app-loader></app-loader>
+      }
+    </section>
+    <section class="main__information">
+      <h3 class="section-title">Information about IMDb</h3>
+      <div class="main__information-videos">
+        <div class="video-one" style="position: relative; width: 570px; height: 415px;">
+          <iframe width="560" height="415"
+                  src="https://www.youtube.com/embed/MhFxMI_ujVk?enablejsapi=1&modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3&fs=0"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-two" style="position: relative; width: 570px; height: 415px;">
+          <iframe width="560" height="415"
+                  src="https://www.youtube.com/embed/SgmBsEoP1GI?enablejsapi=1&modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3&fs=0"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

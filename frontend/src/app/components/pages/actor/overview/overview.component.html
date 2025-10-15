@@ -1,0 +1,68 @@
+<div>
+  <h2 class="title">
+    {{ name() }}
+  </h2>
+  <div class="block-title">
+    <p class="info">
+      {{ professions() }}
+    </p>
+  </div>
+  <div class="block-image">
+    <div class="image">
+      @if(img()) {
+      <div class="loading loading-detail"></div>
+
+      <img
+        class="click-detail"
+        [ngSrc]="img().slice(0, -4) + 'QL75_UX380_CR0,4,380,562_.jpg'"
+        [width]="336"
+        [height]="491"
+        [alt]="name()"
+        priority
+      />
+      } @else {
+      <div class="error-img">no photo</div>
+      }
+    </div>
+  </div>
+
+  <div class="description-block">
+    @if(birthLocation()) {
+    <div class="description-line">
+      <span class="description-tag">Birth Location</span>
+
+      <span class="plot">{{ birthLocation() }}</span>
+    </div>
+    } @if(birthDate()) {
+    <div class="description-line">
+      <span class="description-tag">Birth Date</span>
+
+      <span class="plot">{{ birthDate() }}</span>
+    </div>
+    } @if(deadDate()) {
+    <div class="description-line">
+      <span class="description-tag">Dead Date</span>
+
+      <span class="plot">{{ deadDate() }}</span>
+    </div>
+    } @if(birthName()) {
+    <div class="description-line">
+      <span class="description-tag">Birth Name</span>
+
+      <span class="plot">{{ birthName() }}</span>
+    </div>
+    } @if(height()) {
+    <div class="description-line">
+      <span class="description-tag">Height</span>
+
+      <span class="plot">{{ height() }} cm</span>
+    </div>
+    } @if(biography()) {
+    <div class="description-line">
+      <span class="description-tag plot-tag">Biography</span>
+
+      <span class="plot">{{ biography() }}</span>
+    </div>
+    }
+  </div>
+</div>

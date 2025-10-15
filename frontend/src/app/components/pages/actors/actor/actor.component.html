@@ -1,0 +1,139 @@
+@if(view() === 'compact') { @for (item of names(); track item.id) {
+<div class="movie">
+  <div class="header">
+    <div class="image">
+      @if(item.primaryImage) {
+      <div class="loading-detail"></div>
+      <img
+        class="click-detail"
+        (click)="detail(item.id)"
+        [ngSrc]="
+          (item.primaryImage.url || '').slice(0, -4) +
+          'QL75_UX380_CR0,4,380,562_.jpg'
+        "
+        [width]="72"
+        [height]="106"
+        [alt]="item.displayName"
+        tabindex="0"
+        role="button"
+      />
+      } @else {
+      <div class="error-img">no photo</div>
+      }
+    </div>
+    <div class="header-content">
+      @if(item.meterRanking) {
+      <p class="rank">
+        {{ item.meterRanking.currentRank }}
+        (@if(item.meterRanking.changeDirection === 'FLAT') {
+        <mat-icon>remove</mat-icon> } @else if(item.meterRanking.changeDirection
+        === 'UP') { <mat-icon class="up">arrow_drop_up</mat-icon
+        >{{ item.meterRanking.difference }} } @else if(item.meterRanking.changeDirection === 'DOWN') {
+        <mat-icon class="down">arrow_drop_down</mat-icon
+        >{{ item.meterRanking.difference }} })
+      </p>
+      }
+      <h3
+        (click)="detail(item.id)"
+        tabindex="0"
+        role="button"
+        class="click-detail"
+      >
+        {{ item.displayName }}
+      </h3>
+      @if(item.heightCm) {
+      <p>Height: {{ item.heightCm }}cm</p>
+      } @if(item.birthDate) {
+      <p>
+        Birthday:
+        {{`${item.birthDate.day}`.padStart(2, '0')
+
+        }}.{{`${item.birthDate.month}`.padStart(2, '0') }}.{{
+          item.birthDate.year
+        }}
+      </p>
+      } @if(item.deathDate) {
+      <p>
+        Date of death:
+        {{`${item.deathDate.day}`.padStart(2, '0')
+
+        }}.{{`${item.deathDate.month}`.padStart(2, '0') }}.{{
+          item.deathDate.year
+        }}
+      </p>
+      }
+    </div>
+  </div>
+</div>
+} } @else if(view() === 'grid') {
+<div class="grid">
+  @for (item of names(); track item.id) {
+  <div class="movie-grid">
+    <div class="image">
+      @if(item.meterRanking) {
+      <p class="rank">
+        {{ item.meterRanking.currentRank }}
+        (@if(item.meterRanking.changeDirection === 'FLAT') {
+        <mat-icon>remove</mat-icon> } @else if(item.meterRanking.changeDirection
+        === 'UP') { <mat-icon class="up">arrow_drop_up</mat-icon
+        >{{ item.meterRanking.difference }} } @else if(item.meterRanking.changeDirection === 'DOWN') {
+        <mat-icon class="down">arrow_drop_down</mat-icon
+        >{{ item.meterRanking.difference }} })
+      </p>
+      }
+      @if(item.primaryImage) {
+      <div class="loading-grid"></div>
+
+      <img
+        class="click-detail"
+        (click)="detail(item.id)"
+        tabindex="0"
+        role="button"
+        [ngSrc]="
+          (item.primaryImage.url || '').slice(0, -4) +
+          'QL75_UX380_CR0,4,380,562_.jpg'
+        "
+        [width]="270"
+        [height]="400"
+        [alt]="item.displayName"
+      />
+      } @else {
+      <div class="image-empty">no photo</div>
+      }
+
+      <div class="header-content">
+        <h3
+          (click)="detail(item.id)"
+          tabindex="0"
+          role="button"
+          class="click-detail"
+        >
+          {{ item.displayName }}
+        </h3>
+        @if(item.heightCm) {
+      <p>Height: {{ item.heightCm }}cm</p>
+      } @if(item.birthDate) {
+      <p>
+        Birthday:
+        {{`${item.birthDate.day}`.padStart(2, '0')
+
+        }}.{{`${item.birthDate.month}`.padStart(2, '0') }}.{{
+          item.birthDate.year
+        }}
+      </p>
+      } @if(item.deathDate) {
+      <p>
+        Date of death:
+        {{`${item.deathDate.day}`.padStart(2, '0')
+
+        }}.{{`${item.deathDate.month}`.padStart(2, '0') }}.{{
+          item.deathDate.year
+        }}
+      </p>
+      }
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}

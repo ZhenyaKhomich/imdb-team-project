@@ -1,0 +1,17 @@
+<div class="trailer">
+  <div class="container">
+    <div class="trailer__title">Trailers</div>
+    <div class="trailer__elements">
+      @for(trailer of trailerData?.videos; track trailer.id) {
+      <div class="trailer__element">
+        <iframe
+          [src]="getUrl(trailer.id)"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </div>
+      }
+    </div>
+    <button class="btn btn-back-to-main" [routerLink]="'/' + AppRoutesEnum.MAIN">Back main</button>
+  </div>
+</div>

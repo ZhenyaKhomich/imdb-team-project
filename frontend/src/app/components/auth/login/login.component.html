@@ -1,0 +1,30 @@
+<section class="auth">
+  <div class="container">
+    <form class="auth-form" [formGroup]="loginForm">
+      <div class="auth-form-title">Log in to your account</div>
+      <div class="inputs">
+        <input type="text" formControlName="email"
+               [ngStyle]="{'border-color': loginForm.get('email')?.invalid &&
+               (loginForm.get('email')?.dirty || loginForm.get('email')?.touched) ? 'red' : '' }"
+               class="input" placeholder="Email">
+        <input [type]="showPasswordValue ? 'text' : 'password'" formControlName="password"
+               [ngStyle]="{'border-color': loginForm.get('password')?.invalid &&
+               (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) ? 'red' : '' }"
+               class="input" placeholder="Password">
+        <mat-icon (click)="showPassword()" [fontIcon]="!showPasswordValue ? 'visibility' : 'visibility_off'"></mat-icon>
+        <label>
+          <input type="checkbox" formControlName="rememberMe" class="auth-form-conditions">
+          <div class="auth-form-conditions-text">
+            Remember me
+          </div>
+        </label>
+      </div>
+      <button class="btn auth-form-button" (click)="login()">Log in</button>
+      <div class="auth-question">
+        No account? <a [routerLink]="'/' + AppRoutesEnum.SIGNUP">Register</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+
